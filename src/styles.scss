@@ -18,7 +18,7 @@ html {
 //navbar 
 .box-nav {
     // background-color: #6E99FF;
-    margin-bottom: 30px;
+    margin-bottom: 13px;
     height: 60px;
 }
 
@@ -31,26 +31,52 @@ html {
 
 .wrapper-nav-menu {
     display: grid;
-    grid-template-columns: 20% auto ;
+    grid-template-columns: 20% auto;
 }
+
 .nav-grid-left {
     padding: auto;
 }
+
 .nav-grid-left small {
     font-size: 28px;
     letter-spacing: 1.5px
 }
+
 .nav-grid-right {
     // display: flex;
     // justify-content: space-between;
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto 20% ;
+    grid-template-columns: auto auto auto auto auto auto auto 180px;
 }
+
 .nav-grid-right small {
     padding-top: 15px;
 }
+
 .box-login {
     display: flex;
+    justify-content: end;
+}
+.box-wrapper-header{
+    background-color: #CA965C;
+    height: 50px;
+}
+
+.box-header {
+    width: 100%;
+}
+
+.box-search-bar {
+    display: flex;
+    justify-content: center;
+    width: auto;
+    padding: 10px;
+}
+
+.search-bar {
+    text-align: center;
+    width: 800px;
 }
 
 // .grid-item {
