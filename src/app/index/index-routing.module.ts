@@ -7,7 +7,7 @@ const routes: Routes = [{
   path: '',
   component: IndexComponent, children: [
     {
-      path: 'login',
+      path: 'auth/login',
       component: AuthPageComponent
     }
   ]

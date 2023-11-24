@@ -1,11 +1,11 @@
-<nav class="box-nav">
+<nav class="box-nav" *ngIf="page != 'auth'">
     <app-nav-bar></app-nav-bar>
     <!-- <hr> -->
 </nav>
-<div class="box-wrapper-header">
+<div class="box-wrapper-header" *ngIf="page != 'auth'">
     <app-header></app-header>
 </div>
-<div class="wrapper-page">
+<div class="wrapper-page" [ngClass]="{'wrapper-page-auth' : page == 'auth'}">
 
     <router-outlet></router-outlet>
 </div>
