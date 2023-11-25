@@ -9,32 +9,92 @@
             </p>
         </div>
         <div class="box-right">
-                <h1>Login</h1>
+            <form [formGroup]="login_form" *ngIf="menu == 'login'">
+                <h1>
+                    Login
+                </h1>
                 <div class="box-form-group-custom pt-3">
-                    <input class="form-control" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <input class="form-control" type="text" class="form-control" formControlName="username"
+                        placeholder="Username" [ngClass]="{
+                    required:
+                    login_form.controls['username'].invalid &&
+                    login_form.controls['username'].touched
+                    }">
                 </div>
+                <span *ngIf="
+                login_form.controls['username'].invalid &&
+                login_form.controls['username'].touched">
+                    <span *ngIf="
+                    login_form.controls['username'].errors">
+                        <small class="text-danger">
+                            กรุณาระบุ (Username)
+                        </small>
+                    </span>
+                </span>
                 <div class="box-form-group-custom pt-4">
-                    <input class="form-control" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <input class="form-control" type="password" class="form-control" placeholder="Password"
+                        formControlName="password" [ngClass]="{
+                    required:
+                    login_form.controls['password'].invalid &&
+                    login_form.controls['password'].touched
+                    }">
                 </div>
+                <span *ngIf="
+                login_form.controls['password'].invalid &&
+                login_form.controls['password'].touched">
+                    <span *ngIf="
+                    login_form.controls['password'].errors">
+                        <small class="text-danger">
+                            กรุณาระบุ (Password)
+                        </small>
+                    </span>
+                </span>
                 <div class="box-form-group-custom pt-4">
-                    <button class="btn btn-primary w-250px">Login</button>
+                    <button class="btn btn-primary w-250px" (click)="Login()" [disabled]="checkLogin() == false">
+                        Login
+                    </button>
                 </div>
                 <hr class="B4BDFF">
                 <div class="box-form-group-custom pt-3">
-                    <button type="button" class="btn btn-light w-250px">Register</button>
+                    <span>
+                        <small class="me-2">
+                            Do you dont have account
+                        </small>
+                        <a class="EC8F5E" (click)="changeMenu('register')">
+                            Register
+                        </a>
+                    </span>
                 </div>
-                <!-- <div class="box-form-group-custom pt-4">
-                    <input class="form-control" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            </form>
+            <form [formGroup]="login_form" *ngIf="menu == 'register'">
+                <h1>
+                    Register
+                </h1>
+                <div class="box-form-group-custom pt-3">
+                    <input class="form-control" type="text" class="form-control" formControlName="username"
+                        aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
                 <div class="box-form-group-custom pt-4">
-                    <input class="form-control" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <input class="form-control" type="password" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" placeholder="Enter email" formControlName="password">
                 </div>
                 <div class="box-form-group-custom pt-4">
-                    <input class="form-control" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <button class="btn btn-warning w-250px">
+                        Register
+                    </button>
                 </div>
-                     -->
-                
+                <hr class="B4BDFF">
+                <div class="box-form-group-custom pt-3">
+                    <span>
+                        <small class="me-2">
+                            Can you have account
+                        </small>
+                        <a class="EC8F5E" (click)="changeMenu('login');">
+                            Login
+                        </a>
+                    </span>
+                </div>
+            </form>
         </div>
     </div>
-
 </div>

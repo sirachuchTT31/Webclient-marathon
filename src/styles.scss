@@ -106,9 +106,10 @@ html {
     border: solid 1px #F1EFEF;
     display: flex;
     border-radius: 20px;
-    box-shadow: 10px 10px 10px 10px  #F1EFEF;
+    box-shadow: 10px 10px 10px 10px #F1EFEF;
 }
-.box-left{
+
+.box-left {
     width: 30%;
     height: 100%;
     background-color: #0A6EBD;
@@ -116,6 +117,7 @@ html {
     padding: 20px;
     box-shadow: 5px 5px #F1EFEF;
 }
+
 .text-left-auth {
     padding-top: 200px;
     color: #fff;
@@ -124,6 +126,7 @@ html {
     font-size: 45px;
     margin-bottom: 0px;
 }
+
 .text-left-auth-label {
     color: #fff;
     font-size: 15px;
@@ -132,16 +135,19 @@ html {
     width: 100%;
     text-align: start;
 }
+
 .box-right {
     width: 70%;
     text-align: center;
     padding-top: 80px;
 }
-.box-form-group-custom{
+
+.box-form-group-custom {
     width: auto;
     display: flex;
     justify-content: center;
 }
+
 .box-form-group-custom input {
     width: 50%;
 }
@@ -152,11 +158,33 @@ html {
     margin: 20px;
 }
 
+.EC8F5E {
+    color: #EC8F5E;
+}
+
 // width 
 .w-250px {
     width: 150px;
 }
 
+a {
+    cursor: pointer;
+    text-decoration: none !important;
+}
+
+.required {
+    border: 1px solid #dc3545 !important;
+    border-color: #dc3545 !important;
+    padding-right: calc(1.5em + .75rem) !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem) !important;
+    background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
+}
+
+// .btn-disble {
+//     background-color: ;
+// }
 // .grid-item {
 //     background-color: rgba(255, 255, 255, 0.8);
 //     border: 1px solid rgba(0, 0, 0, 0.8);
