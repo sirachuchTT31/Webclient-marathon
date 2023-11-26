@@ -182,6 +182,126 @@ a {
     background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
 }
 
+.box-wrapper-admin-dashboard {
+    display: grid;
+    grid-template-columns: 250px auto;
+    min-height: 100vh;
+    max-height: 100%;
+    background-color: #f4f3ef;
+}
+
+.box-left-admin-dashboard {
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 5px 5px 20px 5px #A9A9A9;
+    padding: 30px;
+    // text-align: center;
+}
+
+.text-header-dashboard {
+    color: #000;
+    letter-spacing: 2px;
+    font-weight: 200;
+    font-size: 22px;
+    margin-bottom: 0px;
+    line-height: 30px;
+}
+
+.box-profile-dashboard {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.text-header-account {
+    margin-left: 10px;
+    margin-top: 10px;
+    color: #000;
+    letter-spacing: 2px;
+    font-weight: 200;
+    font-size: 18px;
+    margin-bottom: 0px;
+    line-height: 30px;
+    white-space: nowrap;
+    width: 100% !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    // text-wrap: break-word;
+}
+
+.text-header-account:hover {
+    overflow: visible !important;
+    zoom: 80%;
+}
+
+.circle {
+    display: inline-block;
+    background-color: #0A6EBD;
+    margin-top: 10px;
+    // margin: 2px;
+    // padding: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+
+}
+
+.wrapper-collapse {
+    //margin-top: 15px !important;
+    height: auto !important;
+    color: rgba(0, 0, 0, .65);
+    transition: height 2s;
+}
+
+.wrapper-collapse-transition {
+    //padding: 0 18px;
+    min-height: 0;
+    // max-height: auto;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    //background-color: #f1f1f1;
+    color: #000;
+}
+// .wrapper-collapse-transition :hover{
+//     background: #ccc;
+//     overflow: hidden;
+//     transition: height 2s;
+//     height: 200px;
+// }
+
+
+.header-collapse {
+    display: grid;
+    grid-template-columns: 20% 60% 10%;
+    //padding-left: 5px;
+}
+
+.header-collapse-label {
+    // color: #000;
+    letter-spacing: 0px;
+    font-weight: 300;
+    font-size: 18px;
+    margin-bottom: 0px;
+    line-height: 40px;
+}
+
+.header-collapse-icon {
+    //padding-top: 5px;
+    width: 50px !important;
+    height: 50px !important;
+}
+
+//   .circle-inner {
+//     color: white;
+//     display: table-cell;
+//     vertical-align: middle; 
+//     text-align: center;
+//     text-decoration: none;
+//     height: fit-content;
+//     width: fit-content;  
+//     font-size: 30px;
+//   }
 // .btn-disble {
 //     background-color: ;
 // }
@@ -192,3 +312,4 @@ a {
 //     font-size: 30px;
 //     text-align: center;
 // }
+

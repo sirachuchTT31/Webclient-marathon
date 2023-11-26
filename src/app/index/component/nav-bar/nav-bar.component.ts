@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class NavBarComponent {
 
+
+  public routeLogin(){
+    window.location.href ='auth/login'
+  }
 }
