@@ -15,6 +15,13 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { AdminIndexComponent } from './pages/admin/admin-index/admin-index.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { ErrorComponent } from './component/error/error.component';
+import { DashboardIndexContentComponent } from './pages/admin/admin-dashboard/dashboard-index-content/dashboard-index-content.component';
+import { DashboardPaymentContentComponent } from './pages/admin/admin-dashboard/dashboard-payment-content/dashboard-payment-content.component';
+import { DashboardReportContentComponent } from './pages/admin/admin-dashboard/dashboard-report-content/dashboard-report-content.component';
+import { AdminContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/admin-content/admin-content.component';
+import { OrganizerContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/organizer-content/organizer-content.component';
+import { MemberContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/member-content/member-content.component';
+import { LocationContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/location-content/location-content.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +33,13 @@ import { ErrorComponent } from './component/error/error.component';
     AdminIndexComponent,
     AdminDashboardComponent,
     ErrorComponent,
+    DashboardIndexContentComponent,
+    DashboardPaymentContentComponent,
+    DashboardReportContentComponent,
+    AdminContentComponent,
+    OrganizerContentComponent,
+    MemberContentComponent,
+    LocationContentComponent,
 
   ],
   imports: [
