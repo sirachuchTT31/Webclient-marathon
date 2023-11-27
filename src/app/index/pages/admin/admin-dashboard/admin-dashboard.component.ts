@@ -12,6 +12,7 @@ export class AdminDashboardComponent {
   collapse_basic_menu: boolean = false
   collapse_payment_menu: boolean = false
   collapse_report_menu: boolean = false
+  menu: string = 'index'
   constructor(private localStorageService: LocalStorageService) {
     this.first_name = this.localStorageService.getFirstname()
     this.lastname = this.localStorageService.getLastname()
@@ -40,5 +41,8 @@ export class AdminDashboardComponent {
     else {
       return this.collapse_report_menu = true
     }
+  }
+  setMenu(type: any) {
+    this.menu = type
   }
 }

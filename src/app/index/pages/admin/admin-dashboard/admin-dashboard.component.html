@@ -6,7 +6,7 @@
         <hr>
         <div class="box-profile-dashboard">
             <div class="circle">
-                <p class="circle-inner">AY</p>
+                <p class="circle-inner pt-2">T</p>
             </div>
             <div>
                 <p class="text-header-account">{{this.first_name}} {{this.lastname}}</p>
@@ -48,10 +48,12 @@
                 </div>
                 <ng-container *ngIf="collapse_basic_menu == true">
                     <div class="wrapper-collapse-transition">
-                        <ul>
-                            <li>test 1</li>
-                            <li>test 1</li>
-                            <li>test 1</li>
+                        <ul class="list-li-menu">
+                            <li class="list-li-menu" (click)="setMenu('basic_admin')">ข้อมูลผู้จัดการระบบ</li>
+                            <li class="list-li-menu" (click)="setMenu('basic_admin')">ข้อมูลผู้จัดงาน</li>
+                            <li class="list-li-menu" (click)="setMenu('basic_admin')">ข้อมูลสมาชิก</li>
+                            <li class="list-li-menu" (click)="setMenu('basic_admin')">ข้อมูลงานวิ่ง</li>
+                            <li class="list-li-menu" (click)="setMenu('basic_admin')">ข้อมูลสถานที่</li>
                         </ul>
                     </div>
                 </ng-container>
@@ -104,7 +106,8 @@
             </div>
         </div>
     </div>
-    <div>
-        test
+    <div class="wrap-content-dashboard">
+        <app-dashboard-index-content *ngIf="menu == 'index'"></app-dashboard-index-content>
+        <app-admin-content *ngIf="menu == 'basic_admin'"></app-admin-content>
     </div>
 </div>
