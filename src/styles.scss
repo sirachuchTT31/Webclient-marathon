@@ -337,6 +337,20 @@ ul {
 .word-wrap {
     word-wrap: break-word !important;
 }
+.box-input-group {
+    padding: 10px;
+    border-radius: 5px;
+    width:100%;
+}
+.box-input-group label{
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.5px ;
+}
+.btn-modal-submit {
+    width: 220px !important;
+}
 //   .circle-inner {
 //     color: white;
 //     display: table-cell;

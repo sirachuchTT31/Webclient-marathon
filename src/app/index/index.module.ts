@@ -22,6 +22,7 @@ import { AdminContentComponent } from './pages/admin/admin-dashboard/dashboard-b
 import { OrganizerContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/organizer-content/organizer-content.component';
 import { MemberContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/member-content/member-content.component';
 import { LocationContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/location-content/location-content.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { LocationContentComponent } from './pages/admin/admin-dashboard/dashboar
     HttpClientModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
+    NgbModule
     // ErrorModule
   ]
 })

@@ -5,6 +5,7 @@ import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AuthGuardService } from './services/auth.guard';
 import { ErrorComponent } from './component/error/error.component';
+import { AdminContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/admin-content/admin-content.component';
 
 const routes: Routes = [{
   path: '',

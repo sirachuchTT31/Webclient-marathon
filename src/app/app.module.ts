@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IndexModule } from './index/index.module';
+// import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
 // import { ErrorModule } from './index/component/error/error.module';
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { IndexModule } from './index/index.module';
     AppRoutingModule,
     // ErrorModule,
     IndexModule,
+    // MdbCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
