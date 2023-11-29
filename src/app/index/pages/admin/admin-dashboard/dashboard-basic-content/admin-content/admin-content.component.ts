@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AdminService } from 'src/app/index/services/admin.service';
 @Component({
   selector: 'app-admin-content',
   templateUrl: './admin-content.component.html',
@@ -11,11 +12,19 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AdminContentComponent {
   admin_create_form: FormGroup
+  admin_edit_form: FormGroup
   id_Admin: any
-  constructor(private masterdataService: MasterdataService, private spinner: NgxSpinnerService, private modalService: NgbModal) {
+  constructor(private adminService: AdminService, private spinner: NgxSpinnerService, private modalService: NgbModal) {
     this.admin_create_form = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      lastname: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required]),
+      tel: new FormControl('', [Validators.required]),
+      address: new FormControl('', [Validators.required])
+    })
+    this.admin_edit_form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       lastname: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required]),
@@ -33,13 +42,11 @@ export class AdminContentComponent {
     this.modalService.open(modal, { size: 'lg' })
     this.admin_create_form.reset()
   }
-  openModalUpdate(modal: any, _id: any, username: any, passwrod: any, name: any, lastname: any, email: any, tel: any,
+  openModalUpdate(modal: any, _id: any, name: any, lastname: any, email: any, tel: any,
     address: any) {
     this.modalService.open(modal, { size: 'lg' })
     this.id_Admin = _id
-    this.admin_create_form = new FormGroup({
-      username: new FormControl(username, [Validators.required]),
-      password: new FormControl(passwrod, [Validators.required]),
+    this.admin_edit_form = new FormGroup({
       name: new FormControl(name, [Validators.required]),
       lastname: new FormControl(lastname, [Validators.required]),
       email: new FormControl(email, [Validators.required]),
@@ -69,6 +76,94 @@ export class AdminContentComponent {
       return false
     }
   }
+  checkeditadminButton() {
+    if (this.admin_edit_form.valid == true) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+  onEdit() {
+    console.log(this.admin_edit_form.value)
+    if (this.admin_edit_form.valid == true) {
+      this.spinner.show()
+      let new_list = {
+        admin_id: this.id_Admin,
+        admin_name: this.admin_edit_form.controls['name'].value,
+        admin_lastname: this.admin_edit_form.controls['lastname'].value,
+        admin_tel: this.admin_edit_form.controls['tel'].value,
+        admin_address: this.admin_edit_form.controls['address'].value,
+        admin_email: this.admin_edit_form.controls['email'].value,
+      }
+      this.adminService.postEditAdmindata(new_list).subscribe(async (rs) => {
+        if (rs?.status == true) {
+          this.spinner.hide()
+          await Swal.fire({
+            showCloseButton: true,
+            showConfirmButton: false,
+            icon: "success",
+            // title: rs?.status_code,
+            text: rs?.message,
+            timer: 2000,
+          });
+          this.getallAdmindata()
+        }
+        else {
+          this.spinner.hide()
+          Swal.fire({
+            showCloseButton: true,
+            showConfirmButton: false,
+            icon: "error",
+            // title: rs?.status_code,
+            text: rs?.message,
+          });
+        }
+      })
+    }
+  }
+  onRemove(id: any) {
+    Swal.fire({
+      icon: "warning",
+      title: "คุณต้องการลบข้อมูลใช่ไหม ?",
+      showCancelButton: true,
+      showCloseButton: true,
+      confirmButtonText: "ตกลง",
+      cancelButtonText: "ยกเลิก",
+      confirmButtonColor: '#0d6efd',
+      cancelButtonColor: '#dc3545',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let params = {
+          admin_id: id
+        }
+        this.spinner.show()
+        this.adminService.postDeleteAdmindata(params).subscribe(async (rs) => {
+          if (rs?.status == true) {
+            this.spinner.hide()
+            await Swal.fire({
+              showCloseButton: true,
+              showConfirmButton: false,
+              icon: "success",
+              // title: rs?.status_code,
+              text: rs?.message,
+              timer: 2000,
+            });
+            this.getallAdmindata()
+          }
+          else {
+            Swal.fire({
+              showCloseButton: true,
+              showConfirmButton: false,
+              icon: "error",
+              // title: rs?.status_code,
+              text: rs?.message,
+            });
+          }
+        })
+      }
+    });
+  }
   createAdmin() {
     // let list = this.admin_create_form.value
     if (this.admin_create_form.valid == true) {
@@ -81,7 +176,7 @@ export class AdminContentComponent {
         admin_address: this.admin_create_form.controls['address'].value,
         admin_email: this.admin_create_form.controls['email'].value,
       }
-      this.masterdataService.postCreateAdmindata(new_list).subscribe(async (rs) => {
+      this.adminService.postCreateAdmindata(new_list).subscribe(async (rs) => {
         this.spinner.show()
         if (rs?.status == true) {
           this.spinner.hide()
@@ -115,7 +210,7 @@ export class AdminContentComponent {
 
   //fetch 
   getallAdmindata() {
-    this.masterdataService.getallAdmindata().subscribe((rs) => {
+    this.adminService.getallAdmindata().subscribe((rs) => {
       if (rs?.status == true) {
         this.master_admin_all = rs.result
         this.spinner.hide()

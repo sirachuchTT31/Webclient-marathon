@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,9 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
+  token: any
+  name : any
+  constructor(private localstorageService: LocalStorageService) {
 
-
-  public routeLogin(){
-    window.location.href ='auth/login'
+  }
+  ngOnInit(): void {
+    this.token = this.localstorageService.getToken()
+    this.name = this.localstorageService.getFirstname()
+  }
+  public routeLogin() {
+    window.location.href = 'auth/login'
   }
 }
