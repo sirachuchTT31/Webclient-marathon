@@ -1,25 +1,28 @@
-<div class="nav-detail">
+<div class="nav-detail ">
     <div class="wrapper-nav-menu">
         <div class="nav-grid-left">
             <small>Marathon</small>
         </div>
         <div class="nav-grid-right ">
             <div class="d-flex nav-gap ">
-                
-                <small >Home</small>
+                <small>Home</small>
                 <small>Support</small>
             </div>
-            
-         
+
+
             <div class="box-login" *ngIf="!this.token">
                 <button class="btn btn-light me-3" (click)="routeLogin()">Sign in</button>
                 <button class="btn btn-primary" (click)="routeLogin()">Sign Up</button>
             </div>
             <div class="box-profile-nav" *ngIf="this.token">
-                <small class="text-center text-profile-nav">{{ this.name }}</small>
+                <small class="text-center text-profile-nav">{{ this.name }}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                    </svg></small>
                 <div class="vl"></div>
                 <div class="circle-profile-nav">
-
                 </div>
             </div>
         </div>

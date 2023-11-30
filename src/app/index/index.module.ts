@@ -23,7 +23,12 @@ import { OrganizerContentComponent } from './pages/admin/admin-dashboard/dashboa
 import { MemberContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/member-content/member-content.component';
 import { LocationContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/location-content/location-content.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { BrowserModule } from '@angular/platform-browser';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -41,16 +46,24 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     OrganizerContentComponent,
     MemberContentComponent,
     LocationContentComponent,
+    
 
   ],
   imports: [
+    FormsModule,
     CommonModule,
     IndexRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
-    NgbModule
+    NgbModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    BrowserModule,
+    Ng2SearchPipeModule
     // ErrorModule
   ]
 })

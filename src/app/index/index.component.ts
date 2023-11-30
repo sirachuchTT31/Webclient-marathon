@@ -9,14 +9,16 @@ import { LocalStorageService } from './services/local-storage.service';
 })
 
 export class IndexComponent {
-  page = ''
+  page_2 = ''
+  page_1 = ''
   role: any
   constructor(private router: Router, private localStorageService: LocalStorageService) {
     let current = this.router.url.split('/')
-    this.page = current[1]
+    this.page_2 = current[1]
+    this.page_1 = current[0]
     this.role = localStorageService.getRole()
     console.log("role", this.role)
-    console.log("page", this.page)
+    console.log("page", this.page_2)
     // this.is_check_detail_products = current[3]
   }
 }

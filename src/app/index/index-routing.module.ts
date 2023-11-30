@@ -6,7 +6,6 @@ import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-das
 import { AuthGuardService } from './services/auth.guard';
 import { ErrorComponent } from './component/error/error.component';
 import { AdminContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/admin-content/admin-content.component';
-
 const routes: Routes = [{
   path: '',
   component: IndexComponent, children: [
