@@ -50,10 +50,10 @@
                     <div class="wrapper-collapse-transition">
                         <ul class="list-li-menu">
                             <li class="list-li-menu" (click)="setMenu('basic_admin')">ข้อมูลผู้จัดการระบบ</li>
-                            <li class="list-li-menu" (click)="setMenu('basic_admin')">ข้อมูลผู้จัดงาน</li>
-                            <li class="list-li-menu" (click)="setMenu('basic_admin')">ข้อมูลสมาชิก</li>
-                            <li class="list-li-menu" (click)="setMenu('basic_admin')">ข้อมูลงานวิ่ง</li>
-                            <li class="list-li-menu" (click)="setMenu('basic_admin')">ข้อมูลสถานที่</li>
+                            <li class="list-li-menu" (click)="setMenu('basic_organizer')">ข้อมูลผู้จัดงาน</li>
+                            <li class="list-li-menu" (click)="setMenu('basic_member')">ข้อมูลสมาชิก</li>
+                            <li class="list-li-menu" (click)="setMenu('basic_marathon')">ข้อมูลงานวิ่ง</li>
+                            <li class="list-li-menu" (click)="setMenu('basic_location')">ข้อมูลสถานที่</li>
                         </ul>
                     </div>
                 </ng-container>
@@ -116,7 +116,7 @@
                         </svg>
                     </div>
                     <div class="d-flex align-items-center">
-                        <p class="header-collapse-label ">ออกจากระบบ</p>
+                        <p class="header-collapse-label" (click)="signOut()">ออกจากระบบ</p>
                     </div>
                     <!-- <div class="d-flex align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -132,5 +132,7 @@
     <div class="wrap-content-dashboard">
         <app-dashboard-index-content *ngIf="menu == 'index'"></app-dashboard-index-content>
         <app-admin-content *ngIf="menu == 'basic_admin'"></app-admin-content>
+        <app-organizer-content *ngIf="menu == 'basic_organizer'"></app-organizer-content>
+        <app-member-content *ngIf="menu == 'basic_member'"></app-member-content>
     </div>
 </div>

@@ -1,1 +1,328 @@
-<p>member-content works!</p>
+<div class="wrapper-list-all-content">
+    <div class="header-list-all">
+        <p>ข้อมูลสมาชิก (Member)</p>
+        <hr>
+    </div>
+    <div class="">
+        <div class="text-start mb-3">
+            <button class="btn btn-success" (click)="openModalCreate(modalcreate)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0" />
+                </svg>
+            </button>
+        </div>
+
+        <table class="table table-hover word-wrap">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 80px;">ลำดับ</th>
+                    <th scope="col" class="col-2">ชื่อ</th>
+                    <th scope="col" class="col-2">นามสกุล</th>
+                    <th scope="col" class="col-2">อีเมล์</th>
+                    <th scope="col" class="col-2">วันที่สร้าง</th>
+                    <th scope="col" class="col-2">เครื่องมือ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let rs of master_member_all; index as i">
+                    <th scope="row" class="text-count">{{i+1}}</th>
+                    <td>{{rs.member_name}}</td>
+                    <td>{{rs.member_lastname}}</td>
+                    <td>{{rs.member_email}}</td>
+                    <td>{{rs.createdAt}}</td>
+                    <td class="d-flex">
+                        <button class="btn btn-warning me-2"
+                            (click)="openModalUpdate(modalEdit,rs.member_id,rs.member_name ,rs.member_lastname,rs.member_email,rs.member_tel , rs.member_address)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path
+                                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                <path fill-rule="evenodd"
+                                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                            </svg>
+                        </button>
+                        <button class="btn btn-danger" (click)="onRemove(rs.member_id)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-trash" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                <path
+                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #modalcreate let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">เพิ่มข้อมูลสมาชิก (Add)</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="member_create_form">
+            <div class="form-group">
+                <div class="box-input-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" placeholder="Username" formControlName="username"
+                        maxlength="40" [ngClass]="{
+                        required:
+                        member_create_form.controls['username'].invalid &&
+                        member_create_form.controls['username'].touched
+                        }">
+                    <span *ngIf="
+                            member_create_form.controls['username'].invalid &&
+                            member_create_form.controls['username'].touched">
+                        <span *ngIf="
+                                member_create_form.controls['username'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุ (Username)
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Password" formControlName="password"
+                        maxlength="40" [ngClass]="{
+                        required:
+                        member_create_form.controls['password'].invalid &&
+                        member_create_form.controls['password'].touched
+                        }">
+                    <span *ngIf="
+                        member_create_form.controls['password'].invalid &&
+                        member_create_form.controls['password'].touched">
+                        <span *ngIf="
+                            member_create_form.controls['password'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุ (Password)
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label>ชื่อ</label>
+                    <input type="text" class="form-control" placeholder="Name" formControlName="name" maxlength="40"
+                        [ngClass]="{
+                        required:
+                        member_create_form.controls['name'].invalid &&
+                        member_create_form.controls['name'].touched
+                        }">
+                    <span *ngIf="
+                         member_create_form.controls['name'].invalid &&
+                         member_create_form.controls['name'].touched">
+                        <span *ngIf="
+                             member_create_form.controls['name'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุ (ชื่อ)
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label class="">นามสกุล</label>
+                    <input type="text" class="form-control" placeholder="Lastname" formControlName="lastname"
+                        maxlength="40" [ngClass]="{
+                        required:
+                        member_create_form.controls['lastname'].invalid &&
+                        member_create_form.controls['lastname'].touched
+                        }">
+                    <span *ngIf="
+                         member_create_form.controls['lastname'].invalid &&
+                         member_create_form.controls['lastname'].touched">
+                        <span *ngIf="
+                             member_create_form.controls['lastname'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุ (นามสกุล)
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label class="">อีเมล์</label>
+                    <input type="text" class="form-control" placeholder="Email" formControlName="email" maxlength="40"
+                        [ngClass]="{
+                        required:
+                        member_create_form.controls['email'].invalid &&
+                        member_create_form.controls['email'].touched
+                        }">
+                    <span *ngIf="
+                    member_create_form.controls['email'].invalid &&
+                    member_create_form.controls['email'].touched">
+                        <span *ngIf="
+                        member_create_form.controls['email'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุ (email)
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label class="">เบอร์โทร</label>
+                    <input type="text" class="form-control" placeholder="Telephone" formControlName="tel" maxlength="10"
+                        [ngClass]="{
+                        required:
+                        member_create_form.controls['tel'].invalid &&
+                        member_create_form.controls['tel'].touched
+                        }" (keypress)="numberOnly($event)" onpaste="return false;" ondrop="return false;">
+                    <span *ngIf="
+                           member_create_form.controls['tel'].invalid &&
+                           member_create_form.controls['tel'].touched">
+                        <span *ngIf="
+                               member_create_form.controls['tel'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุ (เบอร์โทร)
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label class="">ที่อยู่</label>
+                    <textarea type="text" class="form-control" placeholder="Address" formControlName="address" rows="2"
+                        maxlength="100" [ngClass]="{
+                        required:
+                        member_create_form.controls['address'].invalid &&
+                        member_create_form.controls['address'].touched
+                        }">
+                        </textarea>
+                    <span *ngIf="
+                    member_create_form.controls['address'].invalid &&
+                    member_create_form.controls['address'].touched">
+                        <span *ngIf="
+                        member_create_form.controls['address'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุ (ที่อยู่)
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="d-flex justify-content-center mb-3 mt-3">
+                    <button class="btn btn-primary btn-modal-submit me-3" (change)="checkcreatememberButton()"
+                        [disabled]="checkcreatememberButton() === false"
+                        (click)="createMember();modal.dismiss()">เพิ่มข้อมูล</button>
+                    <button class="btn btn-danger btn-modal-submit" (click)="modal.dismiss()">ยกเลิก</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #modalEdit let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">แก้ไขข้อมูลสมาชิก (Edit)</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="member_edit_form">
+            <div class="form-group">
+                <div class="box-input-group">
+                    <label>ชื่อ</label>
+                    <input type="text" class="form-control" placeholder="Name" formControlName="name" maxlength="40"
+                        [ngClass]="{
+                        required:
+                        member_edit_form.controls['name'].invalid &&
+                        member_edit_form.controls['name'].touched
+                        }">
+                    <span *ngIf="
+                         member_edit_form.controls['name'].invalid &&
+                         member_edit_form.controls['name'].touched">
+                        <span *ngIf="
+                             member_edit_form.controls['name'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุ (ชื่อ)
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label class="">นามสกุล</label>
+                    <input type="text" class="form-control" placeholder="Lastname" formControlName="lastname"
+                        maxlength="40" [ngClass]="{
+                        required:
+                        member_edit_form.controls['lastname'].invalid &&
+                        member_edit_form.controls['lastname'].touched
+                        }">
+                    <span *ngIf="
+                         member_edit_form.controls['lastname'].invalid &&
+                         member_edit_form.controls['lastname'].touched">
+                        <span *ngIf="
+                             member_edit_form.controls['lastname'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุ (นามสกุล)
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label class="">อีเมล์</label>
+                    <input type="text" class="form-control" placeholder="Email" formControlName="email" maxlength="40"
+                        [ngClass]="{
+                        required:
+                        member_edit_form.controls['email'].invalid &&
+                        member_edit_form.controls['email'].touched
+                        }">
+                    <span *ngIf="
+                    member_edit_form.controls['email'].invalid &&
+                    member_edit_form.controls['email'].touched">
+                        <span *ngIf="
+                        member_edit_form.controls['email'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุ (email)
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label class="">เบอร์โทร</label>
+                    <input type="text" class="form-control" placeholder="Telephone" formControlName="tel" maxlength="10"
+                        [ngClass]="{
+                        required:
+                        member_edit_form.controls['tel'].invalid &&
+                        member_edit_form.controls['tel'].touched
+                        }" (keypress)="numberOnly($event)" onpaste="return false;" ondrop="return false;">
+                    <span *ngIf="
+                           member_edit_form.controls['tel'].invalid &&
+                           member_edit_form.controls['tel'].touched">
+                        <span *ngIf="
+                               member_edit_form.controls['tel'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุ (เบอร์โทร)
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label class="">ที่อยู่</label>
+                    <textarea type="text" class="form-control" placeholder="Address" formControlName="address" rows="2"
+                        maxlength="100" [ngClass]="{
+                        required:
+                        member_edit_form.controls['address'].invalid &&
+                        member_edit_form.controls['address'].touched
+                        }">
+                        </textarea>
+                    <span *ngIf="
+                    member_edit_form.controls['address'].invalid &&
+                    member_edit_form.controls['address'].touched">
+                        <span *ngIf="
+                        member_edit_form.controls['address'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุ (ที่อยู่)
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="d-flex justify-content-center mb-3 mt-3">
+                    <button class="btn btn-primary btn-modal-submit me-3" (change)="checkeditmemberButton()"
+                        [disabled]="checkeditmemberButton() === false"
+                        (click)="onEdit();modal.dismiss()">บันทึกข้อมูล</button>
+                    <button class="btn btn-danger btn-modal-submit" (click)="modal.dismiss()">ยกเลิก</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>

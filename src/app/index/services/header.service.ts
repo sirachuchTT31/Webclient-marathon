@@ -7,7 +7,7 @@ export class HeaderService {
     BuildRequestHeaders(token: any) {
         let httpHeader = null;
         httpHeader = new HttpHeaders({
-            'Authorization': 'Bearer ' + token,
+            'Authorization': token,
             "Platform": 'web',
             'Accept-Language': "en-US",
             'Accept': 'application/json',

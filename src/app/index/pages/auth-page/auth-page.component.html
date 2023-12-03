@@ -66,25 +66,134 @@
                     </span>
                 </div>
             </form>
-            <form [formGroup]="login_form" *ngIf="menu == 'register'">
+            <form [formGroup]="register_form" *ngIf="menu == 'register'">
                 <h1>
                     Register
                 </h1>
                 <div class="box-form-group-custom pt-3">
                     <input class="form-control" type="text" class="form-control" formControlName="username"
-                        aria-describedby="emailHelp" placeholder="Enter email">
+                        maxlength="50" placeholder="Username" [ngClass]="{
+                            required:
+                            register_form.controls['username'].invalid &&
+                            register_form.controls['username'].touched
+                            }">
                 </div>
+                <span *ngIf="
+                register_form.controls['username'].invalid &&
+                register_form.controls['username'].touched">
+                    <span *ngIf="
+                    register_form.controls['username'].errors">
+                        <small class="text-danger">
+                            กรุณาระบุ (Username)
+                        </small>
+                    </span>
+                </span>
                 <div class="box-form-group-custom pt-4">
-                    <input class="form-control" type="password" class="form-control" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" placeholder="Enter email" formControlName="password">
+                    <input class="form-control" type="password" class="form-control" placeholder="Password"
+                        maxlength="50" formControlName="password" [ngClass]="{
+                            required:
+                            register_form.controls['password'].invalid &&
+                            register_form.controls['password'].touched
+                            }">
                 </div>
+                <span *ngIf="
+                register_form.controls['password'].invalid &&
+                register_form.controls['password'].touched">
+                    <span *ngIf="
+                    register_form.controls['password'].errors">
+                        <small class="text-danger">
+                            กรุณาระบุ (Password)
+                        </small>
+                    </span>
+                </span>
                 <div class="box-form-group-custom pt-4">
-                    <button class="btn btn-warning w-250px">
+                    <input class="form-control" type="text" class="form-control" placeholder="Name" maxlength="100"
+                        formControlName="name" [ngClass]="{
+                            required:
+                            register_form.controls['name'].invalid &&
+                            register_form.controls['name'].touched
+                            }">
+                </div>
+                <span *ngIf="
+                register_form.controls['name'].invalid &&
+                register_form.controls['name'].touched">
+                    <span *ngIf="
+                    register_form.controls['name'].errors">
+                        <small class="text-danger">
+                            กรุณาระบุ (Name)
+                        </small>
+                    </span>
+                </span>
+                <div class="box-form-group-custom pt-4">
+                    <input class="form-control" type="text" class="form-control" placeholder="Lastname" maxlength="100"
+                        formControlName="lastname" [ngClass]="{
+                            required:
+                            register_form.controls['lastname'].invalid &&
+                            register_form.controls['lastname'].touched
+                            }">
+                </div>
+                <span *ngIf="
+                register_form.controls['lastname'].invalid &&
+                register_form.controls['lastname'].touched">
+                    <span *ngIf="
+                    register_form.controls['lastname'].errors">
+                        <small class="text-danger">
+                            กรุณาระบุ (Lastname)
+                        </small>
+                    </span>
+                </span>
+                <div class="box-form-group-custom pt-4">
+                    <input class="form-control" type="text" class="form-control" placeholder="Email" maxlength="100"
+                        formControlName="email" [ngClass]="{
+                            required:
+                            register_form.controls['email'].invalid &&
+                            register_form.controls['email'].touched
+                            }">
+                </div>
+                <span *ngIf="
+                register_form.controls['email'].invalid &&
+                register_form.controls['email'].touched">
+                    <span *ngIf="
+                    register_form.controls['email'].errors">
+                        <small class="text-danger">
+                            กรุณาระบุ (Email)
+                        </small>
+                    </span>
+                </span>
+                <!-- <div class="box-form-group-custom pt-4"> -->
+                <div class="d-flex justify-content-center pt-4">
+                    <div class="form-check me-3">
+                        <input class="form-check-input" type="radio" name="type" id="member" value="member" formControlName="type">
+                        <label class="form-check-label" for="member"  >
+                            สำหรับผู้ลงทะเบียนวิ่งทั่วไป
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" id="organ" value="organ" formControlName="type">
+                        <label class="form-check-label" for="organ" >
+                            สำหรับผู้จัดงาน
+                        </label>
+                    </div>
+                </div>
+                <span *ngIf="
+                register_form.controls['type'].invalid &&
+                register_form.controls['type'].touched">
+                    <span *ngIf="
+                    register_form.controls['type'].errors">
+                        <small class="text-danger">
+                            กรุณาเลือกประเภทผู้ลงทะเบียน
+                        </small>
+                    </span>
+                </span>
+
+                <!-- </div> -->
+                <div class="box-form-group-custom pt-4">
+                    <button class="btn btn-warning w-250px" (click)="register()" [disabled]="checkRegister() == false">
                         Register
                     </button>
                 </div>
                 <hr class="B4BDFF">
-                <div class="box-form-group-custom pt-3">
+                <div class="box-form-group-custom pt-3 mb-4">
                     <span>
                         <small class="me-2">
                             Can you have account

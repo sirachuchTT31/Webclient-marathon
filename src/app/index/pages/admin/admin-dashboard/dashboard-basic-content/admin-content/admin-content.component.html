@@ -27,7 +27,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let rs of master_admin_all; index as i">
-                    <th scope="row">{{i+1}}</th>
+                    <th scope="row" class="text-count">{{i+1}}</th>
                     <td>{{rs.admin_name}}</td>
                     <td>{{rs.admin_lastname}}</td>
                     <td>{{rs.admin_email}}</td>
@@ -215,7 +215,7 @@
 
 <ng-template #modalEdit let-modal>
     <div class="modal-header">
-        <h4 class="modal-title">เพิ่มข้อมูลผู้จัดการระบบ (Add)</h4>
+        <h4 class="modal-title">แก้ไขผู้จัดการระบบ (Edit)</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
     </div>
     <div class="modal-body">

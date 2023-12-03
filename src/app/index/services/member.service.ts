@@ -6,37 +6,39 @@ import { IBaseSingleResult } from "../interface/base-result";
 import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
 import { CreateAdmin, EditAdmin } from "../interface/admin";
+import { CreateOrganizer, EditOrganizer } from '../interface/organizer';
+import { CreateMember, EditMember } from '../interface/member';
 @Injectable({
     providedIn: 'root'
 })
 
-export class AdminService {
+export class MemberService {
     token: any
     constructor(private configService: ConfigurationService, private http: HttpClient,
         private headerService: HeaderService, private localStorageService: LocalStorageService) {
         this.token = localStorageService.getToken()
     }
-    getallAdmindata(): Observable<IBaseSingleResult<any> | undefined> {
+    getallMemberdata(): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/admin/getall'
+        let url = baseApi + 'api/member/getall'
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
     }
-    postCreateAdmindata(list: CreateAdmin): Observable<IBaseSingleResult<any> | undefined> {
+    postCreateMember(list: CreateMember): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/admin/create'
+        let url = baseApi + 'api/member/create'
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.post(url, list, { headers: option })
     }
-    postEditAdmindata(list: EditAdmin): Observable<IBaseSingleResult<any> | undefined> {
+    postEditMember(list: EditMember): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/admin/update'
+        let url = baseApi + 'api/member/update'
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.post(url, list, { headers: option })
     }
-    postDeleteAdmindata(params: any): Observable<IBaseSingleResult<any> | undefined> {
+    postDeleteMember(params: any): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/admin/delete'
+        let url = baseApi + 'api/member/delete'
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.post(url, params, { headers: option })
     }

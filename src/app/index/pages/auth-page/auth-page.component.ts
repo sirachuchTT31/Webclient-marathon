@@ -24,6 +24,7 @@ export class AuthPageComponent {
       name: new FormControl('', [Validators.required]),
       lastname: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required]),
+      type: new FormControl('member', [Validators.required]),
     })
   }
   changeMenu(menu: any,) {
@@ -31,6 +32,15 @@ export class AuthPageComponent {
   }
   checkLogin() {
     if (this.login_form.valid == true) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+  checkRegister() {
+    console.log("this.register_form", this.register_form.valid)
+    if (this.register_form.valid == true) {
       return true
     }
     else {
@@ -68,6 +78,76 @@ export class AuthPageComponent {
         else {
           this.spinner.hide()
           Swal.fire({
+            showCloseButton: true,
+            showConfirmButton: false,
+            icon: "error",
+            // title: rs?.status_code,
+            text: rs?.message,
+          });
+        }
+      })
+    }
+  }
+  register() {
+    this.spinner.show()
+    if (this.register_form.controls['type'].value == 'member') {
+
+      let param = {
+        member_username: this.register_form.controls['username'].value,
+        member_password: this.register_form.controls['password'].value,
+        member_name: this.register_form.controls['name'].value,
+        member_lastname: this.register_form.controls['lastname'].value,
+        member_email: this.register_form.controls['email'].value
+      }
+      this.authService.postRegisterMember(param).subscribe(async (rs) => {
+        if (rs?.status == true) {
+          this.spinner.hide()
+          await Swal.fire({
+            showCloseButton: true,
+            showConfirmButton: false,
+            icon: "success",
+            // title: rs?.status_code,
+            text: rs?.message,
+            timer: 2000,
+          });
+          window.location.href = 'auth/login'
+        }
+        else {
+          this.spinner.hide()
+          await Swal.fire({
+            showCloseButton: true,
+            showConfirmButton: false,
+            icon: "error",
+            // title: rs?.status_code,
+            text: rs?.message,
+          });
+        }
+      })
+    }
+    else {
+      let param = {
+        organ_username: this.register_form.controls['username'].value,
+        organ_password: this.register_form.controls['password'].value,
+        organ_name: this.register_form.controls['name'].value,
+        organ_lastname: this.register_form.controls['lastname'].value,
+        organ_email: this.register_form.controls['email'].value
+      }
+      this.authService.postRegisterOrganizer(param).subscribe(async (rs) => {
+        if (rs?.status == true) {
+          this.spinner.hide()
+          await Swal.fire({
+            showCloseButton: true,
+            showConfirmButton: false,
+            icon: "success",
+            // title: rs?.status_code,
+            text: rs?.message,
+            timer: 2000,
+          });
+          window.location.href = 'auth/login'
+        }
+        else {
+          this.spinner.hide()
+          await Swal.fire({
             showCloseButton: true,
             showConfirmButton: false,
             icon: "error",

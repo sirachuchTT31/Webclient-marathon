@@ -45,4 +45,8 @@ export class AdminDashboardComponent {
   setMenu(type: any) {
     this.menu = type
   }
+  signOut() {
+    this.localStorageService.signOut()
+    window.location.href = '/'
+  }
 }

@@ -4,7 +4,7 @@ import { Observable, of } from "rxjs";
 import { IBaseSingleResult } from "../interface/base-result";
 import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
-import { Login, Register } from "../interface/auth";
+import { Login, Registermember, Registerorganizer } from "../interface/auth";
 @Injectable({
     providedIn: "root",
 })
@@ -14,9 +14,15 @@ export class AuthServices {
         private headerService: HeaderService,) {
 
     }
-    postRegister(list: Register): Observable<IBaseSingleResult<any> | undefined> {
+    postRegisterMember(list: Registermember): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/auth/register'
+        let url = baseApi + 'api/auth/register-member'
+        let option = this.headerService.BuildRequestHeadersNoAuthen()
+        return this.http.post(url, list, { headers: option })
+    }
+    postRegisterOrganizer(list: Registerorganizer): Observable<IBaseSingleResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/auth/register-organizer'
         let option = this.headerService.BuildRequestHeadersNoAuthen()
         return this.http.post(url, list, { headers: option })
     }

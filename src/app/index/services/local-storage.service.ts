@@ -29,6 +29,14 @@ export class LocalStorageService {
         localStorage.removeItem(ROLE);
         localStorage.setItem(ROLE, role);
     }
+    public signOut() {
+        localStorage.removeItem(USER_KEY);
+        localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem(TOKEN_EXPIRES_DATE);
+        localStorage.removeItem(FIREST_NAME);
+        localStorage.removeItem(LAST_NAME);
+        localStorage.removeItem(ROLE);
+    }
     public getToken(): string | null {
         return localStorage.getItem(TOKEN_KEY);
     }
