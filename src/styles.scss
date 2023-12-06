@@ -130,7 +130,6 @@ html {
 
 .menu-collapse :hover {
     background-color: #A0BFE0;
-    font-weight: 1000;
 }
 
 .text-profile-nav {
@@ -174,7 +173,8 @@ html {
         padding-right: 20px !important;
     }
     .wrapper-box-collapse{
-        display: none;
+        padding-right: 0px !important;
+        bottom: 0px !important;
     }
 }
 
@@ -443,7 +443,11 @@ ul {
     max-height: 100%;
     padding: 20px
 }
-
+.card-list {
+    display: flex !important;
+    width: 18rem;
+    justify-self: center !important;
+}
 .header-list-all {
     width: 100%;
     padding-bottom: 20px;
