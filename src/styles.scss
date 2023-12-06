@@ -97,6 +97,42 @@ html {
     border-radius: 50px;
 }
 
+.wrapper-box-collapse {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    padding-right: 100px !important;
+    position: relative;
+    bottom: 10px !important;
+    // left: 50%;
+}
+
+.box-collapse {
+    background-color: #fff;
+    border: 1px solid #A9A9A9;
+    width: 200px;
+}
+
+.box-collapse-body {
+    width: 100%;
+}
+
+.menu-collapse {
+    width: 100% !important;
+    //padding: 0px;
+    //margin: 0px;
+}
+.menu-collapse p {
+    padding: 5px;
+    margin-bottom: 0px !important;
+    cursor: pointer;
+}
+
+.menu-collapse :hover {
+    background-color: #A0BFE0;
+    font-weight: 1000;
+}
+
 .text-profile-nav {
     font-size: 20px;
     letter-spacing: 1.5px;
@@ -136,6 +172,9 @@ html {
     .nav-detail {
         padding-left: 20px !important;
         padding-right: 20px !important;
+    }
+    .wrapper-box-collapse{
+        display: none;
     }
 }
 
@@ -194,6 +233,7 @@ html {
 }
 
 .text-left-auth {
+    cursor: pointer;
     padding-top: 200px;
     color: #fff;
     letter-spacing: 2px;
@@ -203,6 +243,7 @@ html {
 }
 
 .text-left-auth-label {
+    cursor: pointer;
     color: #fff;
     font-size: 15px;
     font-weight: 200;
@@ -419,7 +460,8 @@ ul {
     margin: auto;
     width: 50%;
 }
-.text-count{
+
+.text-count {
     font-size: 20px;
     font-weight: 600;
     color: #0d47a1;

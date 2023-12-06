@@ -1,4 +1,4 @@
-<div class="nav-detail ">
+<div class="nav-detail " (mouseout)="isCollapsed = true">
     <div class="wrapper-nav-menu">
         <div class="nav-grid-left">
             <small>Marathon</small>
@@ -17,12 +17,34 @@
             <div class="box-profile-nav" *ngIf="this.token">
                 <small class="text-center text-profile-nav">{{ this.name }}
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                        class="bi bi-caret-down-fill" viewBox="0 0 16 16" 
+                        (mouseover)="isCollapsed = false" *ngIf="isCollapsed == true">
                         <path
                             d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                    </svg></small>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-caret-up-fill" viewBox="0 0 16 16"  
+                        *ngIf="isCollapsed == false">
+                        <path
+                            d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                    </svg>
+                </small>
                 <div class="vl"></div>
                 <div class="circle-profile-nav">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" (mouseover)="isCollapsed = false">
+        <div class="wrapper-box-collapse">
+            <div class=" box-collapse">
+                <div class="box-collapse-body">
+                    <div class="menu-collapse">
+                        <p>ประวัติ</p>
+                    </div>
+                    <div class="menu-collapse">
+                        <p (click)="signOut()">ออกจากระบบ</p>
+                    </div>
                 </div>
             </div>
         </div>

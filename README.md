@@ -27,3 +27,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 
+Angular CLI: 15.2.5
+Node: 18.15.0
+"@ng-bootstrap/ng-bootstrap": "^14.2.0",
+"bootstrap": "^5.3.2",

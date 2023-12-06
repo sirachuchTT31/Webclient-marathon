@@ -158,4 +158,7 @@ export class AuthPageComponent {
       })
     }
   }
+  routeIndex(){
+    window.location.href = '/'
+  }
 }
