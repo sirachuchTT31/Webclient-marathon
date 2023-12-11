@@ -85,6 +85,13 @@ html {
     grid-template-columns: 60% 10% 20%;
 }
 
+.wrap-text-icon-profile {
+    width: 120px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .vl {
     border-left: 2px solid #fff;
     height: auto;
@@ -122,6 +129,7 @@ html {
     //padding: 0px;
     //margin: 0px;
 }
+
 .menu-collapse p {
     padding: 5px;
     margin-bottom: 0px !important;
@@ -138,7 +146,20 @@ html {
     color: #fff;
     font-weight: 300;
     text-transform: uppercase;
+    white-space: nowrap;
+    width: 70px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
+// .text-profile-nav:hover {
+//     zoom: 70%;
+//     position: relative !important;
+//     right: 70px;
+//     top: -20px;
+//     overflow: visible !important;
+//     width:120px;
+// }
 
 .box-login {
     display: flex;
@@ -172,9 +193,14 @@ html {
         padding-left: 20px !important;
         padding-right: 20px !important;
     }
-    .wrapper-box-collapse{
+
+    .wrapper-box-collapse {
         padding-right: 0px !important;
         bottom: 0px !important;
+    }
+
+    .wrap-text-icon-profile {
+        display: none;
     }
 }
 
@@ -443,11 +469,13 @@ ul {
     max-height: 100%;
     padding: 20px
 }
+
 .card-list {
     display: flex !important;
     width: 18rem;
     justify-self: center !important;
 }
+
 .header-list-all {
     width: 100%;
     padding-bottom: 20px;
@@ -505,6 +533,56 @@ ul {
 }
 
 //list menu
+.card-title-event {
+    // margin-left: 10px;
+    // margin-top: 10px;
+    color: #000;
+    letter-spacing: 1px;
+    font-weight: 400;
+    // font-size: 18px;
+    white-space: nowrap;
+    width: 100% !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-title-event:hover {
+    overflow: visible !important;
+    zoom: 80%;
+}
+
+.card-text-event {
+    color: #000;
+    letter-spacing: 1px;
+    font-size: 14px;
+    font-weight: 200;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card-text-event-price{
+    color: #dc3545;
+    letter-spacing: 1px;
+    font-size: 24px;
+    font-weight: 400;
+    height: 40px;
+}
+.card-text-event-amount{
+    color: #000;
+    letter-spacing: 1px;
+    font-size: 12px;
+    font-weight: 200;
+    height: 40px;
+}
+.card-text-event:hover {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow: visible !important;
+    zoom: 80%;
+    height: auto;
+}
+
 .wrapper-list-menu {
     width: 100%;
     min-height: 100vh;
@@ -533,7 +611,7 @@ ul {
     grid-template-columns: 20% 20% 20% 20% 20%;
     padding-top: 50px;
     gap: 40px 0px;
-    text-align: center !important;
+    text-align: start !important;
 }
 
 @media screen and (max-width: 1620px) {
