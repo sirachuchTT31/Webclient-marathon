@@ -599,7 +599,13 @@ ul {
     padding-top: 2px;
     width: 800px;
 }
-
+.img-box-search {
+    border-radius: 5px;
+    margin-left: 20px;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
 .box-button-search {
     margin-left: 10px;
     width: 120px;

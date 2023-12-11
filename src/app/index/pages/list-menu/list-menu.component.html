@@ -8,7 +8,7 @@
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let option of this.register_running_event_array | filter : this.char_search "
             [value]="option.reg_event_name" (click)="onClickfilter(option.reg_event_id)">
-            <span>{{option.reg_event_name}} | {{option.location_province}} | {{option.location_district}} </span>
+            <span>{{option.reg_event_name}} | {{option.location_province}} | {{option.location_district}} <img src="{{option.reg_event_path_img}}" class="img-box-search"></span>
           </mat-option>
         </mat-autocomplete>
       </form>
