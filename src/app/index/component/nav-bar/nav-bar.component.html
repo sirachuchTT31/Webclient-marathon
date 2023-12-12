@@ -5,7 +5,7 @@
         </div>
         <div class="nav-grid-right ">
             <div class="d-flex nav-gap ">
-                <small>Home</small>
+                <small routerLink="/">Home</small>
                 <small>Support</small>
             </div>
 
@@ -31,8 +31,9 @@
                     </svg>
                 </div>
                 <div class="vl"></div>
-                <div class="circle-profile-nav" (mouseover)="isCollapsed = false">
-                </div>
+                <!-- <div class="" > -->
+                    <img src="{{this.avatar}}" class="circle-profile-nav" (mouseover)="isCollapsed = false">
+                <!-- </div> -->
             </div>
         </div>
     </div>
@@ -41,11 +42,15 @@
             <div class=" box-collapse">
                 <div class="box-collapse-body">
                     <div class="menu-collapse">
-                        <p>ประวัติ</p>
+                        <p (click)="routeUserhistory()">ประวัติ</p>
+                    </div>
+                    <div class="menu-collapse">
+                        <p (click)="routeSettingprofile()">ตั่งค่าโปรไฟล์</p>
                     </div>
                     <div class="menu-collapse">
                         <p (click)="signOut()">ออกจากระบบ</p>
                     </div>
+                
                 </div>
             </div>
         </div>

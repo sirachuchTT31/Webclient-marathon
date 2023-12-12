@@ -98,11 +98,23 @@ html {
 }
 
 .circle-profile-nav {
+    padding: 1px;
     width: 40px;
     height: 40px;
-    background-color: #0A6EBD;
+    background-color: #fff;
     border-radius: 50px;
+    vertical-align: middle;
+    object-fit: cover;
 }
+
+// .circle-profile-nav img {
+//     // width: 35px;
+//     // height: 35px;
+//     // padding: 5px;
+//     // border-radius: 50px;
+//     // vertical-align: middle;
+//     // text-align: center;
+// }
 
 .wrapper-box-collapse {
     display: flex;
@@ -560,20 +572,23 @@ ul {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.card-text-event-price{
+
+.card-text-event-price {
     color: #dc3545;
     letter-spacing: 1px;
     font-size: 24px;
     font-weight: 400;
     height: 40px;
 }
-.card-text-event-amount{
+
+.card-text-event-amount {
     color: #000;
     letter-spacing: 1px;
     font-size: 12px;
     font-weight: 200;
     height: 40px;
 }
+
 .card-text-event:hover {
     font-size: 18px;
     margin-top: 20px;
@@ -599,6 +614,7 @@ ul {
     padding-top: 2px;
     width: 800px;
 }
+
 .img-box-search {
     border-radius: 5px;
     margin-left: 20px;
@@ -606,6 +622,7 @@ ul {
     height: 30px;
     object-fit: cover;
 }
+
 .box-button-search {
     margin-left: 10px;
     width: 120px;
@@ -639,6 +656,44 @@ ul {
         grid-template-columns: 50% 50%;
         gap: 40px 150px;
     }
+}
+
+.wrapper-grid-setting-profile {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.box-setting-profile-left {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    min-height: 450px;
+    max-height: 100%;
+}
+
+.box-setting-profile-right {
+    margin: 20px;
+    padding: 20px;
+    min-height: 450px;
+    max-height: 100%;
+    border-radius: 5px;
+    background-color: #F3F3F3;
+    box-shadow: 2px 2px #D8DAE0;
+}
+
+.circle-profile-setting-profile-left {
+    padding: 1px;
+    width: 80px;
+    height: 80px;
+    background-color: #fff;
+    border-radius: 50px;
+    vertical-align: middle;
+    object-fit: cover;
+}
+
+.wrap-header-setting-profile-left {
+    display: flex;
+    gap: 30px;
+    // justify-self: center !important;
 }
 
 //   .circle-inner {

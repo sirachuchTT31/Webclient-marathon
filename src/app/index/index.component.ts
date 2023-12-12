@@ -15,6 +15,7 @@ export class IndexComponent {
   constructor(private router: Router, private localStorageService: LocalStorageService) {
     let current = this.router.url.split('/')
     this.page_2 = current[1]
+    console.log("this.page 2", this.page_2)
     this.page_1 = current[0]
     this.role = localStorageService.getRole()
     console.log("role", this.role)

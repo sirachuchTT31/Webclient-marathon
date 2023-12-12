@@ -29,6 +29,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SettingProfileComponent } from './pages/setting-profile/setting-profile.component';
+import { UserHistoryComponent } from './pages/user-history/user-history.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -46,6 +48,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     OrganizerContentComponent,
     MemberContentComponent,
     LocationContentComponent,
+    SettingProfileComponent,
+    UserHistoryComponent,
     
 
   ],

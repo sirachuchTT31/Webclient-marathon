@@ -6,6 +6,8 @@ import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-das
 import { AuthGuardService } from './services/auth.guard';
 import { ErrorComponent } from './component/error/error.component';
 import { AdminContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/admin-content/admin-content.component';
+import { SettingProfileComponent } from './pages/setting-profile/setting-profile.component';
+import { UserHistoryComponent } from './pages/user-history/user-history.component';
 const routes: Routes = [{
   path: '',
   component: IndexComponent, children: [
@@ -18,6 +20,16 @@ const routes: Routes = [{
       component: AdminDashboardComponent,
       canActivate: [AuthGuardService]
     },
+    {
+      path: 'user/setting-profile',
+      component: SettingProfileComponent,
+      canActivate: [AuthGuardService]
+    },
+    {
+      path: 'user/history',
+      component: UserHistoryComponent,
+      canActivate: [AuthGuardService]
+    }
     // {
     //   path: '404',
     //   component: ErrorComponent
