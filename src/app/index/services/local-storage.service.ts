@@ -7,6 +7,7 @@ const LAST_NAME = "last-name";
 const IMAGE_PROFILE = "image-profile"
 const TOKEN_EXPIRES_DATE = "token_expires_date"
 const ROLE = "role"
+const AUTH_ID = "auth-id"
 @Injectable({
     providedIn: "root",
 })
@@ -15,7 +16,7 @@ export class LocalStorageService {
         localStorage.removeItem(TOKEN_KEY);
         localStorage.setItem(TOKEN_KEY, token);
     }
-    public setProfile(fistName: string, lastName: string, username: any, role: any, token: any, time_out_token: any, avatar: any) {
+    public setProfile(fistName: string, lastName: string, username: any, role: any, token: any, time_out_token: any, avatar: any , _id : any) {
         localStorage.removeItem(USER_KEY);
         localStorage.setItem(USER_KEY, username);
         localStorage.removeItem(TOKEN_KEY);
@@ -30,6 +31,8 @@ export class LocalStorageService {
         localStorage.setItem(ROLE, role);
         localStorage.removeItem(IMAGE_PROFILE);
         localStorage.setItem(IMAGE_PROFILE, avatar);
+        localStorage.removeItem(AUTH_ID)
+        localStorage.setItem(AUTH_ID, _id);
     }
     public signOut() {
         localStorage.removeItem(USER_KEY);
@@ -57,7 +60,10 @@ export class LocalStorageService {
     public getRole(): string | null {
         return localStorage.getItem(ROLE);
     }
-    public getAvatar() : string | null {
+    public getAvatar(): string | null {
         return localStorage.getItem(IMAGE_PROFILE)
+    }
+    public getId(): string | null {
+        return localStorage.getItem(AUTH_ID)
     }
 }
