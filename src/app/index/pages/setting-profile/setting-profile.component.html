@@ -1,17 +1,76 @@
 <div class="wrapper-grid-setting-profile">
-        <div class="box-setting-profile-left ">
-            <div class="wrap-header-setting-profile-left">
-                <div>
-                    <img src="{{this.avatar}}" class="circle-profile-setting-profile-left">
-                </div>
-                <div class="d-flex align-items-center">
-                    <p>{{this.name}} {{this.lastname}}</p>
-                </div>
-             
+    <div class="box-setting-profile-left ">
+        <div class="wrap-header-setting-profile-left">
+            <div>
+                <img src="{{this.avatar}}" class="circle-profile-setting-profile-left">
             </div>
-            
+            <div class="d-flex align-items-center">
+                <p>{{this.name}} {{this.lastname}}</p>
+            </div>
+
         </div>
-        <div class="box-setting-profile-right">
-            test
+
+    </div>
+    <div class="box-setting-profile-right">
+        <h3 class="mb-3">ตั้งค่าโปรไฟล์</h3>
+        <div class="text-center mb-3">
+            <img src="{{this.avatar}}" class="circle-profile-setting-profile-left">
         </div>
+        <div class="text-center mb-3">
+            <button type="button" class="btn btn-outline-primary">อัพโหลดรูปภาพ</button>
+        </div>
+        <div class="box-global-form">
+            <div class="row m-0">
+                <div class="col-lg-6 col-md-12 ps-lg-0 ps-md-auto mb-3">
+                    <div class="form-group">
+                        <label class="form-label">
+                            ชื่อ
+                        </label>
+                        <input type="text" class="form-control" placeholder="ระบุชื่อ">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 ps-lg-0 ps-md-auto mb-3">
+                    <div class="form-group">
+                        <label class="form-label">
+                            นามสกุล
+                        </label>
+                        <input type="text" class="form-control" placeholder="ระบุนามสกุล">
+                    </div>
+                </div>
+            </div>
+            <div class="row m-0">
+                <div class="col-lg-6 col-md-12 ps-lg-0 ps-md-auto mb-3">
+                    <div class="form-group">
+                        <label class="form-label">
+                            อีเมล์
+                        </label>
+                        <input type="text" class="form-control" placeholder="ระบุอีเมล์">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 ps-lg-0 ps-md-auto mb-3">
+                    <div class="form-group">
+                        <label class="form-label">
+                            เบอร์โทร
+                        </label>
+                        <input type="text" class="form-control" placeholder="ระบุเบอร์โทร">
+                    </div>
+                </div>
+            </div>
+            <div class="row m-0">
+                <div class="col-md-12 ps-lg-0 ps-md-auto mb-3">
+                    <div class="form-group">
+                        <label class="form-label">
+                            ที่อยู่
+                        </label>
+                        <textarea type="text" class="form-control" placeholder="ระบุที่อยู่" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-0">
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary">บันทึก (Save)</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
