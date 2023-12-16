@@ -23,14 +23,19 @@ import { OrganizerContentComponent } from './pages/admin/admin-dashboard/dashboa
 import { MemberContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/member-content/member-content.component';
 import { LocationContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/location-content/location-content.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SettingProfileComponent } from './pages/setting-profile/setting-profile.component';
 import { UserHistoryComponent } from './pages/user-history/user-history.component';
+import { OrganizerDashboardComponent } from './pages/organizer/organizer-dashboard/organizer-dashboard.component';
+import { OrganizerIndexComponent } from './pages/organizer/organizer-index/organizer-index.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 @NgModule({
   declarations: [
     IndexComponent,
@@ -50,7 +55,9 @@ import { UserHistoryComponent } from './pages/user-history/user-history.componen
     LocationContentComponent,
     SettingProfileComponent,
     UserHistoryComponent,
-    
+    OrganizerDashboardComponent,
+    OrganizerIndexComponent,
+
 
   ],
   imports: [
@@ -67,7 +74,10 @@ import { UserHistoryComponent } from './pages/user-history/user-history.componen
     MatAutocompleteModule,
     MatSelectModule,
     BrowserModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatNativeDateModule
     // ErrorModule
   ]
 })
