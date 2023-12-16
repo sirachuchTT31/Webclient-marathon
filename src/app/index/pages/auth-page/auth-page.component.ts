@@ -57,7 +57,7 @@ export class AuthPageComponent {
       this.authService.postLogin(param).subscribe((rs) => {
         if (rs?.status == true) {
           let response_payload = rs.result.payload
-          this.localStorageService.setProfile(response_payload.name, response_payload.lastname, response_payload.username, response_payload.role, rs.result.token, rs.result.time_out_token,response_payload.avatar)
+          this.localStorageService.setProfile(response_payload.name, response_payload.lastname, response_payload.username, response_payload.role, rs.result.token, rs.result.time_out_token,response_payload.avatar,response_payload._id)
           let role = this.localStorageService.getRole()
           if (role !== 'admin') {
             window.location.href = '/'
