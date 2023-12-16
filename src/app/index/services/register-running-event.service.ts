@@ -7,6 +7,7 @@ import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
 import { CreateAdmin, EditAdmin } from "../interface/admin";
 import { CreateOrganizer, EditOrganizer } from '../interface/organizer';
+import { CreateregisterrunningOrganizer } from '../interface/register-running-organizer';
 @Injectable({
     providedIn: 'root'
 })
@@ -17,10 +18,22 @@ export class RegisterrunningeventService {
         private headerService: HeaderService, private localStorageService: LocalStorageService) {
         this.token = localStorageService.getToken()
     }
+    postCreateRegisterrunningeventOrganizer(list: CreateregisterrunningOrganizer): Observable<IBaseSingleResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/reg-event/create'
+        let option = this.headerService.BuildRequestHeaders(this.token)
+        return this.http.post(url, list, { headers: option })
+    }
     getallRegisterrunningevent(): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
         let url = baseApi + 'api/reg-event/getall'
         let option = this.headerService.BuildRequestHeadersNoAuthen()
+        return this.http.get(url, { headers: option })
+    }
+    getRegisterrunningeventOrganizer(_id: any): Observable<IBaseSingleResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/reg-event/get-reg-by-organizer/' + _id
+        let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
     }
 }
