@@ -8,6 +8,7 @@ import { ErrorComponent } from './component/error/error.component';
 import { AdminContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/admin-content/admin-content.component';
 import { SettingProfileComponent } from './pages/setting-profile/setting-profile.component';
 import { UserHistoryComponent } from './pages/user-history/user-history.component';
+import { OrganizerDashboardComponent } from './pages/organizer/organizer-dashboard/organizer-dashboard.component';
 const routes: Routes = [{
   path: '',
   component: IndexComponent, children: [
@@ -28,6 +29,11 @@ const routes: Routes = [{
     {
       path: 'user/history',
       component: UserHistoryComponent,
+      canActivate: [AuthGuardService]
+    },
+    {
+      path: 'organizer/dashboard',
+      component: OrganizerDashboardComponent,
       canActivate: [AuthGuardService]
     }
     // {
