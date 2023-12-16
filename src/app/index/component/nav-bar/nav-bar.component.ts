@@ -10,6 +10,7 @@ export class NavBarComponent {
   token: any
   name: any
   avatar: any
+  role : any
   isCollapsed: boolean = true
   constructor(private localstorageService: LocalStorageService, private localStorageService: LocalStorageService) {
 
@@ -19,6 +20,7 @@ export class NavBarComponent {
     this.token = this.localstorageService.getToken()
     this.name = this.localstorageService.getFirstname()
     this.avatar = this.localstorageService.getAvatar()
+    this.role = this.localStorageService.getRole()
   }
   public routeLogin() {
     window.location.href = 'auth/login'
