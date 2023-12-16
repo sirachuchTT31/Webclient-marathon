@@ -1,0 +1,251 @@
+<div class="wrapper-dashboard-organization">
+    <div class="header-list-all">
+        <p>สำหรับผู้จัดงาน (Organizer)</p>
+        <hr>
+    </div>
+    <div class="grid-50-50 ">
+        <div class="m-0 p-0">
+            <form [formGroup]="status_form">
+                <mat-form-field class="p-0 w-25">
+                    <mat-label>เลือกสถานะ</mat-label>
+                    <mat-select formControlName="status" (selectionChange)="filterReg()">
+                        <mat-option *ngFor="let rs of status_object_array"
+                            [value]="rs.value"><span>{{rs.label}}</span></mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+        </div>
+        <div class="text-end  p-0 mb-3">
+            <button class="btn btn-primary" (click)="openModalCreate(modalcreate)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0" />
+                </svg>
+                <span class="p-2">สร้างงานวิ่ง</span>
+            </button>
+        </div>
+
+    </div>
+    <div class="box-content-list-menu">
+        <ng-container *ngFor="let rs of filter_reg ">
+            <div class="card card-list">
+                <img src="{{rs.reg_event_path_img}}" style="width: 100%; height: 200px;" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title-event mb-3">{{rs.reg_event_name}}</h5>
+                    <p class="card-text-event-organizer mb-0">วันที่จัดงาน : {{rs.reg_event_due_date}}</p>
+                    <p class="card-text-event-organizer mb-0"
+                        *ngIf="rs.reg_event_status == '01' || rs.reg_event_status == '02'">สถานะ :
+                        <span class="text-primary"
+                            style="font-size: 14px;">{{changeStatustotext(rs.reg_event_status)}}</span>
+                    </p>
+                    <p class="card-text-event-organizer mb-0"
+                        *ngIf="rs.reg_event_status == '03' || rs.reg_event_status =='04'">สถานะ :
+                        <span class="text-danger"
+                            style="font-size: 14px;">{{changeStatustotext(rs.reg_event_status)}}</span>
+                    </p>
+                    <p class="card-text-event-organizer mb-0" *ngIf="rs.reg_event_status == '05'">สถานะ :
+                        <span class="text-success"
+                            style="font-size: 14px;">{{changeStatustotext(rs.reg_event_status)}}</span>
+                    </p>
+                    <hr>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-outline-dark me-2"> <svg xmlns="http://www.w3.org/2000/svg"
+                                width="25" height="25" fill="currentColor" class="bi bi-pencil-square"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                <path fill-rule="evenodd"
+                                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                            </svg>
+                        </button>
+                        <button type="button" class="btn btn-outline-dark ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-trash" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                <path
+                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </ng-container>
+    </div>
+    <div class="text-center " *ngIf="filter_reg?.length == 0">
+        <h2 class="text-dark">ไม่พบข้อมูล (Data not found)</h2>
+    </div>
+</div>
+
+
+<ng-template #modalcreate let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">สร้างงานวิ่ง (Create)</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="create_register_running_event">
+            <div class="form-group">
+                <div class="box-input-group">
+                    <label>ชื่องาน</label>
+                    <input type="text" class="form-control" placeholder="ชื่องาน" formControlName="reg_event_name"
+                        maxlength="40" [ngClass]="{
+                        required:
+                        create_register_running_event.controls['reg_event_name'].invalid &&
+                        create_register_running_event.controls['reg_event_name'].touched
+                        }">
+                    <span *ngIf="
+                            create_register_running_event.controls['reg_event_name'].invalid &&
+                            create_register_running_event.controls['reg_event_name'].touched">
+                        <span *ngIf="
+                                create_register_running_event.controls['reg_event_name'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุชื่องาน
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label>ระยะทางวิ่ง</label>
+                    <input type="text" class="form-control" placeholder="ระยะทางวิ่ง"
+                        formControlName="reg_event_distance" maxlength="40" [ngClass]="{
+                        required:
+                        create_register_running_event.controls['reg_event_distance'].invalid &&
+                        create_register_running_event.controls['reg_event_distance'].touched
+                        }">
+                    <span *ngIf="
+                            create_register_running_event.controls['reg_event_distance'].invalid &&
+                            create_register_running_event.controls['reg_event_distance'].touched">
+                        <span *ngIf="
+                                create_register_running_event.controls['reg_event_distance'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุระยะทางวิ่ง
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label>ราคาบัตร</label>
+                    <input type="text" class="form-control" placeholder="ราคาบัตร" formControlName="reg_event_price"
+                        maxlength="40" [ngClass]="{
+                        required:
+                        create_register_running_event.controls['reg_event_price'].invalid &&
+                        create_register_running_event.controls['reg_event_price'].touched
+                        }">
+                    <span *ngIf="
+                            create_register_running_event.controls['reg_event_price'].invalid &&
+                            create_register_running_event.controls['reg_event_price'].touched">
+                        <span *ngIf="
+                                create_register_running_event.controls['reg_event_price'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุราคาบัตร
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label>จำนวนบัตร</label>
+                    <input type="text" class="form-control" placeholder="จำนวนบัตร" formControlName="reg_event_amount"
+                        maxlength="40" [ngClass]="{
+                        required:
+                        create_register_running_event.controls['reg_event_amount'].invalid &&
+                        create_register_running_event.controls['reg_event_amount'].touched
+                        }">
+                    <span *ngIf="
+                            create_register_running_event.controls['reg_event_amount'].invalid &&
+                            create_register_running_event.controls['reg_event_amount'].touched">
+                        <span *ngIf="
+                                create_register_running_event.controls['reg_event_amount'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุจำนวนบัตร
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label>รายละเอียด</label>
+                    <textarea type="text" class="form-control" placeholder="รายละเอียด"
+                        formControlName="reg_event_detail" maxlength="40" [ngClass]="{
+                        required:
+                        create_register_running_event.controls['reg_event_detail'].invalid &&
+                        create_register_running_event.controls['reg_event_detail'].touched
+                        }">
+                        </textarea>
+                    <span *ngIf="
+                            create_register_running_event.controls['reg_event_detail'].invalid &&
+                            create_register_running_event.controls['reg_event_detail'].touched">
+                        <span *ngIf="
+                                create_register_running_event.controls['reg_event_detail'].errors">
+                            <small class="text-danger">
+                                กรุณาระบุรายละเอียด
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <label>รายละเอียด</label>
+                    <select class="form-select" formControlName="location_id" [ngClass]="{
+                        required:
+                        create_register_running_event.controls['location_id'].invalid &&
+                        create_register_running_event.controls['location_id'].touched
+                        }">
+                        <option value="null" disabled>เลือกสถานที่</option>
+                        <option *ngFor="let rs of master_location" [value]="rs.location_id">
+                            {{rs.location_province}} / {{rs.location_district}} / {{rs.location_zipcode}} /
+                            {{rs.location_address}}
+                        </option>
+                    </select>
+                    <span *ngIf="
+                            create_register_running_event.controls['location_id'].invalid &&
+                            create_register_running_event.controls['location_id'].touched">
+                        <span *ngIf="
+                                create_register_running_event.controls['location_id'].errors">
+                            <small class="text-danger">
+                                กรุณาเลือกสถานที่
+                            </small>
+                        </span>
+                    </span>
+                </div>
+                <div class="box-input-group">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Choose a date</mat-label>
+                        <!-- #docregion toggle -->
+                        <input matInput [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <!-- #enddocregion toggle -->
+                    </mat-form-field>
+
+                </div>
+                <div class="box-input-group">
+                    <label>อัพโหลดรูปภาพ</label><br>
+                    <!-- <button type="button" class="btn btn-primary align-items-center"> -->
+                    <label class="label">
+                        <input class="custom-file-input align-items-center" type="file" #fileUpload
+                            (change)="uploadFile($event)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-file-image" viewBox="0 0 16 16">
+                            <path d="M8.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                            <path
+                                d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v8l-2.083-2.083a.5.5 0 0 0-.76.063L8 11 5.835 9.7a.5.5 0 0 0-.611.076L3 12z" />
+                        </svg>
+                        <span class="ms-2">อัพโหลดรูปภาพ</span>
+                    </label>
+                </div>
+                <div class="box-input-group">
+                    <!-- <label *ngIf="previews.length != 0" class="text-">Preview (ตัวอย่างภาพ)</label> -->
+                    <div class="previews-img" *ngFor="let rs of this.previews ">
+                        <img src="{{rs }}" style="width: 280px; height: 200px; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mb-3 mt-3">
+                    <button class="btn btn-primary btn-modal-submit me-3" (change)="checkcreateModal()"
+                        [disabled]="checkcreateModal() === false" (click)="modal.dismiss()">บันทึกข้อมูล</button>
+                    <button class="btn btn-danger btn-modal-submit" (click)="modal.dismiss()">ยกเลิก</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
