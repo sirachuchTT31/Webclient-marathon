@@ -77,7 +77,7 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
     Ng2SearchPipeModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatNativeDateModule
+    MatNativeDateModule,
     // ErrorModule
   ]
 })

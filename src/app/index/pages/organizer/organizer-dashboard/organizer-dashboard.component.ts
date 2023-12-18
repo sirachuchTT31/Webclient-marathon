@@ -12,6 +12,7 @@ import { MasterdataService } from 'src/app/index/services/master-data.service';
   templateUrl: './organizer-dashboard.component.html',
   styleUrls: ['./organizer-dashboard.component.scss']
 })
+
 export class OrganizerDashboardComponent {
   master_location: any
   reg_by_organizer_object: any

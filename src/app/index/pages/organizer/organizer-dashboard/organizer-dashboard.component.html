@@ -108,6 +108,22 @@
                     </span>
                 </div>
                 <div class="box-input-group">
+                    <label>วันที่จัดงาน</label> <br>
+                    <div class="box-date-container">
+                        <input type="text" class="form-control" matInput [matDatepicker]="picker" readonly
+                            placeholder="เลือกวันที่จัดงาน">
+                        <!-- <button class="btn btn-primary h-auto" type="button"> -->
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        
+                        <mat-datepicker #picker></mat-datepicker>
+                        <!-- </button> -->
+                    </div>
+                    <!-- <mat-form-field class="w-100">
+                        <mat-label>เลือกวันที่จัดงาน</mat-label> -->
+
+                    <!-- </mat-form-field> -->
+                </div>
+                <div class="box-input-group">
                     <label>ระยะทางวิ่ง</label>
                     <input type="text" class="form-control" placeholder="ระยะทางวิ่ง"
                         formControlName="reg_event_distance" maxlength="40" [ngClass]="{
@@ -208,17 +224,14 @@
                         </span>
                     </span>
                 </div>
-                <div class="box-input-group">
+                <!-- <div class="box-input-group">
                     <mat-form-field appearance="fill">
                         <mat-label>Choose a date</mat-label>
-                        <!-- #docregion toggle -->
                         <input matInput [matDatepicker]="picker">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
-                        <!-- #enddocregion toggle -->
                     </mat-form-field>
-
-                </div>
+                </div> -->
                 <div class="box-input-group">
                     <label>อัพโหลดรูปภาพ</label><br>
                     <!-- <button type="button" class="btn btn-primary align-items-center"> -->

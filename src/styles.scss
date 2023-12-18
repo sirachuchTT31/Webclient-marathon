@@ -619,6 +619,7 @@ ul {
     height: 40px;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: height 0.5s ease 0.1s;
 }
 
 .card-text-event-organizer {
@@ -646,12 +647,9 @@ ul {
 }
 
 .card-text-event:hover {
-    font-size: 18px;
-    margin-top: 20px;
     margin-bottom: 20px;
     overflow: visible !important;
-    zoom: 80%;
-    height: auto;
+    height: 60px;
 }
 
 .wrapper-list-menu {
@@ -774,7 +772,13 @@ ul {
     height: 220px;
     text-align: center;
 }
-
+.cdk-overlay-container {
+    position: fixed;
+    z-index: 1500 !important;
+}
+.box-date-container{
+    display: flex;
+}
 //   .circle-inner {
 //     color: white;
 //     display: table-cell;
