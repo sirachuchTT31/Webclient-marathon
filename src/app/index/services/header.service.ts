@@ -44,6 +44,25 @@ export class HeaderService {
             // "os_version":this.deviceInfo.os_version,
             // "userAgent":this.deviceInfo.userAgent
         });
+        return httpHeader;
+    }
+    BuildRequestHeadersFormData(token: any) {
+        let httpHeader = null;
+
+        httpHeader = new HttpHeaders({
+            'Authorization': token,
+            "Platform": 'web',
+            'Accept-Language': "en-US",
+            'Accept': '*/*',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, PUT, PATCH, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Option, Authorization',
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
+            "If-Modified-Since": "Mon, 26 Jul 1997 05:00:00 GMT",
+            //'Content-Type': 'multipart/form-data'
+            // "Content-Type": "multipart/form-data; boundary=<calculated when request is sent>",
+        });
 
         return httpHeader;
     }
