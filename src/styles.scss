@@ -772,13 +772,26 @@ ul {
     height: 220px;
     text-align: center;
 }
+
 .cdk-overlay-container {
     position: fixed;
     z-index: 1500 !important;
 }
-.box-date-container{
+
+.box-date-container {
     display: flex;
 }
+
+//set date-picker 
+.date-picker {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+.label-date-picker{
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
 //   .circle-inner {
 //     color: white;
 //     display: table-cell;

@@ -63,12 +63,12 @@ export class OrganizerDashboardComponent {
     })
     this.create_register_running_event = new FormGroup({
       reg_event_name: new FormControl('', [Validators.required]),
+      reg_event_due_date: new FormControl(''),
       reg_event_price: new FormControl('', [Validators.required]),
       reg_event_amount: new FormControl('', [Validators.required]),
       reg_event_detail: new FormControl('', [Validators.required]),
       reg_event_distance: new FormControl('', [Validators.required]),
       // reg_event_path_img: new FormControl('', [Validators.required]),
-      req_due_date: new FormControl('', [Validators.required]),
       location_id: new FormControl(null, [Validators.required]),
     })
 
@@ -143,16 +143,6 @@ export class OrganizerDashboardComponent {
     }
     event.target.value = null
   }
-  checkcreateModal() {
-    console.log("this.image_upload.length", this.image_upload?.length)
-    console.log("this.create_register_running_event.valid", this.create_register_running_event.valid)
-    if (this.create_register_running_event.valid == true && this.image_upload?.length > 0) {
-      return true
-    }
-    else {
-      return false
-    }
-  }
   getRegbyorganizer() {
     this.register_running_event_Service.getRegisterrunningeventOrganizer(this.auth_id).subscribe((rs) => {
       if (rs?.status == true) {
@@ -177,6 +167,70 @@ export class OrganizerDashboardComponent {
       if (rs?.status == true) {
         this.master_location = rs.result
         this.spinner.hide()
+      }
+      else {
+        this.spinner.hide()
+        Swal.fire({
+          showCloseButton: true,
+          showConfirmButton: false,
+          icon: "error",
+          // title: rs?.status_code,
+          text: rs?.message,
+        });
+      }
+    })
+  }
+  checkcreateModal() {
+    if (this.create_register_running_event.valid == true && this.image_upload?.length > 0) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+  saveData() {
+    this.spinner.show()
+    const data = this.create_register_running_event
+    let param = {
+      reg_event_name: data.controls['reg_event_name'].value,
+      reg_event_due_date: data.controls['reg_event_due_date'].value,
+      reg_event_price: data.controls['reg_event_price'].value,
+      reg_event_amount: data.controls['reg_event_amount'].value,
+      reg_event_detail: data.controls['reg_event_detail'].value,
+      reg_event_distance: data.controls['reg_event_distance'].value,
+      reg_event_path_img: '',
+      location_id: data.controls['location_id'].value,
+      auth_id: this.auth_id
+    }
+    this.register_running_event_Service.postCreateRegisterrunningeventOrganizer(param).subscribe((rs) => {
+      if (rs?.status == true) {
+        let reg_event_id = rs.result
+        if (reg_event_id != null) {
+          this.register_running_event_Service.postUploadFileregisterrunningeventOrganize(this.image_upload, reg_event_id).subscribe((rs) => {
+            if (rs?.status == true) {
+              this.spinner.hide()
+              Swal.fire({
+                showCloseButton: true,
+                showConfirmButton: false,
+                icon: "success",
+                // title: rs?.status_code,
+                timer: 3000,
+                text: rs?.message,
+              });
+              this.getRegbyorganizer()
+            }
+            else {
+              this.spinner.hide()
+              Swal.fire({
+                showCloseButton: true,
+                showConfirmButton: false,
+                icon: "error",
+                // title: rs?.status_code,
+                text: rs?.message,
+              });
+            }
+          })
+        }
       }
       else {
         this.spinner.hide()

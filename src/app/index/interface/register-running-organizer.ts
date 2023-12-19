@@ -1,5 +1,6 @@
 export interface CreateregisterrunningOrganizer {
     reg_event_name?: string
+    reg_event_due_date?: Date,
     reg_event_price?: string,
     reg_event_amount?: string,
     reg_event_detail?: string,

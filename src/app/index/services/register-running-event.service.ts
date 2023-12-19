@@ -24,6 +24,17 @@ export class RegisterrunningeventService {
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.post(url, list, { headers: option })
     }
+    postUploadFileregisterrunningeventOrganize(file: any, _id: any): Observable<IBaseSingleResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/reg-event/upload-image-reg-by-organizer'
+        let formData = new FormData()
+        for (let k = 0; k < file.length; k++) {
+            formData.append('fileUpload', file[k])
+        }
+        formData.append('reg_event_id', _id)
+        let option = this.headerService.BuildRequestHeadersFormData(this.token)
+        return this.http.post(url, formData, { headers: option })
+    }
     getallRegisterrunningevent(): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
         let url = baseApi + 'api/reg-event/getall'
