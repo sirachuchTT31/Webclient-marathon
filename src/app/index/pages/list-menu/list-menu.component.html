@@ -3,12 +3,13 @@
     <div class="box-input-search">
       <form [formGroup]="search_Form">
 
-        <input type="search" class="form-control" (keyup)="serachBox($event)"
-          [matAutocomplete]="auto" matInput placeholder="ค้นหาด้วยชื่องาน | ค้นด้วยจังหวัดงาน | ค้นหาด้วยสถานที่งาน">
+        <input type="search" class="form-control" (keyup)="serachBox($event)" [matAutocomplete]="auto" matInput
+          placeholder="ค้นหาด้วยชื่องาน | ค้นด้วยจังหวัดงาน | ค้นหาด้วยสถานที่งาน">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let option of this.register_running_event_array | filter : this.char_search "
             [value]="option.reg_event_name" (click)="onClickfilter(option.reg_event_id)">
-            <span>{{option.reg_event_name}} | {{option.location_province}} | {{option.location_district}} <img src="{{option.reg_event_path_img}}" class="img-box-search"></span>
+            <span>{{option.reg_event_name}} | {{option.location_province}} | {{option.location_district}} <img
+                src="{{option.reg_event_path_img}}" class="img-box-search"></span>
           </mat-option>
         </mat-autocomplete>
       </form>
@@ -37,7 +38,9 @@
       <img src="{{rs.reg_event_path_img}}" style="width: 100%; height: 200px;" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title-event ">{{rs.reg_event_name}}</h5>
+        <p><span class="me-2">วันที่จัดงาน</span><span class="me-2">:</span> <span>{{rs.reg_event_due_date}}</span></p>
         <p class="card-text-event ">{{rs.reg_event_detail}}</p>
+
         <p class="card-text-event-price mb-0">฿ {{formatNumber(rs.reg_event_price)}}</p>
         <p class="card-text-event-amount mb-1">จำนวนคงเหลือ {{formatNumber(rs.reg_event_amount)}}</p>
         <div class="text-center">
