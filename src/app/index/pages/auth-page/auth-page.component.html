@@ -14,7 +14,7 @@
                     Login
                 </h1>
                 <div class="box-form-group-custom pt-3">
-                    <input class="form-control" type="text" class="form-control" formControlName="username"
+                    <input class="form-control" type="text" class="form-control" formControlName="username" maxlength="30"
                         placeholder="Username" [ngClass]="{
                     required:
                     login_form.controls['username'].invalid &&
@@ -32,7 +32,7 @@
                     </span>
                 </span>
                 <div class="box-form-group-custom pt-4">
-                    <input class="form-control" type="password" class="form-control" placeholder="Password"
+                    <input class="form-control" type="password" class="form-control" placeholder="Password" maxlength="30"
                         formControlName="password" [ngClass]="{
                     required:
                     login_form.controls['password'].invalid &&
@@ -72,7 +72,7 @@
                 </h1>
                 <div class="box-form-group-custom pt-3">
                     <input class="form-control" type="text" class="form-control" formControlName="username"
-                        maxlength="50" placeholder="Username" [ngClass]="{
+                        maxlength="30" placeholder="Username" [ngClass]="{
                             required:
                             register_form.controls['username'].invalid &&
                             register_form.controls['username'].touched
@@ -90,7 +90,7 @@
                 </span>
                 <div class="box-form-group-custom pt-4">
                     <input class="form-control" type="password" class="form-control" placeholder="Password"
-                        maxlength="50" formControlName="password" [ngClass]="{
+                        maxlength="30" formControlName="password" [ngClass]="{
                             required:
                             register_form.controls['password'].invalid &&
                             register_form.controls['password'].touched

@@ -431,6 +431,7 @@ a {
 }
 
 .text-header-account:hover {
+
     overflow: visible !important;
     zoom: 80%;
 }
@@ -459,6 +460,7 @@ a {
 .wrapper-collapse-transition {
     //padding: 0 18px;
     min-height: 0;
+    transition: height 1s ease 0s;
     // max-height: auto;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
@@ -787,11 +789,75 @@ ul {
     border-top-left-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
 }
-.label-date-picker{
+
+.label-date-picker {
     border-top-right-radius: 0px !important;
     border-bottom-right-radius: 0px !important;
 }
 
+.box-filter-approver {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center !important;
+    align-items: center !important;
+    justify-content: space-between;
+}
+
+.box-filter-approver label {
+    font-size: 18px;
+    letter-spacing: 1px;
+    font-weight: 400;
+}
+
+.box-grid-header-content-approver {
+    margin-top: 40px;
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: 15% 15% 15% 15% 15%;
+    gap: 30px;
+    justify-content: space-around;
+}
+
+.box-grid-header-content-approver span {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100% !important;
+    overflow: hidden;
+    font-size: 18px;
+    color: #000;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.box-grid-body-content-approver {
+    margin-top: 20px;
+    width: 100%;
+    min-height: 150px;
+    border-radius: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color : #495057;
+    border-color: #dee2e6;
+    background-color: #e9ecef;
+    gap: 30px;
+    display: grid;
+    grid-template-columns: 15% 15% 15% 15% 15%;
+    justify-content: space-around;
+    overflow-wrap: break-word;
+    overflow: hidden;
+}
+.wrap-button {
+    width: 45%;
+}
+.custom-button-approver {
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    //width: 80px;
+    height: 50px;
+    width: 100%;
+}
 //   .circle-inner {
 //     color: white;
 //     display: table-cell;

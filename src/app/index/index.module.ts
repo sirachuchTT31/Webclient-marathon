@@ -36,6 +36,8 @@ import { OrganizerIndexComponent } from './pages/organizer/organizer-index/organ
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { ApproverRunningComponent } from './pages/admin/admin-dashboard/approver-menu-content/approver-running/approver-running.component';
+import { ApproverPaymentComponent } from './pages/admin/admin-dashboard/approver-menu-content/approver-payment/approver-payment.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -57,6 +59,8 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
     UserHistoryComponent,
     OrganizerDashboardComponent,
     OrganizerIndexComponent,
+    ApproverRunningComponent,
+    ApproverPaymentComponent,
 
 
   ],

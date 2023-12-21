@@ -12,10 +12,19 @@ export class AdminDashboardComponent {
   collapse_basic_menu: boolean = false
   collapse_payment_menu: boolean = false
   collapse_report_menu: boolean = false
+  collapse_approver_menu: boolean = false
   menu: string = 'index'
   constructor(private localStorageService: LocalStorageService,) {
     this.first_name = this.localStorageService.getFirstname()
     this.lastname = this.localStorageService.getLastname()
+  }
+  setCollapseApprover(){
+    if (this.collapse_approver_menu == true) {
+      return this.collapse_approver_menu = false
+    }
+    else {
+      return this.collapse_approver_menu = true
+    }
   }
   setCollapsebasic() {
     // const collapse_transition = document.getElementsByClassName('wrapper-collapse-transition')

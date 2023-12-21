@@ -11,7 +11,51 @@
             <div>
                 <p class="text-header-account">{{this.first_name}} {{this.lastname}}</p>
             </div>
-
+        </div>
+        <hr>
+        <div class="row">
+            <div class="wrapper-collapse">
+                <div class="header-collapse">
+                    <div class="header-collapse-icon d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="50%" fill="currentColor"
+                            class="bi bi-person-workspace" viewBox="0 0 16 16">
+                            <path
+                                d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                            <path
+                                d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2z" />
+                        </svg>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <p class="header-collapse-label ">งานอนุมัติ</p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-caret-down-fill" viewBox="0 0 16 16" (click)="setCollapseApprover()"
+                            *ngIf="collapse_approver_menu == false">
+                            <path
+                                d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-caret-up-fill" viewBox="0 0 16 16" (click)="setCollapseApprover()"
+                            *ngIf="collapse_approver_menu == true">
+                            <path
+                                d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+                <ng-container *ngIf="collapse_approver_menu == true">
+                    <div class="wrapper-collapse-transition">
+                        <ul class="list-li-menu">
+                            <li class="list-li-menu" (click)="setMenu('approver_running')">อนุมัติการงานวิ่ง</li>
+                            <li class="list-li-menu" (click)="setMenu('approver_payment')">อนุมัติการชำระเงิน</li>
+                            <li class="list-li-menu" (click)="setMenu('basic_admin')">อนุมัติการรับอุปกรณ์</li>
+                            <li class="list-li-menu" (click)="setMenu('basic_admin')">บันทึกสถิติการวิ่ง</li>
+                        </ul>
+                    </div>
+                </ng-container>
+            </div>
         </div>
         <hr>
         <div class="row">
@@ -134,5 +178,6 @@
         <app-admin-content *ngIf="menu == 'basic_admin'"></app-admin-content>
         <app-organizer-content *ngIf="menu == 'basic_organizer'"></app-organizer-content>
         <app-member-content *ngIf="menu == 'basic_member'"></app-member-content>
+        <app-approver-running *ngIf="menu == 'approver_running'"></app-approver-running>
     </div>
 </div>
