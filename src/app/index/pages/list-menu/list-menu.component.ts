@@ -17,6 +17,7 @@ export class ListMenuComponent {
   search_where_id : any
   search_Form: FormGroup
   register_running_event_array: any
+  list_show_register : any
   constructor(private register_running_event_Service: RegisterrunningeventService, private spinner: NgxSpinnerService) {
     this.search_Form = new FormGroup({
       char_search: new FormControl('')
@@ -30,6 +31,7 @@ export class ListMenuComponent {
     this.register_running_event_Service.getallRegisterrunningevent().subscribe(async (rs) => {
       if (rs?.status == true) {
         this.register_running_event_array = rs.result
+        this.list_show_register = rs.result
         this.spinner.hide()
       }
       else {
@@ -44,13 +46,29 @@ export class ListMenuComponent {
       }
     })
   }
-  serachBox(event: any) {
-    this.char_search = event.target.value
-    console.log(this.char_search)
+  searchBox(event: any) {
+    // this.char_search = event.target.value
+  }
+  removersearchBox(){
+    this.search_Form.controls['char_search'].reset()
+    this.search_where_id = ""
   }
   onClickfilter(_id: any) {
     this.search_where_id = _id
-    console.log(" this.search_where_id", this.search_where_id)
+    
+  }
+  onSearch(){
+    console.log("this.search_where_id",this.search_where_id)
+    if(this.search_where_id == "" || this.search_where_id == undefined){
+      this.getallRegisterrunningevent()
+    }
+    else{
+      let new_result  = this.register_running_event_array.filter((e : any)=> e.reg_event_id == this.search_where_id)
+      this.list_show_register = new_result
+    }
+  }
+  onRefresh(){
+    window.location.reload()
   }
   formatNumber(x: any) {
     if (x) {

@@ -20,6 +20,9 @@ export class IndexComponent {
     this.role = localStorageService.getRole()
     console.log("role", this.role)
     console.log("page", this.page_2)
+    if(this.page_2 == '' && this.role == 'admin'){
+      window.location.href = 'admin/dashboard'
+    }
     // this.is_check_detail_products = current[3]
   }
 }

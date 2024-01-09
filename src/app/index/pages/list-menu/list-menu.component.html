@@ -2,11 +2,18 @@
   <div class="box-search-list-menu pt-3">
     <div class="box-input-search">
       <form [formGroup]="search_Form">
-
-        <input type="search" class="form-control" (keyup)="serachBox($event)" [matAutocomplete]="auto" matInput
-          placeholder="ค้นหาด้วยชื่องาน | ค้นด้วยจังหวัดงาน | ค้นหาด้วยสถานที่งาน">
+        <input type="text" class="form-control" (keyup)="searchBox($event)" [matAutocomplete]="auto" matInput
+          placeholder="ค้นหาด้วยชื่องาน | ค้นด้วยจังหวัดงาน | ค้นหาด้วยสถานที่งาน" formControlName="char_search">
+        <div class="search_remove_icon" *ngIf="this.search_Form.controls['char_search'].value?.length > 0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-circle-fill"
+            viewBox="0 0 16 16" (click)="removersearchBox()">
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+          </svg>
+        </div>
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of this.register_running_event_array | filter : this.char_search "
+          <mat-option
+            *ngFor="let option of this.register_running_event_array | filter : this.search_Form.controls['char_search']?.value "
             [value]="option.reg_event_name" (click)="onClickfilter(option.reg_event_id)">
             <span>{{option.reg_event_name}} | {{option.location_province}} | {{option.location_district}} <img
                 src="{{option.reg_event_path_img}}" class="img-box-search"></span>
@@ -21,8 +28,8 @@
                 </p>
             </div> -->
     <div class="box-button-search">
-      <button type="button" class="btn btn-primary "><svg xmlns="http://www.w3.org/2000/svg" width="30" height="25"
-          viewBox="0 0 400 400" fill="none">
+      <button type="button" class="btn btn-primary " (click)="onSearch()"><svg xmlns="http://www.w3.org/2000/svg"
+          width="30" height="25" viewBox="0 0 400 400" fill="none">
           <path d="M244.17 254.01L340.17 350" stroke="#fff" stroke-width="12" stroke-miterlimit="10"
             stroke-linecap="round" stroke-linejoin="round" />
           <path
@@ -33,8 +40,17 @@
         </svg></button>
     </div>
   </div>
+  <div class="box-wrap-refresh">
+    <button class="btn refresh-button" (click)="onRefresh()">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" width="25"  fill="#fff"
+        viewBox="0 0 512 512" ><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+        <path
+          d="M370.7 133.3C339.5 104 298.9 88 255.8 88c-77.5 .1-144.3 53.2-162.8 126.9-1.3 5.4-6.1 9.2-11.7 9.2H24.1c-7.5 0-13.2-6.8-11.8-14.2C33.9 94.9 134.8 8 256 8c66.4 0 126.8 26.1 171.3 68.7L463 41C478.1 25.9 504 36.6 504 57.9V192c0 13.3-10.7 24-24 24H345.9c-21.4 0-32.1-25.9-17-41l41.8-41.7zM32 296h134.1c21.4 0 32.1 25.9 17 41l-41.8 41.8c31.3 29.3 71.8 45.3 114.9 45.3 77.4-.1 144.3-53.1 162.8-126.8 1.3-5.4 6.1-9.2 11.7-9.2h57.3c7.5 0 13.2 6.8 11.8 14.2C478.1 417.1 377.2 504 256 504c-66.4 0-126.8-26.1-171.3-68.7L49 471C33.9 486.1 8 475.4 8 454.1V320c0-13.3 10.7-24 24-24z" />
+      </svg>
+    </button>
+  </div>
   <div class="box-content-list-menu">
-    <div class="card card-list" *ngFor="let rs of register_running_event_array">
+    <div class="card card-list" *ngFor="let rs of list_show_register">
       <img src="{{rs.reg_event_path_img}}" style="width: 100%; height: 200px;" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title-event ">{{rs.reg_event_name}}</h5>

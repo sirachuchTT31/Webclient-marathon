@@ -11,7 +11,8 @@ import { UserHistoryComponent } from './pages/user-history/user-history.componen
 import { OrganizerDashboardComponent } from './pages/organizer/organizer-dashboard/organizer-dashboard.component';
 const routes: Routes = [{
   path: '',
-  component: IndexComponent, children: [
+  component: IndexComponent,
+   children: [
     {
       path: 'auth/login',
       component: AuthPageComponent

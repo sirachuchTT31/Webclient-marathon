@@ -54,6 +54,7 @@ export class OrganizerDashboardComponent {
       label: 'งานที่เสร็จ'
     },
   ]
+  today: any
   @ViewChild('fileUpload', { static: true }) fileUpload!: ElementRef;
   constructor(private register_running_event_Service: RegisterrunningeventService, private localStorageService: LocalStorageService, private spinner: NgxSpinnerService, private modalService: NgbModal,
     private masterdataService: MasterdataService) {
@@ -77,6 +78,8 @@ export class OrganizerDashboardComponent {
     this.spinner.show()
     this.getRegbyorganizer()
     this.getLocation()
+    this.today = new Date()
+
     // this.filter_reg = this.reg_by_organizer_object
   }
   ngAfterViewInit(): void {
@@ -142,6 +145,19 @@ export class OrganizerDashboardComponent {
       }
     }
     event.target.value = null
+  }
+  numberOnly(event: any): boolean {
+    const charCode = event.which || event.keyCode
+    if (event.target.value.length == 10) {
+
+      return false
+    }
+    else {
+      if (charCode >= 48 && charCode < 58) {
+        return true
+      }
+      return false
+    }
   }
   getRegbyorganizer() {
     this.register_running_event_Service.getRegisterrunningeventOrganizer(this.auth_id).subscribe((rs) => {

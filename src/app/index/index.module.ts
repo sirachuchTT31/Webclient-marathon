@@ -38,6 +38,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { ApproverRunningComponent } from './pages/admin/admin-dashboard/approver-menu-content/approver-running/approver-running.component';
 import { ApproverPaymentComponent } from './pages/admin/admin-dashboard/approver-menu-content/approver-payment/approver-payment.component';
+import {  MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { ApproverOrganizerComponent } from './pages/admin/admin-dashboard/approver-menu-content/approver-organizer/approver-organizer.component';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -61,6 +63,7 @@ import { ApproverPaymentComponent } from './pages/admin/admin-dashboard/approver
     OrganizerIndexComponent,
     ApproverRunningComponent,
     ApproverPaymentComponent,
+    ApproverOrganizerComponent,
 
 
   ],
@@ -83,6 +86,13 @@ import { ApproverPaymentComponent } from './pages/admin/admin-dashboard/approver
     MatMomentDateModule,
     MatNativeDateModule,
     // ErrorModule
-  ]
+  ],
+
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+  ],
+
 })
-export class IndexModule { }
+export class IndexModule {
+
+}

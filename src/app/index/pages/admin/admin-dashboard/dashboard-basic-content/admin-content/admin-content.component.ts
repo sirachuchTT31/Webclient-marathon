@@ -57,7 +57,7 @@ export class AdminContentComponent {
 
   numberOnly(event: any): boolean {
     const charCode = event.which || event.keyCode
-    if (event.target.value.length == 10) {
+    if (event.target.value.length == 20) {
 
       return false
     }

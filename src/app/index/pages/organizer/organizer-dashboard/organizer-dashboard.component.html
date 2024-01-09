@@ -117,11 +117,11 @@
                                     d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
                             </svg>
                             <mat-datepicker-toggle matSuffix [for]="picker" hidden
-                                [id]="picker"></mat-datepicker-toggle>
+                                [id]="picker" ></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </label>
                         <input type="text" class="form-control date-picker" formControlName="reg_event_due_date" matInput [matDatepicker]="picker" readonly
-                            placeholder="เลือกวันที่จัดงาน">
+                            placeholder="เลือกวันที่จัดงาน" [min]="today">
                         <!-- <button class="btn btn-primary h-auto" type="button"> -->
 
                         <!-- </button> -->
@@ -138,7 +138,7 @@
                         required:
                         create_register_running_event.controls['reg_event_distance'].invalid &&
                         create_register_running_event.controls['reg_event_distance'].touched
-                        }">
+                        }" (keypress)="numberOnly($event)" onpaste="return false;" ondrop="return false;">
                     <span *ngIf="
                             create_register_running_event.controls['reg_event_distance'].invalid &&
                             create_register_running_event.controls['reg_event_distance'].touched">
@@ -157,7 +157,7 @@
                         required:
                         create_register_running_event.controls['reg_event_price'].invalid &&
                         create_register_running_event.controls['reg_event_price'].touched
-                        }">
+                        }" (keypress)="numberOnly($event)" onpaste="return false;" ondrop="return false;">
                     <span *ngIf="
                             create_register_running_event.controls['reg_event_price'].invalid &&
                             create_register_running_event.controls['reg_event_price'].touched">
@@ -176,7 +176,7 @@
                         required:
                         create_register_running_event.controls['reg_event_amount'].invalid &&
                         create_register_running_event.controls['reg_event_amount'].touched
-                        }">
+                        }" (keypress)="numberOnly($event)" onpaste="return false;" ondrop="return false;">
                     <span *ngIf="
                             create_register_running_event.controls['reg_event_amount'].invalid &&
                             create_register_running_event.controls['reg_event_amount'].touched">
@@ -191,7 +191,7 @@
                 <div class="box-input-group">
                     <label>รายละเอียด</label>
                     <textarea type="text" class="form-control" placeholder="รายละเอียด"
-                        formControlName="reg_event_detail" maxlength="40" [ngClass]="{
+                        formControlName="reg_event_detail" maxlength="80" [ngClass]="{
                         required:
                         create_register_running_event.controls['reg_event_detail'].invalid &&
                         create_register_running_event.controls['reg_event_detail'].touched

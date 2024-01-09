@@ -606,10 +606,12 @@ ul {
     width: 100% !important;
     overflow: hidden;
     text-overflow: ellipsis;
+
 }
 
 .card-title-event:hover {
     overflow: visible !important;
+
     zoom: 80%;
 }
 
@@ -677,6 +679,30 @@ ul {
     width: 30px;
     height: 30px;
     object-fit: cover;
+}
+
+.box-wrap-refresh {
+    padding-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-self: start;
+}
+
+.refresh-button {
+    width: 60px;
+    border-radius: 100px !important;
+    border: 1px solid rgba(13, 110, 253, 1);
+    opacity: 1;
+    background: rgb(101, 127, 255);
+    background: linear-gradient(90deg, rgba(101, 127, 255, 1) 2%, rgba(13, 110, 253, 1) 33%);
+    box-shadow: 1px 1px #ccc;
+}
+
+.refresh-button:hover {
+    // width: 60px;
+    // border-radius: 100px !important;
+    // color: #000;
+    opacity: 0.8;
 }
 
 .box-button-search {
@@ -801,7 +827,14 @@ ul {
     flex-wrap: wrap;
     text-align: center !important;
     align-items: center !important;
-    justify-content: space-between;
+    gap: 20px;
+    // justify-content: space-between;
+}
+.wrap-table{
+    margin-top: 30px;
+    min-width: 250px;
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 .box-filter-approver label {
@@ -837,7 +870,7 @@ ul {
     border-radius: 10px;
     padding-top: 15px;
     padding-bottom: 15px;
-    color : #495057;
+    color: #495057;
     border-color: #dee2e6;
     background-color: #e9ecef;
     gap: 30px;
@@ -847,17 +880,30 @@ ul {
     overflow-wrap: break-word;
     overflow: hidden;
 }
+
 .wrap-button {
     width: 45%;
 }
+
 .custom-button-approver {
     text-overflow: ellipsis;
     word-wrap: break-word;
     overflow: hidden;
     //width: 80px;
     height: 50px;
-    width: 100%;
+    width: 35%;
 }
+
+.search_remove_icon {
+    margin-left: 770px;
+    position: absolute;
+    top: 95px;
+}
+
+.search_remove_icon svg :hover {
+    color: #0d6efd;
+}
+
 //   .circle-inner {
 //     color: white;
 //     display: table-cell;

@@ -27,11 +27,11 @@
         <span>สถานะ</span>
         <span>เครื่องมือ</span>
     </div>
-    <div class="box-grid-body-content-approver">
-        <span>test</span>
-        <span>test</span>
-        <span>test</span>
-        <span>test</span>
+    <div class="box-grid-body-content-approver align-items-center" *ngFor="let rs of register_event_by_approver;let i = index">
+        <span>{{rs.reg_event_name}}</span>
+        <span>{{rs.reg_event_due_date}}</span>
+        <span>{{rs.reg_event_amount}}</span>
+        <span *ngIf="rs.reg_event_status == '01'" class="">รอการอนุมัติ (Waiting for approver)</span>
         <div class="w-100 d-flex justify-content-between align-items-center">
             <div class="wrap-button">
                 <button class="btn btn-success custom-button-approver">
@@ -43,7 +43,7 @@
                     Reject
                 </button>
             </div>
- 
+
         </div>
     </div>
 </div>
