@@ -28,14 +28,17 @@
 
     </div>
     <div class="box-content-list-menu">
-        <ng-container *ngFor="let rs of filter_reg ">
+        <ng-container *ngFor="let rs of filter_reg;let i = index; ">
             <div class="card card-list">
                 <img src="{{rs.reg_event_path_img}}" style="width: 100%; height: 200px;" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title-event mb-3">{{rs.reg_event_name}}</h5>
                     <p class="card-text-event-organizer mb-0">วันที่จัดงาน : {{rs.reg_event_due_date}}</p>
-                    <p class="card-text-event-organizer mb-0"
-                        *ngIf="rs.reg_event_status == '01' || rs.reg_event_status == '02'">สถานะ :
+                    <p class="card-text-event-organizer mb-0" *ngIf="rs.reg_event_status == '01'">สถานะ :
+                        <span class="text-warning"
+                            style="font-size: 14px;">{{changeStatustotext(rs.reg_event_status)}}</span>
+                    </p>
+                    <p class="card-text-event-organizer mb-0" *ngIf=" rs.reg_event_status == '02'">สถานะ :
                         <span class="text-primary"
                             style="font-size: 14px;">{{changeStatustotext(rs.reg_event_status)}}</span>
                     </p>
@@ -48,8 +51,13 @@
                         <span class="text-success"
                             style="font-size: 14px;">{{changeStatustotext(rs.reg_event_status)}}</span>
                     </p>
-                    <hr>
-                    <div class="text-end">
+                    <hr class="">
+                    <div class="text-end"> 
+                        <button type="button" class="btn btn-outline-danger me-2" placement="top" *ngIf="rs.reg_event_status == '03'"
+                            [ngbPopover]="rs?.reason"
+                            popoverTitle="เหตุผล">
+                            เหตุผล
+                        </button>
                         <button type="button" class="btn btn-outline-dark me-2"> <svg xmlns="http://www.w3.org/2000/svg"
                                 width="25" height="25" fill="currentColor" class="bi bi-pencil-square"
                                 viewBox="0 0 16 16">
@@ -69,6 +77,7 @@
                             </svg>
                         </button>
                     </div>
+
                 </div>
             </div>
 
@@ -117,11 +126,11 @@
                                     d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
                             </svg>
                             <mat-datepicker-toggle matSuffix [for]="picker" hidden
-                                [id]="picker" ></mat-datepicker-toggle>
+                                [id]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </label>
-                        <input type="text" class="form-control date-picker" formControlName="reg_event_due_date" matInput [matDatepicker]="picker" readonly
-                            placeholder="เลือกวันที่จัดงาน" [min]="today">
+                        <input type="text" class="form-control date-picker" formControlName="reg_event_due_date"
+                            matInput [matDatepicker]="picker" readonly placeholder="เลือกวันที่จัดงาน" [min]="today">
                         <!-- <button class="btn btn-primary h-auto" type="button"> -->
 
                         <!-- </button> -->
@@ -263,7 +272,8 @@
                 </div>
                 <div class="d-flex justify-content-center mb-3 mt-3">
                     <button class="btn btn-primary btn-modal-submit me-3" (change)="checkcreateModal()"
-                        [disabled]="checkcreateModal() === false" (click)="saveData();modal.dismiss()">บันทึกข้อมูล</button>
+                        [disabled]="checkcreateModal() === false"
+                        (click)="saveData();modal.dismiss()">บันทึกข้อมูล</button>
                     <button class="btn btn-danger btn-modal-submit" (click)="modal.dismiss()">ยกเลิก</button>
                 </div>
             </div>

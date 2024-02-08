@@ -3,10 +3,10 @@
         <p>อนุมัติสถานะผู้จัดงาน (Approver)</p>
         <hr>
     </div>
-    <div class="box-no-data" *ngIf="reg_event_by_approver_list == null">
+    <div class="box-no-data" *ngIf="organizer_approver_list == null">
         <h4>ไม่พบข้อมูล (No data)</h4>
     </div>
-    <div class="box-filter-approver" *ngIf="reg_event_by_approver_list?.length > 0">
+    <div class="box-filter-approver" *ngIf="organizer_approver_list?.length > 0">
         <div class=" text-start">
             <label>ค้นหาด้วย</label>
         </div>
@@ -17,37 +17,37 @@
             <input class="form-control">
         </div>
     </div>
-    
-    <div class="wrap-table" *ngIf="reg_event_by_approver_list?.length > 0">
+
+    <div class="wrap-table" *ngIf="organizer_approver_list?.length > 0">
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col" style="width: 10%;">ลำดับ</th>
-                    <th scope="col" style="width: 20%;">รูปภาพ</th>
-                    <th scope="col" style="width: 20%;">ชื่องาน</th>
-                    <th scope="col" style="width: 20%;">สถานที่จัดงาน</th>
-                    <th scope="col" style="width: 10%;">วันที่จัดงาน</th>
+                    <th scope="col" style="width: 20%;">ชื่อผู้ใช้ </th>
+                    <th scope="col" style="width: 20%;">ชื่อ</th>
+                    <th scope="col" style="width: 20%;">นามสกุล</th>
+                    <th scope="col" style="width: 10%;">วันที่สร้าง</th>
                     <th scope="col" style="width: 20%;">เครื่องมือ</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let list of reg_event_by_approver_list;let i = index;">
+                <tr *ngFor="let list of organizer_approver_list;let i = index;">
                     <th scope="row" class="text-count">{{i+1}}</th>
-                    <td><img src="{{list.reg_event_path_img}}" style="width: auto;height: 75px;object-fit: cover;"></td>
-                    <td>{{list.reg_event_name}}</td>
-                    <td>{{list.location_province}} / {{list.location_district}} / {{list.location_zipcode}}</td>
-                    <td>{{list.reg_event_due_date}}</td>
+                    <td>{{list.organ_username}}</td>
+                    <td>{{list.organ_name}}</td>
+                    <td>{{list.organ_lastname}}</td>
+                    <td>{{newDate(list.createdAt)}}</td>
                     <td>
                         <!-- <div class="d-flex justify-content-between align-items-center" style="width: fit-content;">
 
                             <div class="wrap-button"> -->
                         <button class="btn btn-success custom-button-approver me-3"
-                            (click)="updatestatusapprover(list.trans_id)">
+                            (click)="updatestatusapprover(list.organ_id)">
                             Approver
                         </button>
                         <!-- </div> -->
                         <!-- <div class="wrap-button"> -->
-                        <button class="btn btn-danger custom-button-approver ">
+                        <button class="btn btn-danger custom-button-approver "(click)="updatestatusreject(list.organ_id)">
                             Reject
                         </button>
                         <!-- </div> -->

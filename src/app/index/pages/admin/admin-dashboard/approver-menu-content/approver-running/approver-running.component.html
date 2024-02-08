@@ -3,47 +3,58 @@
         <p>อนุมัติสถานะการวิ่ง (Approver)</p>
         <hr>
     </div>
-    <div class="box-filter-approver">
-        <div class="col-1">
+    <div class="box-no-data" *ngIf="register_event_by_approver == null">
+        <h4>ไม่พบข้อมูล (No data)</h4>
+    </div>
+    <div class="box-filter-approver" *ngIf="register_event_by_approver?.length > 0">
+        <div class=" text-start">
             <label>ค้นหาด้วย</label>
         </div>
-        <div class="col-3">
+        <div class="col-3 text-start">
             <input class="form-control">
         </div>
-        <div class="col-3">
-            <input class="form-control">
-        </div>
-        <div class="col-2">
-            <input class="form-control">
-        </div>
-        <div class="col-2">
+        <div class="col-3 text-start">
             <input class="form-control">
         </div>
     </div>
-    <div class="box-grid-header-content-approver">
-        <span>ชื่องาน</span>
-        <span>วันที่จัดงาน</span>
-        <span>จำนวน</span>
-        <span>สถานะ</span>
-        <span>เครื่องมือ</span>
-    </div>
-    <div class="box-grid-body-content-approver align-items-center" *ngFor="let rs of register_event_by_approver;let i = index">
-        <span>{{rs.reg_event_name}}</span>
-        <span>{{rs.reg_event_due_date}}</span>
-        <span>{{rs.reg_event_amount}}</span>
-        <span *ngIf="rs.reg_event_status == '01'" class="">รอการอนุมัติ (Waiting for approver)</span>
-        <div class="w-100 d-flex justify-content-between align-items-center">
-            <div class="wrap-button">
-                <button class="btn btn-success custom-button-approver">
-                    Approver
-                </button>
-            </div>
-            <div class="wrap-button">
-                <button class="btn btn-danger custom-button-approver">
-                    Reject
-                </button>
-            </div>
+    
+    <div class="wrap-table" *ngIf="register_event_by_approver?.length > 0">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 10%;">ลำดับ</th>
+                    <th scope="col" style="width: 20%;">รูปภาพ</th>
+                    <th scope="col" style="width: 20%;">ชื่องาน</th>
+                    <th scope="col" style="width: 20%;">สถานที่จัดงาน</th>
+                    <th scope="col" style="width: 10%;">วันที่จัดงาน</th>
+                    <th scope="col" style="width: 20%;">เครื่องมือ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let list of register_event_by_approver;let i = index;">
+                    <th scope="row" class="text-count">{{i+1}}</th>
+                    <td><img src="{{list.reg_event_path_img}}" style="width: auto;height: 75px;object-fit: cover;"></td>
+                    <td>{{list.reg_event_name}}</td>
+                    <td>{{list.location_province}} / {{list.location_district}} / {{list.location_zipcode}}</td>
+                    <td>{{list.reg_event_due_date}}</td>
+                    <td>
+                        <!-- <div class="d-flex justify-content-between align-items-center" style="width: fit-content;">
 
-        </div>
+                            <div class="wrap-button"> -->
+                        <button class="btn btn-success custom-button-approver me-3"
+                            (click)="updatestatusapprover(list.trans_id,list.reg_event_id)">
+                            Approver
+                        </button>
+                        <!-- </div> -->
+                        <!-- <div class="wrap-button"> -->
+                        <button class="btn btn-danger custom-button-approver " (click)="updatestatusreject(list.trans_id,list.reg_event_id)">
+                            Reject
+                        </button>
+                        <!-- </div> -->
+                        <!-- </div> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

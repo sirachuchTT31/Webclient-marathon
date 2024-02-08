@@ -22,6 +22,7 @@ export class OrganizerDashboardComponent {
   create_register_running_event: FormGroup
   image_upload: Array<any> = []
   previews: string[] = [];
+  collapsed: boolean[] = []
   status_object_array = [
     {
       id: '06',

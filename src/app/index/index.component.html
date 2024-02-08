@@ -6,7 +6,7 @@
 <!-- <app-header></app-header> -->
 
 <!-- </div> -->
-<div class="wrapper-page" [ngClass]="{'wrapper-page-auth' : page_2 == 'auth' || this.role == 'admin'}">
+<div class="wrapper-page" [ngClass]="{'wrapper-page-auth' : page_2 == 'auth' , 'wrapper-page-admin ' : this.role == 'admin'}">
     <router-outlet *ngIf="page_2"></router-outlet>
     <app-list-menu *ngIf="!page_2"></app-list-menu>
 </div>

@@ -10,7 +10,7 @@ export interface IBaseCollectionResult<T> {
 export interface IBaseSingleResult<T> {
     result?: T;
     status?: boolean;
-    status_code?: string;
+    status_code?: number;
     message?: string;
     errorMessage?: string;
     error?:string;

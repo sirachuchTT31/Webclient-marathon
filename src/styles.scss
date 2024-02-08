@@ -3,12 +3,13 @@
 
 * {
     font-family: 'Kanit', sans-serif;
+    // padding: 0; margin: 0;
 }
 
 
 html {
-    min-width: 1084px;
-    max-width: 100%;
+    min-height: 100% !important;
+    height: 100%;
 }
 
 label.label input[type="file"] {
@@ -62,14 +63,24 @@ label.label input[type="file"] {
 .wrapper-page {
     padding-left: 3rem;
     padding-right: 3rem;
+    padding-bottom: 2rem;
     background-color: #fff;
     min-height: calc(100vh - 60px) !important;
 }
-
+.wrapper-page-admin {
+    padding: 0px !important;
+    min-width: 100%;
+    min-height: 100vh;
+    max-height: 100%;
+}
 .wrapper-page-auth {
     padding: 0px !important;
     min-width: 100%;
     min-height: 100vh;
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 //navbar 
@@ -284,14 +295,12 @@ label.label input[type="file"] {
 }
 
 //auth 
-.grid-wrapper-auth {
-    display: grid;
-    grid-template-columns: 100%;
-}
+// .grid-wrapper-auth {
+//     display: flex;
+//     // grid-template-columns: 100%;
+// }
 
 .wrap-position {
-    padding-top: 150px;
-    padding-bottom: 150px;
     display: flex;
     justify-content: center;
     // top: 30%;
@@ -384,15 +393,17 @@ a {
 }
 
 .box-wrapper-admin-dashboard {
-    display: grid;
-    grid-template-columns: 250px auto;
+    // display: grid;
+    // grid-template-columns: 250px auto;
+    // display: flex;
     min-height: 100vh;
     max-height: 100%;
     background-color: #f4f3ef;
 }
 
 .box-left-admin-dashboard {
-    height: 100%;
+    // height: 100%;
+    width: 250px;
     background-color: #fff;
     box-shadow: 5px 5px 20px 5px #A9A9A9;
     padding: 30px;
@@ -534,6 +545,7 @@ ul {
 
 .card-list {
     display: flex !important;
+    height: 100%;
     width: 18rem;
     justify-self: start !important;
 }
@@ -742,6 +754,13 @@ ul {
         gap: 40px 150px;
     }
 }
+@media screen and (max-width:800px) {
+    .box-content-list-menu {
+        grid-template-columns: auto;
+        gap: 40px 150px;
+        justify-content: center;
+    }
+}
 
 .wrapper-grid-setting-profile {
     display: grid;
@@ -832,9 +851,10 @@ ul {
 }
 .wrap-table{
     margin-top: 30px;
-    min-width: 250px;
-    max-width: 100%;
-    overflow-x: auto;
+    // min-width: 250px;
+    // max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .box-filter-approver label {
