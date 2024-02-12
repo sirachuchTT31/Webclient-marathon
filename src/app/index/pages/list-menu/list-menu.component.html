@@ -42,8 +42,8 @@
   </div>
   <div class="box-wrap-refresh">
     <button class="btn refresh-button" (click)="onRefresh()">
-      <svg xmlns="http://www.w3.org/2000/svg" height="25" width="25"  fill="#fff"
-        viewBox="0 0 512 512" ><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" width="25" fill="#fff"
+        viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
         <path
           d="M370.7 133.3C339.5 104 298.9 88 255.8 88c-77.5 .1-144.3 53.2-162.8 126.9-1.3 5.4-6.1 9.2-11.7 9.2H24.1c-7.5 0-13.2-6.8-11.8-14.2C33.9 94.9 134.8 8 256 8c66.4 0 126.8 26.1 171.3 68.7L463 41C478.1 25.9 504 36.6 504 57.9V192c0 13.3-10.7 24-24 24H345.9c-21.4 0-32.1-25.9-17-41l41.8-41.7zM32 296h134.1c21.4 0 32.1 25.9 17 41l-41.8 41.8c31.3 29.3 71.8 45.3 114.9 45.3 77.4-.1 144.3-53.1 162.8-126.8 1.3-5.4 6.1-9.2 11.7-9.2h57.3c7.5 0 13.2 6.8 11.8 14.2C478.1 417.1 377.2 504 256 504c-66.4 0-126.8-26.1-171.3-68.7L49 471C33.9 486.1 8 475.4 8 454.1V320c0-13.3 10.7-24 24-24z" />
       </svg>
@@ -60,9 +60,144 @@
         <p class="card-text-event-price mb-0">฿ {{formatNumber(rs.reg_event_price)}}</p>
         <p class="card-text-event-amount mb-1">จำนวนคงเหลือ {{formatNumber(rs.reg_event_amount)}}</p>
         <div class="text-center">
-          <a href="#" class="btn btn-primary ">ลงทะเบียนวิ่ง</a>
+          <a href="#" class="btn btn-primary " (click)="openModal(modalcreate,rs)">ลงทะเบียนวิ่ง</a>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+<!-- FIXBUG -->
+<ng-template #modalcreate let-modal>
+  <div class="modal-header justify-content-center">
+    <h4 class="modal-title ">ลงทะเบียนวิ่ง (Register running)</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="create_register_running_Form" class="m-0 p-0">
+      <div class="form-group">
+        <div class="box-input-group">
+          <label>ชื่องาน</label>
+          <input type="text" class="form-control" placeholder="ชื่องาน" formControlName="reg_event_name" maxlength="40"
+            [ngClass]="{
+              required:
+              create_register_running_Form.controls['reg_event_name'].invalid &&
+              create_register_running_Form.controls['reg_event_name'].touched
+              }">
+          <span *ngIf="
+                  create_register_running_Form.controls['reg_event_name'].invalid &&
+                  create_register_running_Form.controls['reg_event_name'].touched">
+            <span *ngIf="
+                      create_register_running_Form.controls['reg_event_name'].errors">
+              <small class="text-danger">
+                กรุณาระบุชื่องาน
+              </small>
+            </span>
+          </span>
+        </div>
+        <div class="box-input-group">
+          <label>ชื่อผู้ลงทะเบียน</label>
+          <input type="text" class="form-control" placeholder="ชื่อผู้ลงทะเบียน" formControlName="name" maxlength="40"
+            [ngClass]="{
+              required:
+              create_register_running_Form.controls['name'].invalid &&
+              create_register_running_Form.controls['name'].touched
+              }">
+          <span *ngIf="
+                  create_register_running_Form.controls['name'].invalid &&
+                  create_register_running_Form.controls['name'].touched">
+            <span *ngIf="
+                      create_register_running_Form.controls['name'].errors">
+              <small class="text-danger">
+                กรุณาระบุชื่องาน
+              </small>
+            </span>
+          </span>
+        </div>
+        <div class="box-input-group">
+          <label>นามสกุลผู้ลงทะเบียน</label>
+          <input type="text" class="form-control" placeholder="นามสกุลผู้ลงทะเบียน" formControlName="lastname"
+            maxlength="40" [ngClass]="{
+              required:
+              create_register_running_Form.controls['lastname'].invalid &&
+              create_register_running_Form.controls['lastname'].touched
+              }">
+          <span *ngIf="
+                  create_register_running_Form.controls['lastname'].invalid &&
+                  create_register_running_Form.controls['lastname'].touched">
+            <span *ngIf="
+                      create_register_running_Form.controls['lastname'].errors">
+              <small class="text-danger">
+                กรุณาระบุชื่องาน
+              </small>
+            </span>
+          </span>
+        </div>
+        <div class="box-input-group">
+          <label>อีเมล์</label>
+          <input type="text" class="form-control" placeholder="อีเมล์" formControlName="email" maxlength="40" [ngClass]="{
+              required:
+              create_register_running_Form.controls['email'].invalid &&
+              create_register_running_Form.controls['email'].touched
+              }">
+          <span *ngIf="
+                  create_register_running_Form.controls['email'].invalid &&
+                  create_register_running_Form.controls['email'].touched">
+            <span *ngIf="
+                      create_register_running_Form.controls['email'].errors">
+              <small class="text-danger">
+                กรุณาระบุอีเมล์
+              </small>
+            </span>
+          </span>
+        </div>
+        <div class="box-input-group">
+          <label>เบอร์โทรศัพท์</label>
+          <input type="tel" class="form-control" placeholder="เบอร์โทรศัพท์" formControlName="tel" maxlength="10"
+          
+            [ngClass]="{
+              required:
+              create_register_running_Form.controls['tel'].invalid &&
+              create_register_running_Form.controls['tel'].touched
+              }"(keypress)="numberOnly($event)" onpaste="return false;" ondrop="return false;">
+          <span *ngIf="
+                  create_register_running_Form.controls['tel'].invalid &&
+                  create_register_running_Form.controls['tel'].touched">
+            <span *ngIf="
+                      create_register_running_Form.controls['tel'].errors">
+              <small class="text-danger">
+                กรุณาระบุชื่องาน
+              </small>
+            </span>
+          </span>
+        </div>
+        <div class="box-input-group">
+          <label>รายละเอียด</label>
+          <textarea type="text" class="form-control" placeholder="รายละเอียด" formControlName="dsc" maxlength="80"
+            [ngClass]="{
+              required:
+              create_register_running_Form.controls['dsc'].invalid &&
+              create_register_running_Form.controls['dsc'].touched
+              }">
+              </textarea>
+          <span *ngIf="
+                  create_register_running_Form.controls['dsc'].invalid &&
+                  create_register_running_Form.controls['dsc'].touched">
+            <span *ngIf="
+                      create_register_running_Form.controls['dsc'].errors">
+              <small class="text-danger">
+                กรุณาระบุรายละเอียด
+              </small>
+            </span>
+?          </span>
+        </div>
+        <div class="d-flex justify-content-center mb-3 mt-3">
+          <button class="btn btn-primary btn-modal-submit me-3" (change)="checkcreateModal()"
+              [disabled]="checkcreateModal() === false"
+              (click)="saveData();modal.dismiss()">บันทึกข้อมูล</button>
+          <button class="btn btn-danger btn-modal-submit" (click)="modal.dismiss()">ยกเลิก</button>
+      </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
