@@ -38,8 +38,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { ApproverRunningComponent } from './pages/admin/admin-dashboard/approver-menu-content/approver-running/approver-running.component';
 import { ApproverPaymentComponent } from './pages/admin/admin-dashboard/approver-menu-content/approver-payment/approver-payment.component';
-import {  MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ApproverOrganizerComponent } from './pages/admin/admin-dashboard/approver-menu-content/approver-organizer/approver-organizer.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -85,11 +86,14 @@ import { ApproverOrganizerComponent } from './pages/admin/admin-dashboard/approv
     MatDatepickerModule,
     MatMomentDateModule,
     MatNativeDateModule,
+    
+
     // ErrorModule
   ],
 
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    // { provide: NgbDropdownModule }
   ],
 
 })
