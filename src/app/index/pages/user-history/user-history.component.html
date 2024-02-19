@@ -14,18 +14,18 @@
                         <button class="btn btn-outline-dark" style="width: 120px;">View All</button>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button"  style="width: 120px;"
-                            (click)="setStatus();dropdown_status == true ?  dropdown_status = false : dropdown_status = true;"
-                            >
+                        <button class="btn btn-secondary dropdown-toggle" type="button" style="width: 120px;"
+                            (click)="setStatus();dropdown_status == true ?  dropdown_status = false : dropdown_status = true;">
                             Filter status</button>
-                        <ul class="position-absolute    top-100 border rounded p-lg-2  " *ngIf="dropdown_status == true">
-                            <li><a class="dropdown-list-item" >Action</a></li>
-                            <li><a class="dropdown-list-item" >Another action</a></li>
-                            <li><a class="dropdown-list-item" >Something else here</a></li>
+                        <ul class="position-absolute    top-100 border rounded p-lg-2  "
+                            *ngIf="dropdown_status == true">
+                            <li><a class="dropdown-list-item">Action</a></li>
+                            <li><a class="dropdown-list-item">Another action</a></li>
+                            <li><a class="dropdown-list-item">Something else here</a></li>
                         </ul>
                     </div>
                 </div>
-    
+
                 <div class=" d-flex flex-column  justify-content-end w-75 ">
                     <div class="w-100">
                         <input type="text" class="form-control" matInput
@@ -33,37 +33,34 @@
                     </div>
                 </div>
             </div>
-            <div class="wrap-table">
-                <table class="table table-striped  " style="border-top-left-radius: 50px;" >
-                    <thead>
+
+            <div class="wrap-table box_table_preview">
+                <table class="fl-table mb-2 ">
+                    <thead class="">
                         <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">First</th>
-                          <th scope="col">Last</th>
-                          <th scope="col">Handle</th>
+                            <th scope="col" style="width: 50px;">ลำดับ</th>
+                            <th scope="col" style="width: 450px;">ชื่องาน</th>
+                            <th scope="col" style="width: 250px;">วันที่ลงทะเบียน</th>
+                            <th scope="col" style="width: 250px;">สถานะ</th>
                         </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let item of this.list_history| paginate: { itemsPerPage: config_pagin.pageSize, currentPage: config_pagin.currentPage }let i = index;">
+                            <td>{{countIndex(config_pagin.pageSize,config_pagin.currentPage,i+1)}}</td>
+                            <td class=""><img [src]="item.reg_event_path_img"
+                                    style="width: 150px; object-fit: cover; padding-right: 5px;">{{item.reg_event_name}}
+                            </td>
+                            <td>{{item.createdAt | date:'dd-MM-yyyy'}}</td>
+                            <td>
+                                <ng-container *ngIf="item.reg_member_status == 11">
+                                    <span>รอการอนุมัติ (Waiting for approver)</span>
+                                </ng-container>
+                            </td>
                         </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>@fat</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
-                          <td>@twitter</td>
-                        </tr>
-                      </tbody>
+                    </tbody>
                 </table>
+                <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
             </div>
         </div>
     </div>

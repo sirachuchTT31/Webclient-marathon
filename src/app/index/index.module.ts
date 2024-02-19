@@ -41,6 +41,7 @@ import { ApproverPaymentComponent } from './pages/admin/admin-dashboard/approver
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ApproverOrganizerComponent } from './pages/admin/admin-dashboard/approver-menu-content/approver-organizer/approver-organizer.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     IndexComponent,
@@ -86,7 +87,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     MatDatepickerModule,
     MatMomentDateModule,
     MatNativeDateModule,
-    
+    NgxPaginationModule
 
     // ErrorModule
   ],
