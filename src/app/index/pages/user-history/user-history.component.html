@@ -10,28 +10,22 @@
         <div class="col-lg-9 col-md-12  history_box_right">
             <div class="d-flex justify-content-between">
                 <div class="d-flex  flex-row w-100 gap-2 align-self-center">
-                    <div class="dropdown">
+                    <!-- <div class="dropdown">
                         <button class="btn btn-outline-dark" style="width: 120px;">View All</button>
-                    </div>
+                    </div> -->
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" style="width: 120px;"
-                            (click)="setStatus();dropdown_status == true ?  dropdown_status = false : dropdown_status = true;">
-                            Filter status</button>
-                        <ul class="position-absolute    top-100 border rounded p-lg-2  "
-                            *ngIf="dropdown_status == true">
-                            <li><a class="dropdown-list-item">Action</a></li>
-                            <li><a class="dropdown-list-item">Another action</a></li>
-                            <li><a class="dropdown-list-item">Something else here</a></li>
-                        </ul>
+                        <form [formGroup]="status_form">
+                            <mat-form-field class="p-0 w-100">
+                                <mat-label>เลือกสถานะ</mat-label>
+                                <mat-select formControlName="status" (selectionChange)="filterReg()">
+                                    <mat-option *ngFor="let rs of filter_status_list.results.data"
+                                        [value]="rs.value"><span>{{rs.text}}</span></mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </form>
                     </div>
                 </div>
 
-                <div class=" d-flex flex-column  justify-content-end w-75 ">
-                    <div class="w-100">
-                        <input type="text" class="form-control" matInput
-                            placeholder="ค้นหาด้วยชื่องาน | ค้นด้วยจังหวัดงาน | ค้นหาด้วยสถานที่งาน">
-                    </div>
-                </div>
             </div>
 
             <div class="wrap-table box_table_preview">
@@ -46,7 +40,7 @@
                     </thead>
                     <tbody>
                         <tr
-                            *ngFor="let item of this.list_history| paginate: { itemsPerPage: config_pagin.pageSize, currentPage: config_pagin.currentPage }let i = index;">
+                            *ngFor="let item of this.filter_reg| paginate: { itemsPerPage: config_pagin.pageSize, currentPage: config_pagin.currentPage }let i = index;">
                             <td>{{countIndex(config_pagin.pageSize,config_pagin.currentPage,i+1)}}</td>
                             <td class=""><img [src]="item.reg_event_path_img"
                                     style="width: 150px; object-fit: cover; padding-right: 5px;">{{item.reg_event_name}}
@@ -60,6 +54,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="text-center " *ngIf="filter_reg?.length == 0">
+                    <h2 class="text-dark">ไม่พบข้อมูล (Data not found)</h2>
+                </div>
                 <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
             </div>
         </div>
