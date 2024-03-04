@@ -116,7 +116,6 @@ export class OrganizerDashboardComponent {
   filterReg() {
     if (this.status_form.controls['status'].value != '06') {
       this.filter_reg = this.reg_by_organizer_object.filter((res: any) => res.reg_event_status == this.status_form.controls['status'].value)
-      console.log("this.filter_reg", this.filter_reg)
     }
     else {
       this.filter_reg = this.reg_by_organizer_object

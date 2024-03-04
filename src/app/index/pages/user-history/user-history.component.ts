@@ -114,7 +114,7 @@ export class UserHistoryComponent {
   }
   filterReg() {
     if (this.status_form.controls['status'].value != '10') {
-      this.filter_reg = this.list_history.filter((res: any) => res.reg_event_status == this.status_form.controls['status'].value)
+      this.filter_reg = this.list_history.filter((res: any) =>res?.reg_member_status == this.status_form.controls['status'].value)
     }
     else {
       this.filter_reg = this.list_history
