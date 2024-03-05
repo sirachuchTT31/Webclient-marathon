@@ -7,7 +7,7 @@ import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
 import { CreateAdmin, EditAdmin } from "../interface/admin";
 import { CreateOrganizer, EditOrganizer } from '../interface/organizer';
-import { CreateregisterrunningOrganizer } from '../interface/register-running-organizer';
+import { CreateregisterrunningOrganizer, UpdateregisterrunningOrganizer, Updatestatusbeforerejectevent } from '../interface/register-running-organizer';
 @Injectable({
     providedIn: 'root'
 })
@@ -46,5 +46,17 @@ export class RegisterrunningeventService {
         let url = baseApi + 'api/reg-event/get-reg-by-organizer/' + _id
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
+    }
+    postUpdatestatusregevent(list: Updatestatusbeforerejectevent): Observable<IBaseSingleResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/reg-event/update-status-event'
+        let option = this.headerService.BuildRequestHeadersFormData(this.token)
+        return this.http.post(url, list, { headers: option })
+    }
+    postUpdateregevent(list: UpdateregisterrunningOrganizer): Observable<IBaseSingleResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/reg-event/update'
+        let option = this.headerService.BuildRequestHeadersFormData(this.token)
+        return this.http.post(url, list, { headers: option })
     }
 }

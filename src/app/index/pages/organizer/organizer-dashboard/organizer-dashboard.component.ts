@@ -20,6 +20,7 @@ export class OrganizerDashboardComponent {
   auth_id: any
   status_form: FormGroup
   create_register_running_event: FormGroup
+  // update_register_running_event_Form: FormGroup
   image_upload: Array<any> = []
   previews: string[] = [];
   collapsed: boolean[] = []
@@ -73,7 +74,16 @@ export class OrganizerDashboardComponent {
       // reg_event_path_img: new FormControl('', [Validators.required]),
       location_id: new FormControl(null, [Validators.required]),
     })
-
+    // this.update_register_running_event_Form = new FormGroup({
+    //   reg_event_name: new FormControl('', [Validators.required]),
+    //   reg_event_due_date: new FormControl(''),
+    //   reg_event_price: new FormControl('', [Validators.required]),
+    //   reg_event_amount: new FormControl('', [Validators.required]),
+    //   reg_event_detail: new FormControl('', [Validators.required]),
+    //   reg_event_distance: new FormControl('', [Validators.required]),
+    //   // reg_event_path_img: new FormControl('', [Validators.required]),
+    //   location_id: new FormControl(null, [Validators.required]),
+    // })
   }
   ngOnInit(): void {
     this.spinner.show()
@@ -88,6 +98,20 @@ export class OrganizerDashboardComponent {
   openModalCreate(modal: any) {
     this.modalService.open(modal, { size: 'lg' })
     this.create_register_running_event.reset()
+  }
+  openModalUpdate(modal: any, list: any) {
+    this.modalService.open(modal, { size: 'lg' })
+    this.create_register_running_event = new FormGroup({
+      reg_event_id: new FormControl(list?.reg_event_id),
+      reg_event_name: new FormControl(list?.reg_event_name, [Validators.required]),
+      reg_event_due_date: new FormControl(list?.reg_event_due_date),
+      reg_event_price: new FormControl(list?.reg_event_price, [Validators.required]),
+      reg_event_amount: new FormControl(list?.reg_event_amount, [Validators.required]),
+      reg_event_detail: new FormControl(list?.reg_event_detail, [Validators.required]),
+      reg_event_distance: new FormControl(list?.reg_event_distance, [Validators.required]),
+      // reg_event_path_img: new FormControl('', [Validators.required]),
+      location_id: new FormControl(list?.location_id, [Validators.required]),
+    })
   }
   formatNumber(x: any) {
     if (x) {
@@ -196,6 +220,14 @@ export class OrganizerDashboardComponent {
       }
     })
   }
+  checkupdateModal() {
+    if (this.create_register_running_event.valid == true) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
   checkcreateModal() {
     if (this.create_register_running_event.valid == true && this.image_upload?.length > 0) {
       return true
@@ -257,6 +289,107 @@ export class OrganizerDashboardComponent {
           // title: rs?.status_code,
           text: rs?.message,
         });
+      }
+    })
+  }
+  postEditdataANDupdatestatusbeforereject() {
+    this.spinner.show()
+    let update = this.create_register_running_event
+    let param = {
+      reg_event_status: '03',
+      reg_event_id: update?.controls['reg_event_id']?.value ? update?.controls['reg_event_id']?.value : null
+    }
+    let param_update = {
+      reg_event_id: update?.controls['reg_event_id']?.value ? update?.controls['reg_event_id']?.value : null,
+      reg_event_name: update?.controls['reg_event_name']?.value ? update?.controls['reg_event_name']?.value : null,
+      reg_event_due_date: update?.controls['reg_event_due_date']?.value ? update?.controls['reg_event_due_date']?.value : null,
+      reg_event_price: update?.controls['reg_event_price']?.value ? update?.controls['reg_event_price']?.value : null,
+      reg_event_amount: update?.controls['reg_event_amount']?.value ? update?.controls['reg_event_amount']?.value : null,
+      reg_event_detail: update?.controls['reg_event_detail']?.value ? update?.controls['reg_event_detail']?.value : null,
+      reg_event_distance: update?.controls['reg_event_distance']?.value ? update?.controls['reg_event_distance']?.value : null,
+      location_id: update?.controls['location_id']?.value ? update?.controls['location_id']?.value : null,
+    }
+    this.register_running_event_Service.postUpdateregevent(param_update).subscribe((rs) => {
+      if (rs?.status == true) {
+        this.register_running_event_Service.postUpdatestatusregevent(param).subscribe((rs) => {
+          if (rs?.status == true) {
+            this.spinner.hide()
+            Swal.fire({
+              showCloseButton: true,
+              showConfirmButton: false,
+              icon: "success",
+              // title: rs?.status_code,
+              timer: 3000,
+              text: rs?.message,
+            });
+            this.getRegbyorganizer()
+          }
+          else {
+            this.spinner.hide()
+            Swal.fire({
+              showCloseButton: true,
+              showConfirmButton: false,
+              icon: "error",
+              // title: rs?.status_code,
+              text: rs?.message,
+            });
+          }
+        })
+      }
+      else {
+        this.spinner.hide()
+        Swal.fire({
+          showCloseButton: true,
+          showConfirmButton: false,
+          icon: "error",
+          // title: rs?.status_code,
+          text: rs?.message,
+        });
+      }
+    })
+
+  }
+  postUpdatestatusregeventsuccess(reg_event_id: string) {
+    Swal.fire({
+      icon: "question",
+      title: "งานวิ่งของคุณสำเร็จแล้วหรือไม่",
+      showCancelButton: true,
+      showCloseButton: true,
+      confirmButtonText: "ตกลง",
+      cancelButtonText: "ยกเลิก",
+      confirmButtonColor: '#0d6efd',
+      cancelButtonColor: '#dc3545',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.spinner.show()
+        let param = {
+          reg_event_status: '02',
+          reg_event_id: reg_event_id
+        }
+        this.register_running_event_Service.postUpdatestatusregevent(param).subscribe((rs) => {
+          if (rs?.status == true) {
+            this.spinner.hide()
+            Swal.fire({
+              showCloseButton: true,
+              showConfirmButton: false,
+              icon: "success",
+              // title: rs?.status_code,
+              timer: 3000,
+              text: rs?.message,
+            });
+            this.getRegbyorganizer()
+          }
+          else {
+            this.spinner.hide()
+            Swal.fire({
+              showCloseButton: true,
+              showConfirmButton: false,
+              icon: "error",
+              // title: rs?.status_code,
+              text: rs?.message,
+            });
+          }
+        })
       }
     })
   }
