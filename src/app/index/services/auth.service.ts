@@ -28,7 +28,7 @@ export class AuthServices {
     }
     postLogin(list: Login): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/auth/login'
+        let url = baseApi + 'api/singin'
         let option = this.headerService.BuildRequestHeadersNoAuthen()
         return this.http.post(url, list, { headers: option })
     }

@@ -56,6 +56,6 @@ export class AdminDashboardComponent {
   }
   signOut() {
     this.localStorageService.signOut()
-    window.location.href = '/'
+    window.location.href = '/auth/login'
   }
 }

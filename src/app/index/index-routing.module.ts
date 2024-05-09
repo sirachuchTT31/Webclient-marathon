@@ -2,13 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IndexComponent } from './index.component';
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
-import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AuthGuardService } from './services/auth.guard';
 import { ErrorComponent } from './component/error/error.component';
-import { AdminContentComponent } from './pages/admin/admin-dashboard/dashboard-basic-content/admin-content/admin-content.component';
-import { SettingProfileComponent } from './pages/setting-profile/setting-profile.component';
-import { UserHistoryComponent } from './pages/user-history/user-history.component';
-import { OrganizerDashboardComponent } from './pages/organizer/organizer-dashboard/organizer-dashboard.component';
 const routes: Routes = [{
   path: '',
   component: IndexComponent,
@@ -17,26 +12,8 @@ const routes: Routes = [{
       path: 'auth/login',
       component: AuthPageComponent
     },
-    {
-      path: 'admin/dashboard',
-      component: AdminDashboardComponent,
-      canActivate: [AuthGuardService]
-    },
-    {
-      path: 'user/setting-profile',
-      component: SettingProfileComponent,
-      canActivate: [AuthGuardService]
-    },
-    {
-      path: 'user/history',
-      component: UserHistoryComponent,
-      canActivate: [AuthGuardService]
-    },
-    {
-      path: 'organizer/dashboard',
-      component: OrganizerDashboardComponent,
-      canActivate: [AuthGuardService]
-    }
+    {path : 'back-office',loadChildren : () => import('../index/modules/back-office/back-office.module').then(m => m.BackOfficeModule)},
+    {path : 'user' ,loadChildren : () => import('../index/modules/user/user.module').then(m => m.UserModule)}
     // {
     //   path: '404',
     //   component: ErrorComponent

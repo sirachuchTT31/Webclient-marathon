@@ -1,15 +1,7 @@
-<nav class="box-nav" *ngIf="page_2 != 'auth' && this.role != 'admin'">
-    <app-nav-bar></app-nav-bar>
-    <!-- <hr> -->
-</nav>
-<!-- <div class="box-wrapper-header" *ngIf="page != 'auth' && this.role != 'admin'"> -->
-<!-- <app-header></app-header> -->
+<!-- <div class="wrapper-page" [ngClass]="{'wrapper-page-auth' : page_2 == 'auth'}">
 
-<!-- </div> -->
-<div class="wrapper-page" [ngClass]="{'wrapper-page-auth' : page_2 == 'auth' , 'wrapper-page-admin ' : this.role == 'admin'}">
-    <router-outlet *ngIf="page_2"></router-outlet>
-    <app-list-menu *ngIf="!page_2"></app-list-menu>
-</div>
+</div> -->
+<router-outlet></router-outlet>
 <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="medium" color="rgb(255, 106, 0)" type="line-scale" [fullScreen]="true">
     <p style="color: white"> Loading... </p>
 </ngx-spinner>

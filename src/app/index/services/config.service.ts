@@ -8,7 +8,9 @@ export class ConfigurationService {
     public settings! : IClientConfiguration
     get settingConfig() {
         return this.settings ={
-            baseApi : 'http://localhost:5000/'
+            // baseApi : 'http://localhost:5000/'
+            secret_key : 'abcdefghijklmnopqrstuvwxy12345678def',
+            baseApi : 'http://localhost:3000/'
         }
     }
 }

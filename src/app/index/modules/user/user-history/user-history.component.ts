@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { RegisterrunningmemberService } from './../../services/register-running-member.service';
 import { LocalStorageService } from 'src/app/index/services/local-storage.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { RegisterrunningmemberService } from 'src/app/index/services/register-running-member.service';
 @Component({
   selector: 'app-user-history',
   templateUrl: './user-history.component.html',

@@ -1,20 +1,19 @@
-import { RegisterrunningmemberService } from './../../services/register-running-member.service';
+
 import { LocalStorageService } from 'src/app/index/services/local-storage.service';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { RegisterrunningeventService } from '../../services/register-running-event.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RegisterrunningmemberService } from 'src/app/index/services/register-running-member.service';
+import { RegisterrunningeventService } from 'src/app/index/services/register-running-event.service';
 @Component({
   selector: 'app-list-menu',
   templateUrl: './list-menu.component.html',
   styleUrls: ['./list-menu.component.scss']
 })
 export class ListMenuComponent {
-  // mog_data_serch: any
-  mog_data_serch = [{ name: "archie" }, { name: "jake" }, { name: "richard" }];
 
   //FORM
   search_Form: FormGroup
@@ -52,8 +51,8 @@ export class ListMenuComponent {
     this.local_auth_id = this.localStorageService.getId()
   }
   ngOnInit() {
-    this.spinner.show()
-    this.getallRegisterrunningevent()
+    // this.spinner.show()
+    // this.getallRegisterrunningevent()
   }
   openModal(modal: any, list: any) {
     this.modalService.open(modal, { size: 'lg' })

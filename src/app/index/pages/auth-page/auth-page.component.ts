@@ -30,7 +30,7 @@ export class AuthPageComponent {
   changeMenu(menu: any,) {
     this.menu = menu
   }
-  checkLogin() {
+  validateLogin() {
     if (this.login_form.valid == true) {
       return true
     }
@@ -38,8 +38,7 @@ export class AuthPageComponent {
       return false
     }
   }
-  checkRegister() {
-    console.log("this.register_form", this.register_form.valid)
+  validateRegister() {
     if (this.register_form.valid == true) {
       return true
     }
@@ -56,14 +55,25 @@ export class AuthPageComponent {
       }
       this.authService.postLogin(param).subscribe((rs) => {
         if (rs?.status == true) {
-          let response_payload = rs.result.payload
-          this.localStorageService.setProfile(response_payload.name, response_payload.lastname, response_payload.username, response_payload.role, rs.result.token, rs.result.time_out_token,response_payload.avatar,response_payload._id)
+          let response = rs.result
+          this.localStorageService.setProfile(
+            {
+              id: response.payload.id,
+              username: response.payload.username,
+              avatar: '',
+              expired_token: response.exp,
+              first_name: response.payload.name,
+              last_name: response.payload.lastname,
+              refresh_token: response.refresh_token,
+              role: response.payload.role,
+              token: response.access_token
+            })
           let role = this.localStorageService.getRole()
           if (role !== 'admin') {
-            window.location.href = '/'
+            window.location.href = '/user'
           }
           else {
-            window.location.href = 'admin/dashboard'
+            window.location.href = 'back-office/dashboard'
           }
           this.spinner.hide()
           Swal.fire({
@@ -158,7 +168,7 @@ export class AuthPageComponent {
       })
     }
   }
-  routeIndex(){
+  routeIndex() {
     window.location.href = '/'
   }
 }

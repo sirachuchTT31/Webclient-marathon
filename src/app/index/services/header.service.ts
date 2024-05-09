@@ -14,9 +14,9 @@ export class HeaderService {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST, GET, PUT, PATCH, DELETE, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type, Option, Authorization',
-            "Cache-Control": "no-cache",
-            "Pragma": "no-cache",
-            "If-Modified-Since": "Mon, 26 Jul 1997 05:00:00 GMT",
+            // "Cache-Control": "no-cache",
+            // "Pragma": "no-cache",
+            // "If-Modified-Since": "Mon, 26 Jul 1997 05:00:00 GMT",
             "Content-Type": "application/json",
         });
         return httpHeader
@@ -24,16 +24,16 @@ export class HeaderService {
     BuildRequestHeadersNoAuthen() {
         let httpHeader = null;
         httpHeader = new HttpHeaders({
-            "Platform": 'web',
-            'Accept-Language': "en-US",
-            'Accept': 'application/json',
+            // "Platform": 'web',
+            // 'Accept-Language': "en-US",
+            // 'Accept': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST, GET, PUT, PATCH, DELETE, OPTIONS',
             'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
-            "Cache-Control": "no-cache",
-            "Pragma": "no-cache",
-            "If-Modified-Since": "Mon, 26 Jul 1997 05:00:00 GMT",
-            "Content-Type": "application/json",
+            // "Cache-Control": "no-cache",
+            // "Pragma": "no-cache",
+            // "If-Modified-Since": "Mon, 26 Jul 1997 05:00:00 GMT",
+            // "Content-Type": "application/json",
             //"lang":this.curent_lang
             // "browser":this.deviceInfo.browser,
             // "browser_version":this.deviceInfo.browser_version,
