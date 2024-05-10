@@ -6,32 +6,18 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 })
 export class AuthGuardService {
     constructor(private localStorageSerivce: LocalStorageService) {
-        
-     }
+
+    }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-      
-        let url = state.url
-        let current = url.split('/')
-        let newurl = current[1]
-        let is_token = this.localStorageSerivce.getToken()
-        let role = this.localStorageSerivce.getRole()
-        console.log(newurl,'test')
-        if (newurl !== 'admin') {
-            if (is_token != null) {
-                return true  
-            }
-            else {
-                return false
-            }
+        let token = this.localStorageSerivce.getToken()
+        if (token) {
+            return true
         }
         else {
-            if (is_token != null && role === "admin") {
-                return true
-            }
-            else {
-                return false
-            }
+            window.location.href = '/auth/login'
+            this.localStorageSerivce.signOut()
+            return false
         }
     }
 }

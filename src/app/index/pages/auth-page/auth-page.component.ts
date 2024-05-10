@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { AuthServices } from '../../services/auth.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CryptlibService } from '../../services/crypt-lib.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-auth-page',
   templateUrl: './auth-page.component.html',
@@ -13,7 +15,13 @@ export class AuthPageComponent {
   login_form: FormGroup
   register_form: FormGroup
   menu = 'login'
-  constructor(private authService: AuthServices, private localStorageService: LocalStorageService, private spinner: NgxSpinnerService) {
+  // ubscription : Subscription[] = []
+  constructor(
+    private authService: AuthServices,
+    private localStorageService: LocalStorageService,
+    private spinner: NgxSpinnerService,
+    private CryptLibService: CryptlibService
+  ) {
     this.login_form = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
@@ -26,6 +34,10 @@ export class AuthPageComponent {
       email: new FormControl('', [Validators.required]),
       type: new FormControl('member', [Validators.required]),
     })
+  }
+
+  ngOnDestroy(): void { 
+    
   }
   changeMenu(menu: any,) {
     this.menu = menu
@@ -68,7 +80,8 @@ export class AuthPageComponent {
               role: response.payload.role,
               token: response.access_token
             })
-          let role = this.localStorageService.getRole()
+          let storageRole = this.localStorageService.getRole()
+          let role = this.CryptLibService.decryptCipher(storageRole ? storageRole : '')
           if (role !== 'admin') {
             window.location.href = '/user'
           }
