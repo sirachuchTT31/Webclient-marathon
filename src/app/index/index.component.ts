@@ -10,5 +10,14 @@ import { LocalStorageService } from './services/local-storage.service';
 
 export class IndexComponent {
   constructor(private router: Router, private localStorageService: LocalStorageService) {
+    // //path is empty non authen go login 
+    // const token = this.localStorageService.getToken()
+    // if (token) {
+    //   this.router.navigate(['/', 'auth', 'login'])
+    // }
+    // else {
+    // //have authen reload
+    //   // window.location.reload()
+    // }
   }
 }

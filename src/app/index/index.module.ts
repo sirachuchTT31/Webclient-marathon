@@ -9,7 +9,6 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { NgxSpinnerModule } from "ngx-spinner";
-import { ErrorComponent } from './component/error/error.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -18,7 +17,6 @@ import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
   declarations: [
     IndexComponent,
     AuthPageComponent,
-    ErrorComponent,
   ],
   imports: [
     FormsModule,
@@ -26,9 +24,7 @@ import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
     IndexRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    NgxSpinnerModule,
-    BrowserModule,
+
   ],
 
   providers: [

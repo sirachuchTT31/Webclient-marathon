@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IndexModule } from './index/index.module';
-// import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
-// import { ErrorModule } from './index/component/error/error.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -13,8 +13,11 @@ import { IndexModule } from './index/index.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgxSpinnerModule,
     // ErrorModule,
     IndexModule,
+    BrowserAnimationsModule,
+    BrowserModule,
     // MdbCheckboxModule
   ],
   providers: [],

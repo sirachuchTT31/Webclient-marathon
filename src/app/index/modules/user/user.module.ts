@@ -28,21 +28,28 @@ const routes: Routes = [
     path: '',
     component: UserLayoutComponent,
     canActivate: [AuthGuardService],
-  },
-  {
-    path: 'setting-profile',
-    component: SettingProfileComponent,
-    canActivate: [AuthGuardService]
-  },
-  {
-    path: 'history',
-    component: UserHistoryComponent,
-    canActivate: [AuthGuardService]
-  },
-  {
-    path: 'dashboard',
-    component: OrganizerDashboardComponent,
-    canActivate: [AuthGuardService]
+    children: [
+      {
+        path: '',
+        component: ListMenuComponent,
+        canActivate: [AuthGuardService],
+      },
+      {
+        path: 'setting-profile',
+        component: SettingProfileComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'history',
+        component: UserHistoryComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'dashboard',
+        component: OrganizerDashboardComponent,
+        canActivate: [AuthGuardService]
+      },
+    ]
   },
 ]
 

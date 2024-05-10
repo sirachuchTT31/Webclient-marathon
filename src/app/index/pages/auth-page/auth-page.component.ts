@@ -15,7 +15,7 @@ export class AuthPageComponent {
   login_form: FormGroup
   register_form: FormGroup
   menu = 'login'
-  // ubscription : Subscription[] = []
+  subscription!: Subscription
   constructor(
     private authService: AuthServices,
     private localStorageService: LocalStorageService,
@@ -36,8 +36,8 @@ export class AuthPageComponent {
     })
   }
 
-  ngOnDestroy(): void { 
-    
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
   changeMenu(menu: any,) {
     this.menu = menu
@@ -65,7 +65,7 @@ export class AuthPageComponent {
         username: this.login_form.controls['username'].value,
         password: this.login_form.controls['password'].value
       }
-      this.authService.postLogin(param).subscribe((rs) => {
+      const auth = this.authService.postLogin(param).subscribe((rs) => {
         if (rs?.status == true) {
           let response = rs.result
           this.localStorageService.setProfile(
@@ -108,7 +108,8 @@ export class AuthPageComponent {
             text: rs?.message,
           });
         }
-      })
+      });
+      this.subscription.add(auth)
     }
   }
   register() {
@@ -122,7 +123,7 @@ export class AuthPageComponent {
         member_lastname: this.register_form.controls['lastname'].value,
         member_email: this.register_form.controls['email'].value
       }
-      this.authService.postRegisterMember(param).subscribe(async (rs) => {
+      const register = this.authService.postRegisterMember(param).subscribe(async (rs) => {
         if (rs?.status == true) {
           this.spinner.hide()
           await Swal.fire({
@@ -145,7 +146,8 @@ export class AuthPageComponent {
             text: rs?.message,
           });
         }
-      })
+      });
+      this.subscription.add(register)
     }
     else {
       let param = {
