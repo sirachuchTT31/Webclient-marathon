@@ -48,7 +48,7 @@
                         <p (click)="routeSettingprofile()">ตั่งค่าโปรไฟล์</p>
                     </div>
                     <div class="menu-collapse" *ngIf="this.role == 'organizer'">
-                        <p routerLink="/organizer/dashboard">สำหรับผู้จัดงาน</p>
+                        <p (click)="routeOrganizerDashboard()">สำหรับผู้จัดงาน</p>
                     </div>
                     <div class="menu-collapse">
                         <p (click)="signOut()">ออกจากระบบ</p>

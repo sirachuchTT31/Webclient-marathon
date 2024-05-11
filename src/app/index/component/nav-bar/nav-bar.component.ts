@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { CryptlibService } from '../../services/crypt-lib.service';
 // import image from '../../shared/img'
 @Component({
   selector: 'app-nav-bar',
@@ -10,9 +11,12 @@ export class NavBarComponent {
   token: any
   name: any
   avatar: any
-  role : any
+  role: any
   isCollapsed: boolean = true
-  constructor(private localstorageService: LocalStorageService, private localStorageService: LocalStorageService) {
+  constructor(
+    private localstorageService: LocalStorageService,
+    private cryptLibService: CryptlibService
+  ) {
 
   }
 
@@ -20,13 +24,14 @@ export class NavBarComponent {
     this.token = this.localstorageService.getToken()
     this.name = this.localstorageService.getFirstname()
     this.avatar = this.localstorageService.getAvatar()
-    this.role = this.localStorageService.getRole()
+    let storageRole = this.localstorageService.getRole()
+    this.role = this.cryptLibService.decryptCipher(storageRole ? storageRole : '')
   }
   public routeLogin() {
     window.location.href = 'auth/login'
   }
   signOut() {
-    this.localStorageService.signOut()
+    this.localstorageService.signOut()
     window.location.href = '/'
   }
   routeSettingprofile() {
@@ -34,5 +39,8 @@ export class NavBarComponent {
   }
   routeUserhistory() {
     window.location.href = 'user/history'
+  }
+  routeOrganizerDashboard() {
+    window.location.href = 'user/organizer-dashboard'
   }
 }

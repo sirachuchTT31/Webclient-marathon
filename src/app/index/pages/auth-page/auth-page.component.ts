@@ -109,7 +109,7 @@ export class AuthPageComponent {
           });
         }
       });
-      this.subscription.add(auth)
+      this.subscription?.add(auth)
     }
   }
   register() {
@@ -147,7 +147,7 @@ export class AuthPageComponent {
           });
         }
       });
-      this.subscription.add(register)
+      this.subscription?.add(register)
     }
     else {
       let param = {

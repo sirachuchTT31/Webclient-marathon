@@ -45,7 +45,7 @@ const routes: Routes = [
         canActivate: [AuthGuardService]
       },
       {
-        path: 'dashboard',
+        path: 'organizer-dashboard',
         component: OrganizerDashboardComponent,
         canActivate: [AuthGuardService]
       },

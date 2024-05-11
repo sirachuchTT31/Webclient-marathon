@@ -45,6 +45,9 @@ export class LocalStorageService {
         localStorage.removeItem(FIREST_NAME);
         localStorage.removeItem(LAST_NAME);
         localStorage.removeItem(ROLE);
+        localStorage.removeItem(AUTH_ID);
+        localStorage.removeItem(REFRESH_TOKEN);
+        localStorage.removeItem(IMAGE_PROFILE);
     }
     public getToken(): string | null {
         return localStorage.getItem(TOKEN_KEY);
