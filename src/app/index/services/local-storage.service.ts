@@ -18,11 +18,11 @@ export class LocalStorageService {
         localStorage.removeItem(TOKEN_KEY);
         localStorage.setItem(TOKEN_KEY, token);
     }
-    public setProfile(data : Profile) {
+    public setProfile(data: Profile) {
         localStorage.removeItem(USER_KEY);
         localStorage.setItem(USER_KEY, data.username);
         localStorage.removeItem(REFRESH_TOKEN);
-        localStorage.setItem(REFRESH_TOKEN,data.refresh_token)
+        localStorage.setItem(REFRESH_TOKEN, data.refresh_token)
         localStorage.removeItem(TOKEN_KEY);
         localStorage.setItem(TOKEN_KEY, data.token);
         localStorage.removeItem(TOKEN_EXPIRES_DATE);
@@ -69,5 +69,11 @@ export class LocalStorageService {
     }
     public getId(): string | null {
         return localStorage.getItem(AUTH_ID)
+    }
+    public getTimeOutToken(): string | null {
+        return localStorage.getItem(TOKEN_EXPIRES_DATE)
+    }
+    public getRefreshToken(): string | null {
+        return localStorage.getItem(REFRESH_TOKEN)
     }
 }

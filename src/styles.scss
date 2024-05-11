@@ -977,6 +977,18 @@ ul {
     overflow: auto;
 }
 
+//FIXME: Swal 
+.custom-popup {
+    min-height: 300px;
+    border-radius: 20px;
+}
+.custom-title {
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 20px;
+}
+
 //   .circle-inner {
 //     color: white;
 //     display: table-cell;

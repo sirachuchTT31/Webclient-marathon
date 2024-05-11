@@ -7,17 +7,17 @@ export class HeaderService {
     BuildRequestHeaders(token: any) {
         let httpHeader = null;
         httpHeader = new HttpHeaders({
-            'Authorization': token,
-            "Platform": 'web',
-            'Accept-Language': "en-US",
-            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            // "Platform": 'web',
+            // 'Accept-Language': "en-US",
+            // 'Accept': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST, GET, PUT, PATCH, DELETE, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type, Option, Authorization',
             // "Cache-Control": "no-cache",
             // "Pragma": "no-cache",
             // "If-Modified-Since": "Mon, 26 Jul 1997 05:00:00 GMT",
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
         });
         return httpHeader
     }

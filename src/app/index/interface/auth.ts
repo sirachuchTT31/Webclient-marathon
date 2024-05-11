@@ -17,3 +17,7 @@ export interface Login {
     username?: string,
     password?: string
 }
+
+export interface RefreshToken {
+    refreshToken: string
+}
