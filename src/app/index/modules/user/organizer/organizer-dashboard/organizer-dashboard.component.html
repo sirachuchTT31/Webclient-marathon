@@ -235,9 +235,9 @@
                         create_register_running_event.controls['location_id'].touched
                         }">
                         <option value="null" disabled>เลือกสถานที่</option>
-                        <option *ngFor="let rs of master_location" [value]="rs.location_id">
-                            {{rs.location_province}} / {{rs.location_district}} / {{rs.location_zipcode}} /
-                            {{rs.location_address}}
+                        <option *ngFor="let rs of master_location" [value]="rs.id">
+                            {{rs.province}} / {{rs.district}} / {{rs.zipcode}} /
+                            {{rs.address}}
                         </option>
                     </select>
                     <span *ngIf="
@@ -277,7 +277,7 @@
                 <div class="box-input-group">
                     <!-- <label *ngIf="previews.length != 0" class="text-">Preview (ตัวอย่างภาพ)</label> -->
                     <div class="previews-img" *ngFor="let rs of this.previews ">
-                        <img src="{{rs }}" style="width: 280px; height: 200px; object-fit: cover;">
+                        <img [src]="rs" style="width: 280px; height: 200px; object-fit: cover;">
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mb-3 mt-3">

@@ -13,7 +13,7 @@ export class HeaderService {
             // 'Accept': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST, GET, PUT, PATCH, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Option, Authorization',
+            'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token, Authorization',
             // "Cache-Control": "no-cache",
             // "Pragma": "no-cache",
             // "If-Modified-Since": "Mon, 26 Jul 1997 05:00:00 GMT",
@@ -50,17 +50,11 @@ export class HeaderService {
         let httpHeader = null;
 
         httpHeader = new HttpHeaders({
-            'Authorization': token,
-            "Platform": 'web',
-            'Accept-Language': "en-US",
-            'Accept': '*/*',
+            'Authorization': `Bearer ${token}`,
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST, GET, PUT, PATCH, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Option, Authorization',
-            "Cache-Control": "no-cache",
-            "Pragma": "no-cache",
-            "If-Modified-Since": "Mon, 26 Jul 1997 05:00:00 GMT",
-            //'Content-Type': 'multipart/form-data'
+            'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token, Authorization',
+            // 'Content-Type': 'multipart/form-data'
             // "Content-Type": "multipart/form-data; boundary=<calculated when request is sent>",
         });
 

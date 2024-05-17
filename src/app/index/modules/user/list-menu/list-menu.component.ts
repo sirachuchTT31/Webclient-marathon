@@ -64,23 +64,23 @@ export class ListMenuComponent {
     f.controls['reg_event_id']?.setValue(list?.reg_event_id)
   }
   getallRegisterrunningevent() {
-    this.register_running_event_Service.getallRegisterrunningevent().subscribe(async (rs) => {
-      if (rs?.status == true) {
-        this.register_running_event_array = rs.result
-        this.list_show_register = rs.result
-        this.spinner.hide()
-      }
-      else {
-        this.spinner.hide()
-        await Swal.fire({
-          showCloseButton: true,
-          showConfirmButton: false,
-          icon: "error",
-          // title: rs?.status_code,
-          text: rs?.message,
-        });
-      }
-    })
+    // this.register_running_event_Service.getAllEvent().subscribe(async (rs) => {
+    //   if (rs?.status == true) {
+    //     this.register_running_event_array = rs.result
+    //     this.list_show_register = rs.result
+    //     this.spinner.hide()
+    //   }
+    //   else {
+    //     this.spinner.hide()
+    //     await Swal.fire({
+    //       showCloseButton: true,
+    //       showConfirmButton: false,
+    //       icon: "error",
+    //       // title: rs?.status_code,
+    //       text: rs?.message,
+    //     });
+    //   }
+    // })
   }
   searchBox(event: any) {
     // this.char_search = event.target.value

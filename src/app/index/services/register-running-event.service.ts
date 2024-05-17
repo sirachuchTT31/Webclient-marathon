@@ -7,7 +7,7 @@ import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
 import { CreateAdmin, EditAdmin } from "../interface/admin";
 import { CreateOrganizer, EditOrganizer } from '../interface/organizer';
-import { CreateregisterrunningOrganizer, UpdateregisterrunningOrganizer, Updatestatusbeforerejectevent } from '../interface/register-running-organizer';
+import { CreateEvent, UpdateregisterrunningOrganizer, Updatestatusbeforerejectevent } from '../interface/register-running-organizer';
 @Injectable({
     providedIn: 'root'
 })
@@ -18,24 +18,24 @@ export class RegisterrunningeventService {
         private headerService: HeaderService, private localStorageService: LocalStorageService) {
         this.token = localStorageService.getToken()
     }
-    postCreateRegisterrunningeventOrganizer(list: CreateregisterrunningOrganizer): Observable<IBaseSingleResult<any> | undefined> {
+    postCreateEvent(list: CreateEvent): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/reg-event/create'
+        let url = baseApi + 'api/create-event'
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.post(url, list, { headers: option })
     }
-    postUploadFileregisterrunningeventOrganize(file: any, _id: any): Observable<IBaseSingleResult<any> | undefined> {
+    postUploadFileEvent(file: any, _id: any): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/reg-event/upload-image-reg-by-organizer'
+        let url = baseApi + 'api/upload-image-event'
         let formData = new FormData()
         for (let k = 0; k < file.length; k++) {
-            formData.append('fileUpload', file[k])
+            formData.append('files', file[k])
         }
-        formData.append('reg_event_id', _id)
+        formData.append('id', _id)
         let option = this.headerService.BuildRequestHeadersFormData(this.token)
         return this.http.post(url, formData, { headers: option })
     }
-    getallRegisterrunningevent(): Observable<IBaseSingleResult<any> | undefined> {
+    getAllEvent(): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
         let url = baseApi + 'api/reg-event/getall'
         let option = this.headerService.BuildRequestHeadersNoAuthen()

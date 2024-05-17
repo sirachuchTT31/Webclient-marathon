@@ -1,3 +1,4 @@
+import { CryptlibService } from './../../../../services/crypt-lib.service';
 import { LocalStorageService } from 'src/app/index/services/local-storage.service';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RegisterrunningeventService } from 'src/app/index/services/register-running-event.service';
@@ -58,8 +59,14 @@ export class OrganizerDashboardComponent {
   ]
   today: any
   @ViewChild('fileUpload', { static: true }) fileUpload!: ElementRef;
-  constructor(private register_running_event_Service: RegisterrunningeventService, private localStorageService: LocalStorageService, private spinner: NgxSpinnerService, private modalService: NgbModal,
-    private masterdataService: MasterdataService) {
+  constructor(
+    private register_running_event_Service: RegisterrunningeventService,
+    private localStorageService: LocalStorageService,
+    private spinner: NgxSpinnerService,
+    private modalService: NgbModal,
+    private masterdataService: MasterdataService,
+    private cryptlibService: CryptlibService
+  ) {
     this.auth_id = this.localStorageService.getId()
     this.status_form = new FormGroup({
       status: new FormControl('06')
@@ -88,7 +95,7 @@ export class OrganizerDashboardComponent {
   ngOnInit(): void {
     this.spinner.show()
     this.getRegbyorganizer()
-    this.getLocation()
+    this.getAllMasterLocation()
     this.today = new Date()
 
     // this.filter_reg = this.reg_by_organizer_object
@@ -184,28 +191,28 @@ export class OrganizerDashboardComponent {
     }
   }
   getRegbyorganizer() {
-    this.register_running_event_Service.getRegisterrunningeventOrganizer(this.auth_id).subscribe((rs) => {
-      if (rs?.status == true) {
-        this.reg_by_organizer_object = rs.result
-        this.filter_reg = rs.result
-        this.spinner.hide()
-      }
-      else {
-        this.spinner.hide()
-        Swal.fire({
-          showCloseButton: true,
-          showConfirmButton: false,
-          icon: "error",
-          // title: rs?.status_code,
-          text: rs?.message,
-        });
-      }
-    })
+    // this.register_running_event_Service.getRegisterrunningeventOrganizer(this.auth_id).subscribe((rs) => {
+    //   if (rs?.status == true) {
+    //     this.reg_by_organizer_object = rs.result
+    //     this.filter_reg = rs.result
+    //     this.spinner.hide()
+    //   }
+    //   else {
+    //     this.spinner.hide()
+    //     Swal.fire({
+    //       showCloseButton: true,
+    //       showConfirmButton: false,
+    //       icon: "error",
+    //       // title: rs?.status_code,
+    //       text: rs?.message,
+    //     });
+    //   }
+    // })
   }
-  getLocation() {
-    this.masterdataService.getLocation().subscribe((rs) => {
+  getAllMasterLocation() {
+    this.masterdataService.getAllMasterLocation().subscribe((rs) => {
       if (rs?.status == true) {
-        this.master_location = rs.result
+        this.master_location = rs.results
         this.spinner.hide()
       }
       else {
@@ -237,24 +244,25 @@ export class OrganizerDashboardComponent {
     }
   }
   saveData() {
-    this.spinner.show()
-    const data = this.create_register_running_event
-    let param = {
-      reg_event_name: data.controls['reg_event_name'].value,
-      reg_event_due_date: data.controls['reg_event_due_date'].value,
-      reg_event_price: data.controls['reg_event_price'].value,
-      reg_event_amount: data.controls['reg_event_amount'].value,
-      reg_event_detail: data.controls['reg_event_detail'].value,
-      reg_event_distance: data.controls['reg_event_distance'].value,
-      reg_event_path_img: '',
-      location_id: data.controls['location_id'].value,
-      auth_id: this.auth_id
-    }
-    this.register_running_event_Service.postCreateRegisterrunningeventOrganizer(param).subscribe((rs) => {
-      if (rs?.status == true) {
-        let reg_event_id = rs.result
-        if (reg_event_id != null) {
-          this.register_running_event_Service.postUploadFileregisterrunningeventOrganize(this.image_upload, reg_event_id).subscribe((rs) => {
+    try {
+      this.spinner.show()
+      const data = this.create_register_running_event
+      let param = {
+        name: data.controls['reg_event_name'].value,
+        due_date: data.controls['reg_event_due_date'].value,
+        price: data.controls['reg_event_price'].value,
+        max_amount: data.controls['reg_event_amount'].value,
+        detail: data.controls['reg_event_detail'].value,
+        distance: data.controls['reg_event_distance'].value,
+        path_image: '',
+        location_id: data.controls['location_id'].value,
+        auth_id: this.auth_id
+      }
+      this.register_running_event_Service.postCreateEvent(param).subscribe((rs) => {
+        if (rs?.status == true) {
+          let id = this.cryptlibService.encryptText(String(rs?.result))
+          console.log('id',id)
+          this.register_running_event_Service.postUploadFileEvent(this.image_upload, id).subscribe((rs) => {
             if (rs?.status == true) {
               this.spinner.hide()
               Swal.fire({
@@ -279,18 +287,25 @@ export class OrganizerDashboardComponent {
             }
           })
         }
-      }
-      else {
+        else {
+          this.spinner.hide()
+          Swal.fire({
+            showCloseButton: true,
+            showConfirmButton: false,
+            icon: "error",
+            // title: rs?.status_code,
+            text: rs?.message,
+          });
+        }
+      })
+
+      setTimeout(() => {
         this.spinner.hide()
-        Swal.fire({
-          showCloseButton: true,
-          showConfirmButton: false,
-          icon: "error",
-          // title: rs?.status_code,
-          text: rs?.message,
-        });
-      }
-    })
+      },5000)
+    }
+    catch (e) {
+      this.spinner.hide()
+    }
   }
   postEditdataANDupdatestatusbeforereject() {
     this.spinner.show()

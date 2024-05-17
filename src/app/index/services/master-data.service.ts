@@ -2,7 +2,7 @@ import { LocalStorageService } from 'src/app/index/services/local-storage.servic
 import { Injectable } from "@angular/core";
 import { HeaderService } from "./header.service";
 import { Observable, of } from "rxjs";
-import { IBaseSingleResult } from "../interface/base-result";
+import { IBaseCollectionResult, IBaseSingleResult } from "../interface/base-result";
 import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
 import { CreateAdmin } from "../interface/admin";
@@ -16,9 +16,9 @@ export class MasterdataService {
         private headerService: HeaderService, private localStorageService: LocalStorageService) {
         this.token = this.localStorageService.getToken()
     }
-    getLocation(): Observable<IBaseSingleResult<any> | undefined> {
+    getAllMasterLocation(): Observable<IBaseCollectionResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/master-data/getall-location'
+        let url = baseApi + 'api/get-all-master-location'
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
     }

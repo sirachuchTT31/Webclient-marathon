@@ -41,6 +41,7 @@ export class TimeoutTokenService {
                         const refresh = this.authenService.postRefreshToken(payload).subscribe((rs) => {
                             if (rs?.status === true) {
                                 let response = rs.result
+                                this.localStorageService.signOut();
                                 this.localStorageService.setProfile(
                                     {
                                         id: response.payload.id,
@@ -53,6 +54,7 @@ export class TimeoutTokenService {
                                         role: response.payload.role,
                                         token: response.access_token
                                     });
+                                    this.clearTokenExpires()
                             }
                             else {
                                 this.localStorageService.signOut();
