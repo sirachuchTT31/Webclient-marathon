@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { BackOfficeService } from 'src/app/index/services/back-office.service';
 import { LocalStorageService } from 'src/app/index/services/local-storage.service';
 import { TaskApproverService } from 'src/app/index/services/task-approver.service';
 import Swal from 'sweetalert2';
@@ -10,11 +11,17 @@ import Swal from 'sweetalert2';
   styleUrls: ['./approver-running.component.scss']
 })
 export class ApproverRunningComponent {
-  constructor(private taskService: TaskApproverService, private spinner: NgxSpinnerService, private localStorageService: LocalStorageService) { }
-  register_event_by_approver: any
+  constructor(
+    private taskService: TaskApproverService,
+    private spinner: NgxSpinnerService,
+    private localStorageService: LocalStorageService,
+    private backofficeService : BackOfficeService  
+  ) { }
+  // register_event_by_approver: any
+  eventAllList : any
   admin_id: any
   ngOnInit(): void {
-    this.getRegbyApprover()
+    this.getAllEventBackoffice()
     //SET ADMIN ID
     this.admin_id = this.localStorageService?.getId()
   }
@@ -47,7 +54,7 @@ export class ApproverRunningComponent {
               timer: 3000,
               text: rs?.message,
             });
-            this.getRegbyApprover()
+            this.getAllEventBackoffice()
           }
           else {
             this.spinner.hide()
@@ -107,7 +114,7 @@ export class ApproverRunningComponent {
               timer: 3000,
               text: rs?.message,
             });
-            this.getRegbyApprover()
+            this.getAllEventBackoffice()
           }
           else {
             this.spinner.hide()
@@ -124,14 +131,24 @@ export class ApproverRunningComponent {
     });
 
   }
-  getRegbyApprover() {
-    this.taskService.getRegistereventbyapprover().subscribe((rs) => {
-      if (rs?.status == true) {
-        this.register_event_by_approver = rs.result
+  getAllEventBackoffice() {
+    this.backofficeService.getAllEventBackoffice().subscribe((rs) => {
+      if(rs?.status === true){
+        this.eventAllList = rs?.results
       }
       else {
-
+        this.eventAllList = null
       }
     })
   }
+  // getRegbyApprover() {
+  //   this.taskService.getRegistereventbyapprover().subscribe((rs) => {
+  //     if (rs?.status == true) {
+  //       this.register_event_by_approver = rs.result
+  //     }
+  //     else {
+
+  //     }
+  //   })
+  // }
 }

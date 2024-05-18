@@ -27,8 +27,8 @@ export class ListMenuComponent {
   local_name: any
   local_lastname: any
   local_auth_id: any
-  constructor(private register_running_event_Service: RegisterrunningeventService, private spinner: NgxSpinnerService, private modalService: NgbModal,
-    private localStorageService: LocalStorageService,private register_running_member_Service :  RegisterrunningmemberService) {
+  constructor(private eventService: RegisterrunningeventService, private spinner: NgxSpinnerService, private modalService: NgbModal,
+    private localStorageService: LocalStorageService, private register_running_member_Service: RegisterrunningmemberService) {
     this.search_Form = new FormGroup({
       char_search: new FormControl('')
     })
@@ -51,8 +51,11 @@ export class ListMenuComponent {
     this.local_auth_id = this.localStorageService.getId()
   }
   ngOnInit() {
-    // this.spinner.show()
-    // this.getallRegisterrunningevent()
+    this.spinner.show()
+    this.getallRegisterrunningevent()
+    setTimeout(() => {
+      this.spinner.hide()
+    },3000)
   }
   openModal(modal: any, list: any) {
     this.modalService.open(modal, { size: 'lg' })
@@ -64,23 +67,23 @@ export class ListMenuComponent {
     f.controls['reg_event_id']?.setValue(list?.reg_event_id)
   }
   getallRegisterrunningevent() {
-    // this.register_running_event_Service.getAllEvent().subscribe(async (rs) => {
-    //   if (rs?.status == true) {
-    //     this.register_running_event_array = rs.result
-    //     this.list_show_register = rs.result
-    //     this.spinner.hide()
-    //   }
-    //   else {
-    //     this.spinner.hide()
-    //     await Swal.fire({
-    //       showCloseButton: true,
-    //       showConfirmButton: false,
-    //       icon: "error",
-    //       // title: rs?.status_code,
-    //       text: rs?.message,
-    //     });
-    //   }
-    // })
+    this.eventService.getAllEvent().subscribe((rs) => {
+      if (rs?.status === true) {
+        this.register_running_event_array = rs.result
+        this.list_show_register = rs.result
+        this.spinner.hide()
+      }
+      else {
+        this.spinner.hide()
+        Swal.fire({
+          showCloseButton: true,
+          showConfirmButton: false,
+          icon: "error",
+          // title: rs?.status_code,
+          text: rs?.message,
+        });
+      }
+    })
   }
   searchBox(event: any) {
     // this.char_search = event.target.value
@@ -127,8 +130,8 @@ export class ListMenuComponent {
     }
   }
   //FIXBUG
-  checkcreateModal(){
-    if(this.create_register_running_Form.valid == true){
+  checkcreateModal() {
+    if (this.create_register_running_Form.valid == true) {
       return true
     }
     else {
@@ -140,16 +143,16 @@ export class ListMenuComponent {
     let f = this.create_register_running_Form
     let param = {
       auth_id: this.local_auth_id,
-      reg_member_description: f.controls['dsc']?.value ,
+      reg_member_description: f.controls['dsc']?.value,
       name: this.local_name,
       lastname: this.local_lastname,
-      tel: f.controls['tel']?.value ,
-      email : f.controls['email']?.value,
-      reg_event_id:  f.controls['reg_event_id']?.value ,
+      tel: f.controls['tel']?.value,
+      email: f.controls['email']?.value,
+      reg_event_id: f.controls['reg_event_id']?.value,
     }
-    this.register_running_member_Service.postCreateRegisterrunningmember(param).subscribe((rs)=>{
+    this.register_running_member_Service.postCreateRegisterrunningmember(param).subscribe((rs) => {
       this.create_register_running_Form.reset()
-      if(rs?.status == true){
+      if (rs?.status == true) {
         this.spinner.hide()
         Swal.fire({
           showCloseButton: true,
