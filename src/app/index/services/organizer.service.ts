@@ -2,11 +2,11 @@ import { LocalStorageService } from './local-storage.service';
 import { Injectable } from "@angular/core";
 import { HeaderService } from "./header.service";
 import { Observable, of } from "rxjs";
-import { IBaseSingleResult } from "../interface/base-result";
+import { IBaseSingleResult } from "../shared/interface/base-result";
 import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
-import { CreateAdmin, EditAdmin } from "../interface/admin";
-import { CreateOrganizer, EditOrganizer } from '../interface/organizer';
+import { CreateAdmin, EditAdmin } from "../shared/interface/admin";
+import { CreateOrganizer, EditOrganizer } from '../shared/interface/organizer';
 @Injectable({
     providedIn: 'root'
 })

@@ -2,10 +2,10 @@ import { LocalStorageService } from 'src/app/index/services/local-storage.servic
 import { Injectable } from "@angular/core";
 import { HeaderService } from "./header.service";
 import { Observable, of } from "rxjs";
-import { IBaseCollectionResult, IBaseSingleResult } from "../interface/base-result";
+import { IBaseCollectionResult, IBaseSingleResult } from "../shared/interface/base-result";
 import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
-import { CreateAdmin } from "../interface/admin";
+import { CreateAdmin } from "../shared/interface/admin";
 @Injectable({
     providedIn: 'root'
 })

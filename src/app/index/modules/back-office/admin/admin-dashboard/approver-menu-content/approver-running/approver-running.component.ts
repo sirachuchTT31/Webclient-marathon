@@ -3,6 +3,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BackOfficeService } from 'src/app/index/services/back-office.service';
 import { LocalStorageService } from 'src/app/index/services/local-storage.service';
 import { TaskApproverService } from 'src/app/index/services/task-approver.service';
+import { updateEvent } from 'src/app/index/shared/interface/back-office';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -25,7 +26,7 @@ export class ApproverRunningComponent {
     //SET ADMIN ID
     this.admin_id = this.localStorageService?.getId()
   }
-  updatestatusapprover(trans_id: string, reg_event_id: string) {
+  updateEvent(data : updateEvent) {
     Swal.fire({
       title: "คุณต้องการอนุมัติใช่หรือไม่",
       text: "ถ้าบันทึกจะไม่สามารถกลับมาแก้ไขได้",
@@ -38,13 +39,10 @@ export class ApproverRunningComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         let param = {
-          trans_id: trans_id,
-          status: 'Approver',
-          admin_id: this.admin_id,
-          reason: '',
-          reg_event_id: reg_event_id
+          transaction_id : data.transaction_id,
+          status : data.status
         }
-        this.taskService.updateRegistereventbyapprover(param).subscribe((rs) => {
+        this.backofficeService.updateEventBackoffice(param).subscribe((rs) => {
           if (rs?.status == true) {
             Swal.fire({
               showCloseButton: true,
@@ -71,66 +69,66 @@ export class ApproverRunningComponent {
     });
 
   }
-  updatestatusreject(trans_id: string, reg_event_id: string) {
-    let reason: string = ""
-    Swal.fire({
-      title: "คุณต้องการอนุมัติใช่หรือไม่",
-      text: "ถ้าบันทึกจะไม่สามารถกลับมาแก้ไขได้",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "บันทึก",
-      cancelButtonText: 'ยกเลิก',
-      input: "textarea",
-      inputPlaceholder: "ระบุเหตุผล",
-      inputValue: reason,
-      inputValidator: (value) => {
-        return new Promise((resolve) => {
-          if (value) {
-            reason = value
-            resolve()
-          } else {
-            resolve('กรุณาระบุเหตุผล')
-          }
-        })
-      }
-    }).then((result) => {
-      if (result.isConfirmed) {
-        let param = {
-          trans_id: trans_id,
-          status: 'Reject',
-          admin_id: this.admin_id,
-          reason: reason,
-          reg_event_id: reg_event_id
-        }
-        this.taskService.updateRegistereventbyapprover(param).subscribe((rs) => {
-          if (rs?.status == true) {
-            Swal.fire({
-              showCloseButton: true,
-              showConfirmButton: false,
-              icon: "success",
-              // title: rs?.status_code,
-              timer: 3000,
-              text: rs?.message,
-            });
-            this.getAllEventBackoffice()
-          }
-          else {
-            this.spinner.hide()
-            Swal.fire({
-              showCloseButton: true,
-              showConfirmButton: false,
-              icon: "error",
-              // title: rs?.status_code,
-              text: rs?.message,
-            });
-          }
-        })
-      }
-    });
+  // updatestatusreject(trans_id: string, reg_event_id: string) {
+  //   let reason: string = ""
+  //   Swal.fire({
+  //     title: "คุณต้องการอนุมัติใช่หรือไม่",
+  //     text: "ถ้าบันทึกจะไม่สามารถกลับมาแก้ไขได้",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#3085d6",
+  //     cancelButtonColor: "#d33",
+  //     confirmButtonText: "บันทึก",
+  //     cancelButtonText: 'ยกเลิก',
+  //     input: "textarea",
+  //     inputPlaceholder: "ระบุเหตุผล",
+  //     inputValue: reason,
+  //     inputValidator: (value) => {
+  //       return new Promise((resolve) => {
+  //         if (value) {
+  //           reason = value
+  //           resolve()
+  //         } else {
+  //           resolve('กรุณาระบุเหตุผล')
+  //         }
+  //       })
+  //     }
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       let param = {
+  //         trans_id: trans_id,
+  //         status: 'Reject',
+  //         admin_id: this.admin_id,
+  //         reason: reason,
+  //         reg_event_id: reg_event_id
+  //       }
+  //       this.taskService.updateRegistereventbyapprover(param).subscribe((rs) => {
+  //         if (rs?.status == true) {
+  //           Swal.fire({
+  //             showCloseButton: true,
+  //             showConfirmButton: false,
+  //             icon: "success",
+  //             // title: rs?.status_code,
+  //             timer: 3000,
+  //             text: rs?.message,
+  //           });
+  //           this.getAllEventBackoffice()
+  //         }
+  //         else {
+  //           this.spinner.hide()
+  //           Swal.fire({
+  //             showCloseButton: true,
+  //             showConfirmButton: false,
+  //             icon: "error",
+  //             // title: rs?.status_code,
+  //             text: rs?.message,
+  //           });
+  //         }
+  //       })
+  //     }
+  //   });
 
-  }
+  // }
   getAllEventBackoffice() {
     this.backofficeService.getAllEventBackoffice().subscribe((rs) => {
       if(rs?.status === true){

@@ -4,7 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { HeaderService } from "./header.service";
 import { LocalStorageService } from "./local-storage.service";
 import { Observable } from "rxjs";
-import { IBaseCollectionResult } from "../interface/base-result";
+import { IBaseCollectionResult } from "../shared/interface/base-result";
+import { updateEvent } from "../shared/interface/back-office";
 
 @Injectable({
     providedIn: 'root'
@@ -23,5 +24,12 @@ export class BackOfficeService {
         let url = baseApi + 'api/get-event-backoffice'
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
+    }
+
+    updateEventBackoffice(list: updateEvent): Observable<IBaseCollectionResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi;
+        let url = baseApi + 'api/update-event-backoffice';
+        let option = this.headerService.BuildRequestHeaders(this.token);
+        return this.http.post(url, list, { headers: option })
     }
 }

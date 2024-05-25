@@ -3,10 +3,10 @@ import { LocalStorageService } from './local-storage.service';
 import { HeaderService } from "./header.service";
 import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
-import { IBaseSingleResult } from "../interface/base-result";
+import { IBaseSingleResult } from "../shared/interface/base-result";
 import { Observable, of } from "rxjs";
-import { Updateregisterrunningbyapprover, Updateregisterrunningbyreject } from "../interface/register-running-by-approver";
-import { Updateorganizerbyapprover } from "../interface/organizer-appover";
+import { Updateregisterrunningbyapprover, Updateregisterrunningbyreject } from "../shared/interface/register-running-by-approver";
+import { Updateorganizerbyapprover } from "../shared/interface/organizer-appover";
 @Injectable({
     providedIn: 'root'
 })

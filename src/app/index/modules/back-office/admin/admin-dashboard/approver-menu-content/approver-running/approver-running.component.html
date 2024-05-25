@@ -42,12 +42,12 @@
 
                             <div class="wrap-button"> -->
                         <button class="btn btn-success custom-button-approver me-3"
-                            (click)="updatestatusapprover(list.trans_id,list.id)">
+                            (click)="updateEvent({transaction_id : list.trans_id, status : '02' })">
                             Approver
                         </button>
                         <!-- </div> -->
                         <!-- <div class="wrap-button"> -->
-                        <button class="btn btn-danger custom-button-approver " (click)="updatestatusreject(list.trans_id,list.id)">
+                        <button class="btn btn-danger custom-button-approver " (click)="updateEvent({transaction_id : list.trans_id, status : '03' })">
                             Reject
                         </button>
                         <!-- </div> -->

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Profile } from "../interface/local-storage";
+import { Profile } from "../shared/interface/local-storage";
 const TOKEN_KEY = "token";
 const USER_KEY = "username";
 const FIREST_NAME = "first-name";
