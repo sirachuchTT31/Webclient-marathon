@@ -117,11 +117,11 @@ export class AuthPageComponent {
     if (this.register_form.controls['type'].value == 'member') {
 
       let param = {
-        member_username: this.register_form.controls['username'].value,
-        member_password: this.register_form.controls['password'].value,
-        member_name: this.register_form.controls['name'].value,
-        member_lastname: this.register_form.controls['lastname'].value,
-        member_email: this.register_form.controls['email'].value
+        username: this.register_form.controls['username'].value,
+        password: this.register_form.controls['password'].value,
+        name: this.register_form.controls['name'].value,
+        lastname: this.register_form.controls['lastname'].value,
+        email: this.register_form.controls['email'].value
       }
       const register = this.authService.postRegisterMember(param).subscribe(async (rs) => {
         if (rs?.status == true) {
@@ -151,11 +151,11 @@ export class AuthPageComponent {
     }
     else {
       let param = {
-        organ_username: this.register_form.controls['username'].value,
-        organ_password: this.register_form.controls['password'].value,
-        organ_name: this.register_form.controls['name'].value,
-        organ_lastname: this.register_form.controls['lastname'].value,
-        organ_email: this.register_form.controls['email'].value
+        username: this.register_form.controls['username'].value,
+        password: this.register_form.controls['password'].value,
+        name: this.register_form.controls['name'].value,
+        lastname: this.register_form.controls['lastname'].value,
+        email: this.register_form.controls['email'].value
       }
       this.authService.postRegisterOrganizer(param).subscribe(async (rs) => {
         if (rs?.status == true) {

@@ -16,13 +16,13 @@ export class AuthServices {
     }
     postRegisterMember(list: Registermember): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/auth/register-member'
+        let url = baseApi + 'api/register-members'
         let option = this.headerService.BuildRequestHeadersNoAuthen()
         return this.http.post(url, list, { headers: option })
     }
     postRegisterOrganizer(list: Registerorganizer): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/auth/register-organizer'
+        let url = baseApi + 'api/register-organizer'
         let option = this.headerService.BuildRequestHeadersNoAuthen()
         return this.http.post(url, list, { headers: option })
     }
