@@ -4,7 +4,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AdminService } from 'src/app/index/services/admin.service';
 import { OrganizerService } from 'src/app/index/services/organizer.service';
 @Component({
   selector: 'app-organizer-content',

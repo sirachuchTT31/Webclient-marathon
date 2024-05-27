@@ -5,7 +5,7 @@
     </div>
     <div class="">
         <div class="text-start mb-3">
-            <button class="btn btn-success" (click)="openModalCreate(modalcreate)">
+            <button class="btn btn-success" (click)="openModal(modal,'create')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                     class="bi bi-plus-square-fill" viewBox="0 0 16 16">
                     <path
@@ -28,13 +28,12 @@
             <tbody>
                 <tr *ngFor="let rs of master_admin_all; index as i">
                     <th scope="row" class="text-count">{{i+1}}</th>
-                    <td>{{rs.admin_name}}</td>
-                    <td>{{rs.admin_lastname}}</td>
-                    <td>{{rs.admin_email}}</td>
-                    <td>{{rs.createdAt}}</td>
+                    <td>{{rs.name}}</td>
+                    <td>{{rs.lastname}}</td>
+                    <td>{{rs.email}}</td>
+                    <td>{{rs.created_at}}</td>
                     <td class="d-flex">
-                        <button class="btn btn-warning me-2"
-                            (click)="openModalUpdate(modalEdit,rs.admin_id,rs.admin_name ,rs.admin_lastname,rs.admin_email,rs.admin_tel , rs.admin_address)">
+                        <button class="btn btn-warning me-2" (click)="openModal(modal,'edit',rs)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">
                                 <path
@@ -43,7 +42,7 @@
                                     d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                             </svg>
                         </button>
-                        <button class="btn btn-danger" (click)="onRemove(rs.admin_id)">
+                        <button class="btn btn-danger" (click)="onRemove(rs.id)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                 class="bi bi-trash" viewBox="0 0 16 16">
                                 <path
@@ -60,7 +59,7 @@
 
 </div>
 
-<ng-template #modalcreate let-modal>
+<ng-template #modal let-modal>
     <div class="modal-header">
         <h4 class="modal-title">เพิ่มข้อมูลผู้จัดการระบบ (Add)</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
@@ -68,7 +67,7 @@
     <div class="modal-body">
         <form [formGroup]="admin_create_form">
             <div class="form-group">
-                <div class="box-input-group">
+                <div class="box-input-group" *ngIf="actionDialog == 'create'">
                     <label>Username</label>
                     <input type="text" class="form-control" placeholder="Username" formControlName="username"
                         maxlength="40" [ngClass]="{
@@ -87,7 +86,7 @@
                         </span>
                     </span>
                 </div>
-                <div class="box-input-group">
+                <div class="box-input-group" *ngIf="actionDialog == 'create'">
                     <label>Password</label>
                     <input type="password" class="form-control" placeholder="Password" formControlName="password"
                         maxlength="40" [ngClass]="{
@@ -203,124 +202,13 @@
                     </span>
                 </div>
                 <div class="d-flex justify-content-center mb-3 mt-3">
-                    <button class="btn btn-primary btn-modal-submit me-3" (change)="checkcreateadminButton()"
+                    <button class="btn btn-primary btn-modal-submit me-3"
+                        [ngClass]="{'btn-warning' : actionDialog == 'edit'}" (change)="checkcreateadminButton()"
                         [disabled]="checkcreateadminButton() === false"
-                        (click)="createAdmin();modal.dismiss()">เพิ่มข้อมูล</button>
-                    <button class="btn btn-danger btn-modal-submit" (click)="modal.dismiss()">ยกเลิก</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</ng-template>
-
-<ng-template #modalEdit let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title">แก้ไขผู้จัดการระบบ (Edit)</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="admin_edit_form">
-            <div class="form-group">
-                <div class="box-input-group">
-                    <label>ชื่อ</label>
-                    <input type="text" class="form-control" placeholder="Name" formControlName="name" maxlength="40"
-                        [ngClass]="{
-                        required:
-                        admin_edit_form.controls['name'].invalid &&
-                        admin_edit_form.controls['name'].touched
-                        }">
-                    <span *ngIf="
-                         admin_edit_form.controls['name'].invalid &&
-                         admin_edit_form.controls['name'].touched">
-                        <span *ngIf="
-                             admin_edit_form.controls['name'].errors">
-                            <small class="text-danger">
-                                กรุณาระบุ (ชื่อ)
-                            </small>
-                        </span>
-                    </span>
-                </div>
-                <div class="box-input-group">
-                    <label class="">นามสกุล</label>
-                    <input type="text" class="form-control" placeholder="Lastname" formControlName="lastname"
-                        maxlength="40" [ngClass]="{
-                        required:
-                        admin_edit_form.controls['lastname'].invalid &&
-                        admin_edit_form.controls['lastname'].touched
-                        }">
-                    <span *ngIf="
-                         admin_edit_form.controls['lastname'].invalid &&
-                         admin_edit_form.controls['lastname'].touched">
-                        <span *ngIf="
-                             admin_edit_form.controls['lastname'].errors">
-                            <small class="text-danger">
-                                กรุณาระบุ (นามสกุล)
-                            </small>
-                        </span>
-                    </span>
-                </div>
-                <div class="box-input-group">
-                    <label class="">อีเมล์</label>
-                    <input type="text" class="form-control" placeholder="Email" formControlName="email" maxlength="40"
-                        [ngClass]="{
-                        required:
-                        admin_edit_form.controls['email'].invalid &&
-                        admin_edit_form.controls['email'].touched
-                        }">
-                    <span *ngIf="
-                    admin_edit_form.controls['email'].invalid &&
-                    admin_edit_form.controls['email'].touched">
-                        <span *ngIf="
-                        admin_edit_form.controls['email'].errors">
-                            <small class="text-danger">
-                                กรุณาระบุ (email)
-                            </small>
-                        </span>
-                    </span>
-                </div>
-                <div class="box-input-group">
-                    <label class="">เบอร์โทร</label>
-                    <input type="text" class="form-control" placeholder="Telephone" formControlName="tel" maxlength="10"
-                        [ngClass]="{
-                        required:
-                        admin_edit_form.controls['tel'].invalid &&
-                        admin_edit_form.controls['tel'].touched
-                        }" (keypress)="numberOnly($event)" onpaste="return false;" ondrop="return false;">
-                    <span *ngIf="
-                           admin_edit_form.controls['tel'].invalid &&
-                           admin_edit_form.controls['tel'].touched">
-                        <span *ngIf="
-                               admin_edit_form.controls['tel'].errors">
-                            <small class="text-danger">
-                                กรุณาระบุ (เบอร์โทร)
-                            </small>
-                        </span>
-                    </span>
-                </div>
-                <div class="box-input-group">
-                    <label class="">ที่อยู่</label>
-                    <textarea type="text" class="form-control" placeholder="Address" formControlName="address" rows="2"
-                        maxlength="100" [ngClass]="{
-                        required:
-                        admin_edit_form.controls['address'].invalid &&
-                        admin_edit_form.controls['address'].touched
-                        }">
-                        </textarea>
-                    <span *ngIf="
-                    admin_edit_form.controls['address'].invalid &&
-                    admin_edit_form.controls['address'].touched">
-                        <span *ngIf="
-                        admin_edit_form.controls['address'].errors">
-                            <small class="text-danger">
-                                กรุณาระบุ (ที่อยู่)
-                            </small>
-                        </span>
-                    </span>
-                </div>
-                <div class="d-flex justify-content-center mb-3 mt-3">
-                    <button class="btn btn-primary btn-modal-submit me-3" (change)="checkeditadminButton()"
-                        [disabled]="checkeditadminButton() === false"
-                        (click)="onEdit();modal.dismiss()">บันทึกข้อมูล</button>
+                        (click)="actionDialog == 'create' ? createAdmin('create') : createAdmin('edit')">
+                        <label *ngIf="actionDialog == 'create'">เพิ่มข้อมูล</label>
+                        <label *ngIf="actionDialog == 'edit'">บันทึกข้อมูล</label>
+                    </button>
                     <button class="btn btn-danger btn-modal-submit" (click)="modal.dismiss()">ยกเลิก</button>
                 </div>
             </div>
