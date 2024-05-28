@@ -14,9 +14,9 @@
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option
             *ngFor="let option of this.register_running_event_array | filter : this.search_Form.controls['char_search']?.value "
-            [value]="option.reg_event_name" (click)="onClickfilter(option.reg_event_id)">
-            <span>{{option.reg_event_name}} | {{option.location_province}} | {{option.location_district}} <img
-                src="{{option.reg_event_path_img}}" class="img-box-search"></span>
+            [value]="option.name" (click)="onClickfilter(option.id)">
+            <span>{{option.name}} | {{option.MasterLocation.province}} | {{option.MasterLocation.district}} <img
+                [src]="option.path_image" class="img-box-search"></span>
           </mat-option>
         </mat-autocomplete>
       </form>
@@ -49,18 +49,21 @@
       </svg>
     </button>
   </div>
+  <div class="box-no-data" *ngIf="!list_show_register">
+    <h4>ไม่พบข้อมูล (No data)</h4>
+  </div>
   <div class="box-content-list-menu">
     <div class="card card-list" *ngFor="let rs of list_show_register">
-      <img src="{{rs.reg_event_path_img}}" style="width: 100%; height: 200px;" class="card-img-top" alt="...">
+      <img [src]="rs.path_image" style="width: 100%; height: 200px;" class="card-img-top" alt="...">
       <div class="card-body">
-        <h5 class="card-title-event ">{{rs.reg_event_name}}</h5>
-        <p><span class="me-2">วันที่จัดงาน</span><span class="me-2">:</span> <span>{{rs.reg_event_due_date}}</span></p>
-        <p class="card-text-event ">{{rs.reg_event_detail}}</p>
+        <h5 class="card-title-event ">{{rs.name}}</h5>
+        <p><span class="me-2">วันที่จัดงาน</span><span class="me-2">:</span> <span>{{rs.due_date | date : 'yyyy-MM-dd'}}</span></p>
+        <p class="card-text-event ">{{rs.detail}}</p>
 
-        <p class="card-text-event-price mb-0">฿ {{formatNumber(rs.reg_event_price)}}</p>
-        <p class="card-text-event-amount mb-1">จำนวนคงเหลือ {{formatNumber(rs.reg_event_amount)}}</p>
+        <p class="card-text-event-price mb-0">฿ {{formatNumber(rs.price)}}</p>
+        <p class="card-text-event-amount mb-1">จำนวนคงเหลือ {{formatNumber(rs.max_amount)}}</p>
         <div class="text-center">
-          <a href="#" class="btn btn-primary " (click)="openModal(modalcreate,rs)">ลงทะเบียนวิ่ง</a>
+          <a class="btn btn-primary " (click)="openModal(modalcreate,rs)">ลงทะเบียนวิ่ง</a>
         </div>
       </div>
     </div>
@@ -134,44 +137,6 @@
           </span>
         </div>
         <div class="box-input-group">
-          <label>อีเมล์</label>
-          <input type="text" class="form-control" placeholder="อีเมล์" formControlName="email" maxlength="40" [ngClass]="{
-              required:
-              create_register_running_Form.controls['email'].invalid &&
-              create_register_running_Form.controls['email'].touched
-              }">
-          <span *ngIf="
-                  create_register_running_Form.controls['email'].invalid &&
-                  create_register_running_Form.controls['email'].touched">
-            <span *ngIf="
-                      create_register_running_Form.controls['email'].errors">
-              <small class="text-danger">
-                กรุณาระบุอีเมล์
-              </small>
-            </span>
-          </span>
-        </div>
-        <div class="box-input-group">
-          <label>เบอร์โทรศัพท์</label>
-          <input type="tel" class="form-control" placeholder="เบอร์โทรศัพท์" formControlName="tel" maxlength="10"
-          
-            [ngClass]="{
-              required:
-              create_register_running_Form.controls['tel'].invalid &&
-              create_register_running_Form.controls['tel'].touched
-              }"(keypress)="numberOnly($event)" onpaste="return false;" ondrop="return false;">
-          <span *ngIf="
-                  create_register_running_Form.controls['tel'].invalid &&
-                  create_register_running_Form.controls['tel'].touched">
-            <span *ngIf="
-                      create_register_running_Form.controls['tel'].errors">
-              <small class="text-danger">
-                กรุณาระบุชื่องาน
-              </small>
-            </span>
-          </span>
-        </div>
-        <div class="box-input-group">
           <label>รายละเอียด</label>
           <textarea type="text" class="form-control" placeholder="รายละเอียด" formControlName="dsc" maxlength="80"
             [ngClass]="{
@@ -189,14 +154,13 @@
                 กรุณาระบุรายละเอียด
               </small>
             </span>
-?          </span>
+            ? </span>
         </div>
         <div class="d-flex justify-content-center mb-3 mt-3">
           <button class="btn btn-primary btn-modal-submit me-3" (change)="checkcreateModal()"
-              [disabled]="checkcreateModal() === false"
-              (click)="saveData();modal.dismiss()">บันทึกข้อมูล</button>
+            [disabled]="checkcreateModal() === false" (click)="saveData();modal.dismiss()">บันทึกข้อมูล</button>
           <button class="btn btn-danger btn-modal-submit" (click)="modal.dismiss()">ยกเลิก</button>
-      </div>
+        </div>
       </div>
     </form>
   </div>

@@ -2,7 +2,7 @@ import { LocalStorageService } from './local-storage.service';
 import { Injectable } from "@angular/core";
 import { HeaderService } from "./header.service";
 import { Observable, of } from "rxjs";
-import { IBaseSingleResult } from "../shared/interface/base-result";
+import { IBaseCollectionResult, IBaseSingleResult } from "../shared/interface/base-result";
 import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
 import { CreateAdmin, EditAdmin } from "../shared/interface/admin";
@@ -42,4 +42,5 @@ export class MemberService {
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.post(url, params, { headers: option })
     }
+
 }

@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterrunningmemberService } from 'src/app/index/services/register-running-member.service';
-import { RegisterrunningeventService } from 'src/app/index/services/register-running-event.service';
+import { EventService } from 'src/app/index/services/event.service';
 @Component({
   selector: 'app-list-menu',
   templateUrl: './list-menu.component.html',
@@ -27,16 +27,24 @@ export class ListMenuComponent {
   local_name: any
   local_lastname: any
   local_auth_id: any
-  constructor(private eventService: RegisterrunningeventService, private spinner: NgxSpinnerService, private modalService: NgbModal,
-    private localStorageService: LocalStorageService, private register_running_member_Service: RegisterrunningmemberService) {
+  mockData = [
+    {
+      reg_event_amount: '50',
+      reg_event_due_date: '2024-06-30',
+      reg_event_path_img: '../../../../assets/img/reg_by_organizer/5880559.jpg',
+      reg_event_name: 'งานวิ่งราชมงคลขอนแก่น',
+      reg_event_detail: 'งานวิ่งราชมงคลขอนแก่น 10 Km.',
+      reg_event_price: '150'
+    }
+  ]
+  constructor(private eventService: EventService, private spinner: NgxSpinnerService, private modalService: NgbModal,
+    private localStorageService: LocalStorageService) {
     this.search_Form = new FormGroup({
       char_search: new FormControl('')
     })
     this.create_register_running_Form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       lastname: new FormControl('', [Validators.required]),
-      tel: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required]),
       dsc: new FormControl(''),
       reg_event_name: new FormControl('',),
       trans_id: new FormControl('',),
@@ -53,9 +61,10 @@ export class ListMenuComponent {
   ngOnInit() {
     this.spinner.show()
     this.getallRegisterrunningevent()
+    // this.list_show_register = this.mockData
     setTimeout(() => {
       this.spinner.hide()
-    },3000)
+    }, 3000)
   }
   openModal(modal: any, list: any) {
     this.modalService.open(modal, { size: 'lg' })
@@ -63,14 +72,14 @@ export class ListMenuComponent {
     let f = this.create_register_running_Form
     f.controls['name']?.setValue(this.local_name)
     f.controls['lastname']?.setValue(this.local_lastname)
-    f.controls['reg_event_name']?.setValue(list?.reg_event_name)
-    f.controls['reg_event_id']?.setValue(list?.reg_event_id)
+    f.controls['reg_event_name']?.setValue(list?.name)
+    f.controls['reg_event_id']?.setValue(list?.id)
   }
   getallRegisterrunningevent() {
     this.eventService.getAllEvent().subscribe((rs) => {
       if (rs?.status === true) {
-        this.register_running_event_array = rs.result
-        this.list_show_register = rs.result
+        this.register_running_event_array = rs.results
+        this.list_show_register = rs.results
         this.spinner.hide()
       }
       else {
@@ -142,15 +151,10 @@ export class ListMenuComponent {
     this.spinner.show()
     let f = this.create_register_running_Form
     let param = {
-      auth_id: this.local_auth_id,
-      reg_member_description: f.controls['dsc']?.value,
-      name: this.local_name,
-      lastname: this.local_lastname,
-      tel: f.controls['tel']?.value,
-      email: f.controls['email']?.value,
-      reg_event_id: f.controls['reg_event_id']?.value,
+      description: f.controls['dsc']?.value,
+      event_id: Number(f.controls['reg_event_id']?.value)
     }
-    this.register_running_member_Service.postCreateRegisterrunningmember(param).subscribe((rs) => {
+    this.eventService.postCreateRegisterEvent(param).subscribe((rs) => {
       this.create_register_running_Form.reset()
       if (rs?.status == true) {
         this.spinner.hide()
@@ -169,7 +173,6 @@ export class ListMenuComponent {
           showCloseButton: true,
           showConfirmButton: false,
           icon: "error",
-          // title: rs?.status_code,
           text: rs?.message,
         });
       }

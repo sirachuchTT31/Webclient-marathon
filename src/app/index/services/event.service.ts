@@ -2,17 +2,19 @@ import { LocalStorageService } from './local-storage.service';
 import { Injectable } from "@angular/core";
 import { HeaderService } from "./header.service";
 import { Observable, of } from "rxjs";
-import { IBaseSingleResult } from "../shared/interface/base-result";
+import { IBaseCollectionResult, IBaseCollectionWithPangingResult, IBaseSingleResult } from "../shared/interface/base-result";
 import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
 import { CreateAdmin, EditAdmin } from "../shared/interface/admin";
 import { CreateOrganizer, EditOrganizer } from '../shared/interface/organizer';
 import { CreateEvent, UpdateregisterrunningOrganizer, Updatestatusbeforerejectevent } from '../shared/interface/register-running-organizer';
+import { createRegisterEvent } from '../shared/interface/event';
+import { basePagination } from '../shared/interface/pagination';
 @Injectable({
     providedIn: 'root'
 })
 
-export class RegisterrunningeventService {
+export class EventService {
     token: any
     constructor(private configService: ConfigurationService, private http: HttpClient,
         private headerService: HeaderService, private localStorageService: LocalStorageService) {
@@ -35,10 +37,23 @@ export class RegisterrunningeventService {
         let option = this.headerService.BuildRequestHeadersFormData(this.token)
         return this.http.post(url, formData, { headers: option })
     }
-    getAllEvent(): Observable<IBaseSingleResult<any> | undefined> {
+    getAllEvent(): Observable<IBaseCollectionResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/reg-event/getall'
-        let option = this.headerService.BuildRequestHeadersNoAuthen()
+        let url = baseApi + 'api/get-all-event'
+        let option = this.headerService.BuildRequestHeaders(this.token)
+        return this.http.get(url, { headers: option })
+    }
+    //Member
+    postCreateRegisterEvent(list: createRegisterEvent): Observable<IBaseSingleResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/create-register-event'
+        let option = this.headerService.BuildRequestHeaders(this.token)
+        return this.http.post(url, list, { headers: option })
+    }
+    getAllHistory(params: basePagination): Observable<IBaseCollectionWithPangingResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/get-all-history?page=' + params.page + '&per_page=' + params.per_page
+        let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
     }
     getRegisterrunningeventOrganizer(_id: any): Observable<IBaseSingleResult<any> | undefined> {

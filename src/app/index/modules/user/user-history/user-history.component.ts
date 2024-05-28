@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { LocalStorageService } from 'src/app/index/services/local-storage.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { RegisterrunningmemberService } from 'src/app/index/services/register-running-member.service';
+import { EventService } from 'src/app/index/services/event.service';
 @Component({
   selector: 'app-user-history',
   templateUrl: './user-history.component.html',
@@ -22,7 +23,26 @@ export class UserHistoryComponent {
   config_pagin: any
   filter_status_list: any
   status_form: FormGroup
-  constructor(private register_running_member_Service: RegisterrunningmemberService, private spinner: NgxSpinnerService, private localStorageService: LocalStorageService,) {
+  mockData = [
+    {
+      reg_event_name: 'งานวิ่งบึงแก่นนคร (ขอนแก่น) ครั้งที่ 5',
+      reg_event_path_img: '../../../../assets/img/reg_by_organizer/5880559.jpg',
+      createdAt: '2024-05-29 12:55:53.644',
+      reg_member_status: 11
+    },
+    {
+      reg_event_name: 'งานวิงมหาวิทยาลัยขอนแก่น ครั้งที่ 3',
+      reg_event_path_img: '../../../../assets/img/reg_by_organizer/5880559.jpg',
+      createdAt: '2024-05-28 12:55:53.644',
+      reg_member_status: 11
+    }
+  ]
+  constructor(
+    private register_running_member_Service: RegisterrunningmemberService,
+    private spinner: NgxSpinnerService,
+    private localStorageService: LocalStorageService,
+    private eventService : EventService
+  ) {
     //CALL FORM
     this.status_form = new FormGroup({
       status: new FormControl('10')
@@ -78,6 +98,7 @@ export class UserHistoryComponent {
         }
       ]
     }
+    this.filter_reg = this.mockData
     this.filter_status_list = {
       results: {
         data: [
@@ -114,7 +135,7 @@ export class UserHistoryComponent {
   }
   filterReg() {
     if (this.status_form.controls['status'].value != '10') {
-      this.filter_reg = this.list_history.filter((res: any) =>res?.reg_member_status == this.status_form.controls['status'].value)
+      this.filter_reg = this.list_history.filter((res: any) => res?.reg_member_status == this.status_form.controls['status'].value)
     }
     else {
       this.filter_reg = this.list_history
@@ -122,15 +143,23 @@ export class UserHistoryComponent {
   }
   getHistory() {
     try {
-      this.register_running_member_Service.getHistory(this.local_auth_id).subscribe((rs) => {
-        if (rs?.status == true) {
-          this.list_history = rs?.results
-          this.filter_reg = rs?.results
+      this.eventService.getAllHistory({page : 1 , per_page : 2}).subscribe((rs) => {
+        if(rs?.status === true){
+
         }
         else {
 
         }
       })
+      // this.register_running_member_Service.getHistory(this.local_auth_id).subscribe((rs) => {
+      //   if (rs?.status == true) {
+      //     this.list_history = rs?.results
+      //     this.filter_reg = rs?.results
+      //   }
+      //   else {
+
+      //   }
+      // })
     }
     catch (e) {
       console.log(e)

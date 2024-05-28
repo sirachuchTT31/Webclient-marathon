@@ -1,13 +1,13 @@
 import { CryptlibService } from './../../../../services/crypt-lib.service';
 import { LocalStorageService } from 'src/app/index/services/local-storage.service';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { RegisterrunningeventService } from 'src/app/index/services/register-running-event.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { MasterdataService } from 'src/app/index/services/master-data.service';
+import { EventService } from 'src/app/index/services/event.service';
 @Component({
   selector: 'app-organizer-dashboard',
   templateUrl: './organizer-dashboard.component.html',
@@ -57,10 +57,18 @@ export class OrganizerDashboardComponent {
       label: 'งานที่เสร็จ'
     },
   ]
+  mockData = [
+    {
+      reg_event_name : 'งานวิ่งเพื่อการกุศล',
+      reg_event_due_date : '2024-05-30',
+      reg_event_status : '01',
+      reg_event_path_img : '../../../../assets/img/reg_by_organizer/5880559.jpg'
+    }
+  ]
   today: any
   @ViewChild('fileUpload', { static: true }) fileUpload!: ElementRef;
   constructor(
-    private register_running_event_Service: RegisterrunningeventService,
+    private register_running_event_Service: EventService,
     private localStorageService: LocalStorageService,
     private spinner: NgxSpinnerService,
     private modalService: NgbModal,
@@ -94,10 +102,14 @@ export class OrganizerDashboardComponent {
   }
   ngOnInit(): void {
     this.spinner.show()
-    this.getRegbyorganizer()
+    // this.getRegbyorganizer()
     this.getAllMasterLocation()
     this.today = new Date()
+    this.filter_reg = this.mockData
 
+    setTimeout(() => {
+      this.spinner.hide()
+    },3000)
     // this.filter_reg = this.reg_by_organizer_object
   }
   ngAfterViewInit(): void {
