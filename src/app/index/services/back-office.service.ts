@@ -41,6 +41,7 @@ export class BackOfficeService {
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.post(url, list, { headers: option })
     }
+
     postDeleteAdminBackoffice(list: deleteAdmin): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
         let url = baseApi + 'api/delete-admin-backoffice'
@@ -48,6 +49,23 @@ export class BackOfficeService {
         return this.http.post(url, list, { headers: option })
     }
 
+    //FIXME: Organizer
+    getAllOrganizerBackoffice(): Observable<IBaseCollectionResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/get-all-organizer-backoffice'
+        let option = this.headerService.BuildRequestHeaders(this.token)
+        return this.http.get(url, { headers: option })
+    }
+
+    //FIXME: Member 
+    getAllMemberBackoffice(): Observable<IBaseCollectionResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/get-all-member-backoffice'
+        let option = this.headerService.BuildRequestHeaders(this.token)
+        return this.http.get(url, { headers: option })
+    }
+
+    //FIXME: Event
     getAllEventBackoffice(): Observable<IBaseCollectionResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
         let url = baseApi + 'api/get-event-backoffice'
