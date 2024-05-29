@@ -34,6 +34,9 @@ export class NavBarComponent {
     this.localstorageService.signOut()
     window.location.href = '/'
   }
+  routerIndex(){
+    window.location.href = 'user'
+  }
   routeSettingprofile() {
     window.location.href = 'user/setting-profile'
   }
