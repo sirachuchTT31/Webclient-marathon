@@ -11,9 +11,6 @@
             <div class="d-flex justify-content-between">
                 <div class="d-flex  flex-row w-100 gap-2 align-self-center">
                     <!-- <div class="dropdown">
-                        <button class="btn btn-outline-dark" style="width: 120px;">View All</button>
-                    </div> -->
-                    <div class="dropdown">
                         <form [formGroup]="status_form">
                             <mat-form-field class="p-0 w-100">
                                 <mat-label>เลือกสถานะ</mat-label>
@@ -23,41 +20,36 @@
                                 </mat-select>
                             </mat-form-field>
                         </form>
-                    </div>
-                </div>
+                    </div> -->
+                    <div class="box-input-group col-2 p-0">
+                        <label>วันที่ลงทะเบียน</label> <br>
+                        <div class="box-date-container">
+                            <label class="btn btn-primary label-date-picker">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    class="bi bi-calendar" viewBox="0 0 16 16">
+                                    <path
+                                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                                </svg>
 
+                                <mat-datepicker-toggle matSuffix [for]="picker" hidden [id]="picker">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </label>
+                            <input type="text" class="form-control date-picker" [(ngModel)]="DateResult" matInput
+                                [matDatepicker]="picker" readonly placeholder="วันที่ลงทะเบียน" [min]="today">
+
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary align-self-end" style="width: 150px;height: 40px;"
+                        [disabled]="validateButton() === false">ค้นหา</button>
+                </div>
             </div>
 
             <div class="wrap-table box_table_preview">
-                <table class="fl-table mb-2 ">
-                    <thead class="">
-                        <tr>
-                            <th scope="col" style="width: 50px;">ลำดับ</th>
-                            <th scope="col" style="width: 450px;">ชื่องาน</th>
-                            <th scope="col" style="width: 250px;">วันที่ลงทะเบียน</th>
-                            <th scope="col" style="width: 250px;">สถานะ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            *ngFor="let item of this.filter_reg| paginate: { itemsPerPage: config_pagin.pageSize, currentPage: config_pagin.currentPage }let i = index;">
-                            <td>{{countIndex(config_pagin.pageSize,config_pagin.currentPage,i+1)}}</td>
-                            <td class=""><img [src]="item.reg_event_path_img"
-                                    style="width: 150px; object-fit: cover; padding-right: 5px;">{{item.reg_event_name}}
-                            </td>
-                            <td>{{item.createdAt | date:'dd-MM-yyyy'}}</td>
-                            <td>
-                                <ng-container *ngIf="item.reg_member_status == 11">
-                                    <span>รอการอนุมัติ (Waiting for approver)</span>
-                                </ng-container>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="text-center " *ngIf="filter_reg?.length == 0">
-                    <h2 class="text-dark">ไม่พบข้อมูล (Data not found)</h2>
-                </div>
-                <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+                <app-pagination-order-member [data]="historyData"
+                    [paginationConfig]="{pageSize : perPage , totalRecord : historyData?.totalRecord}"
+                    (currentPage)="getHistory($event)"></app-pagination-order-member>
             </div>
         </div>
     </div>

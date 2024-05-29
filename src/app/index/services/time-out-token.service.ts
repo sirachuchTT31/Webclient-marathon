@@ -54,7 +54,6 @@ export class TimeoutTokenService {
                                         role: response.payload.role,
                                         token: response.access_token
                                     });
-                                    this.clearTokenExpires()
                             }
                             else {
                                 this.localStorageService.signOut();

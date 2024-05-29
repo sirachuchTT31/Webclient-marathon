@@ -37,6 +37,11 @@ export class UserHistoryComponent {
       reg_member_status: 11
     }
   ]
+  page : number = 0
+  perPage : number = 10
+  historyData : any
+  today = new Date()
+  DateResult : any
   constructor(
     private register_running_member_Service: RegisterrunningmemberService,
     private spinner: NgxSpinnerService,
@@ -55,50 +60,6 @@ export class UserHistoryComponent {
   ngOnInit() {
     //SERVICE 
     this.getHistory()
-    this.config_pagin = {
-      pageSize: 5,
-      currentPage: 1
-    }
-    this.mock_list = {
-      result: [
-        {
-          name: 'demo01',
-          date: '11-01-2022',
-          status: true
-        }
-        ,
-        {
-          name: 'demo01',
-          date: '11-01-2022',
-          status: true
-        },
-        {
-          name: 'demo01',
-          date: '11-01-2022',
-          status: true
-        },
-        {
-          name: 'demo01',
-          date: '11-01-2022',
-          status: true
-        },
-        {
-          name: 'demo01',
-          date: '11-01-2022',
-          status: true
-        },
-        {
-          name: 'demo01',
-          date: '11-01-2022',
-          status: true
-        }, {
-          name: 'demo01',
-          date: '11-01-2022',
-          status: true
-        }
-      ]
-    }
-    this.filter_reg = this.mockData
     this.filter_status_list = {
       results: {
         data: [
@@ -130,9 +91,6 @@ export class UserHistoryComponent {
       }
     }
   }
-  countIndex(pageSize: number, current_page: number, index: number) {
-    return pageSize * (current_page - 1) + index;
-  }
   filterReg() {
     if (this.status_form.controls['status'].value != '10') {
       this.filter_reg = this.list_history.filter((res: any) => res?.reg_member_status == this.status_form.controls['status'].value)
@@ -141,33 +99,29 @@ export class UserHistoryComponent {
       this.filter_reg = this.list_history
     }
   }
-  getHistory() {
+  getHistory(currentPage? : number) {
     try {
-      this.eventService.getAllHistory({page : 1 , per_page : 2}).subscribe((rs) => {
+      this.eventService.getAllHistory({page : currentPage ? currentPage : 0, per_page : this.perPage}).subscribe((rs) => {
         if(rs?.status === true){
-
+          this.historyData = rs
         }
         else {
 
         }
       })
-      // this.register_running_member_Service.getHistory(this.local_auth_id).subscribe((rs) => {
-      //   if (rs?.status == true) {
-      //     this.list_history = rs?.results
-      //     this.filter_reg = rs?.results
-      //   }
-      //   else {
-
-      //   }
-      // })
     }
     catch (e) {
       console.log(e)
     }
   }
-  changePage(event: any) {
-    this.config_pagin.currentPage = event
-    console.log(event)
+  onSearch(){
+
+  }
+  validateButton(){
+    if(this.DateResult){
+      return true
+    }
+    return false
   }
   setStatus() {
     console.log(this.dropdown_status)

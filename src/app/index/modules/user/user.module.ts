@@ -22,6 +22,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ComponentModule } from '../../component/component.module';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   {
@@ -72,6 +73,7 @@ const routes: Routes = [
     MatInputModule,
     MatAutocompleteModule,
     MatSelectModule,
+    MatIconModule,
     Ng2SearchPipeModule,
     MatDatepickerModule,
     MatMomentDateModule,

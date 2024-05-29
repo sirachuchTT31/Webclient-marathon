@@ -19,6 +19,6 @@ export interface deleteAdmin {
     id : number
 }
 export interface updateEvent {
-    transaction_id : number 
+    event_id : number 
     status : string
 }
