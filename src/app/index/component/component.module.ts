@@ -7,6 +7,7 @@ import { PaginationOrderMemberComponent } from './pagination/pagination-order-me
 import { PaginationApprovedOrganizerComponent } from './pagination/pagination-approved-organizer/pagination-approved-organizer.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RemoveIconComponent } from './remove-icon/remove-icon.component';
+import { ModalListRegisterComponent } from './modal-list-register/modal-list-register.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { RemoveIconComponent } from './remove-icon/remove-icon.component';
     PaginationOrderMemberComponent,
     PaginationApprovedOrganizerComponent,
     RemoveIconComponent,
+    ModalListRegisterComponent,
   ],
   imports: [
     CommonModule,

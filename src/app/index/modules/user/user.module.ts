@@ -23,6 +23,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ComponentModule } from '../../component/component.module';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import {
+  MatDialogModule
+} from '@angular/material/dialog';
 
 const routes: Routes = [
   {
@@ -80,6 +84,8 @@ const routes: Routes = [
     MatNativeDateModule,
     NgxPaginationModule,
     ComponentModule,
+    MatDialogModule,
+    MatTooltipModule,
     RouterModule.forChild(routes),
   ]
 })

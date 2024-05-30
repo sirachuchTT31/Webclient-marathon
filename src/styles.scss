@@ -971,9 +971,9 @@ ul {
     padding: 20px;
     border: 1px solid #dee2e6;
     border-radius: 20px;
-    box-shadow: -3px 9px 12px 2px rgba(175,203,235,0.87);
-    -webkit-box-shadow: -3px 9px 12px 2px rgba(175,203,235,0.87);
-    -moz-box-shadow: -3px 9px 12px 2px rgba(175,203,235,0.87);
+    box-shadow: -3px 9px 12px 2px rgba(175, 203, 235, 0.87);
+    -webkit-box-shadow: -3px 9px 12px 2px rgba(175, 203, 235, 0.87);
+    -moz-box-shadow: -3px 9px 12px 2px rgba(175, 203, 235, 0.87);
     overflow: auto;
 }
 
@@ -982,11 +982,32 @@ ul {
     min-height: 300px;
     border-radius: 20px;
 }
+
 .custom-title {
     font-size: 30px;
     font-weight: 600;
     letter-spacing: 1px;
     line-height: 20px;
+}
+
+.custom-mat-dialog {
+    width: 1200px ;
+    // max-width: 100% !important;
+    height: 500px;
+}
+
+@media (max-width : 1500px) {
+    .custom-mat-dialog {
+        width: 800px;
+        height: 350px;
+    }
+}
+
+@media (max-width : 1300px) {
+    .custom-mat-dialog {
+        width: 550px ;
+        height: 350px;
+    }
 }
 
 //   .circle-inner {

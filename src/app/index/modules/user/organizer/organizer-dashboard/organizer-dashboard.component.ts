@@ -1,6 +1,6 @@
 import { CryptlibService } from './../../../../services/crypt-lib.service';
 import { LocalStorageService } from 'src/app/index/services/local-storage.service';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,6 +8,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { MasterdataService } from 'src/app/index/services/master-data.service';
 import { EventService } from 'src/app/index/services/event.service';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogTitle,
+  MatDialogContent,
+} from '@angular/material/dialog';
+import { ModalListRegisterComponent } from 'src/app/index/component/modal-list-register/modal-list-register.component';
 @Component({
   selector: 'app-organizer-dashboard',
   templateUrl: './organizer-dashboard.component.html',
@@ -66,8 +73,8 @@ export class OrganizerDashboardComponent {
     }
   ]
   today: any
-  perPage : any = 0
-  totalRecord : number =0
+  perPage: any = 0
+  totalRecord: number = 0
   currentPage: number = 0
   @ViewChild('fileUpload', { static: true }) fileUpload!: ElementRef;
   constructor(
@@ -76,7 +83,8 @@ export class OrganizerDashboardComponent {
     private spinner: NgxSpinnerService,
     private modalService: NgbModal,
     private masterdataService: MasterdataService,
-    private cryptlibService: CryptlibService
+    private cryptlibService: CryptlibService,
+    public dialog: MatDialog
   ) {
     this.auth_id = this.localStorageService.getId()
     this.status_form = new FormGroup({
@@ -121,6 +129,12 @@ export class OrganizerDashboardComponent {
       // reg_event_path_img: new FormControl('', [Validators.required]),
       location_id: new FormControl(list?.location_id, [Validators.required]),
     })
+  }
+  openDialog(){
+    this.dialog.open(ModalListRegisterComponent,{
+      panelClass : 'custom-mat-dialog',
+      data : ''
+    });
   }
   formatNumber(x: any) {
     if (x) {
