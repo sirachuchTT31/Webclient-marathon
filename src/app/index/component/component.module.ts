@@ -8,8 +8,6 @@ import { PaginationApprovedOrganizerComponent } from './pagination/pagination-ap
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RemoveIconComponent } from './remove-icon/remove-icon.component';
 
-
-
 @NgModule({
   declarations: [
     NavBarComponent,
@@ -21,7 +19,7 @@ import { RemoveIconComponent } from './remove-icon/remove-icon.component';
   imports: [
     CommonModule,
     NgbModule,
-    NgxPaginationModule
+    NgxPaginationModule,
   ],
   exports: [
     // ComponentModule,

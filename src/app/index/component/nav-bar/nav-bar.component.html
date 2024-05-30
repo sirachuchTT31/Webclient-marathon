@@ -1,4 +1,4 @@
-<div class="nav-detail " (mouseout)="isCollapsed = true">
+<div class="nav-detail "  (mouseup)="isCollapsed = true">
     <div class="wrapper-nav-menu">
         <div class="nav-grid-left">
             <small>Marathon</small>
@@ -19,7 +19,7 @@
                     <small class="text-center text-profile-nav">{{ this.name }}
                     </small>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-caret-down-fill" viewBox="0 0 16 16" (mouseover)="isCollapsed = false"
+                        class="bi bi-caret-down-fill" viewBox="0 0 16 16" (click)="isCollapsed = false"
                         *ngIf="isCollapsed == true">
                         <path
                             d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" (mouseover)="isCollapsed = false">
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
         <div class="wrapper-box-collapse">
             <div class=" box-collapse">
                 <div class="box-collapse-body">

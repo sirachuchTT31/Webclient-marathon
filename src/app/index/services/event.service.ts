@@ -56,9 +56,9 @@ export class EventService {
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
     }
-    getRegisterrunningeventOrganizer(_id: any): Observable<IBaseSingleResult<any> | undefined> {
+    getAllEventRegister(params: basePagination): Observable<IBaseCollectionWithPangingResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/reg-event/get-reg-by-organizer/' + _id
+        let url = baseApi + 'api/get-all-event-register?page=' + params.page + '&per_page=' + params.per_page
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
     }

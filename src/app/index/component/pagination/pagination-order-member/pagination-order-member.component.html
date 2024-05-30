@@ -9,7 +9,7 @@
     </thead>
     <tbody>
         <tr
-            *ngFor="let item of this.data?.results| paginate: { itemsPerPage: config.pageSize, currentPage: config.currentPage }let i = index;">
+            *ngFor="let item of this.data?.results| paginate: { itemsPerPage: config.pageSize, currentPage: config.currentPage ,  totalItems : config.totalRecord}let i = index;">
             <td>{{countIndex(config.pageSize,config.currentPage,i+1)}}</td>
             <td class=""><img [src]="item.EventJoin.Event.path_image"
                     style="width: 150px; object-fit: cover; padding-right: 5px;">{{item.EventJoin.Event.name}}

@@ -28,28 +28,28 @@
 
     </div>
     <div class="box-content-list-menu">
-        <ng-container *ngFor="let rs of filter_reg;let i = index; ">
+        <ng-container *ngFor="let rs of filter_reg | paginate: { itemsPerPage: perPage, currentPage: currentPage , totalItems : totalRecord}let i = index; ">
             <div class="card card-list">
-                <img src="{{rs.reg_event_path_img}}" style="width: 100%; height: 200px;" class="card-img-top" alt="...">
+                <img [src]="rs.path_image" style="width: 100%; height: 200px;" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title-event mb-3">{{rs.reg_event_name}}</h5>
-                    <p class="card-text-event-organizer mb-0">วันที่จัดงาน : {{rs.reg_event_due_date}}</p>
-                    <p class="card-text-event-organizer mb-0" *ngIf="rs.reg_event_status == '01'">สถานะ :
+                    <h5 class="card-title-event mb-3">{{rs.name}}</h5>
+                    <p class="card-text-event-organizer mb-0">วันที่จัดงาน : {{rs.due_date | date:'dd-MM-yyyy'}}</p>
+                    <p class="card-text-event-organizer mb-0" *ngIf="rs.status_code == '01'">สถานะ :
                         <span class="text-warning"
-                            style="font-size: 14px;">{{changeStatustotext(rs.reg_event_status)}}</span>
+                            style="font-size: 14px;">{{changeStatustotext(rs.status_code)}}</span>
                     </p>
-                    <p class="card-text-event-organizer mb-0" *ngIf=" rs.reg_event_status == '02'">สถานะ :
+                    <p class="card-text-event-organizer mb-0" *ngIf=" rs.status_code == '02'">สถานะ :
                         <span class="text-primary"
-                            style="font-size: 14px;">{{changeStatustotext(rs.reg_event_status)}}</span>
+                            style="font-size: 14px;">{{changeStatustotext(rs.status_code)}}</span>
                     </p>
                     <p class="card-text-event-organizer mb-0"
-                        *ngIf="rs.reg_event_status == '03' || rs.reg_event_status =='04'">สถานะ :
+                        *ngIf="rs.status_code == '03' || rs.status_code =='04'">สถานะ :
                         <span class="text-danger"
-                            style="font-size: 14px;">{{changeStatustotext(rs.reg_event_status)}}</span>
+                            style="font-size: 14px;">{{changeStatustotext(rs.status_code)}}</span>
                     </p>
-                    <p class="card-text-event-organizer mb-0" *ngIf="rs.reg_event_status == '05'">สถานะ :
+                    <p class="card-text-event-organizer mb-0" *ngIf="rs.status_code == '05'">สถานะ :
                         <span class="text-success"
-                            style="font-size: 14px;">{{changeStatustotext(rs.reg_event_status)}}</span>
+                            style="font-size: 14px;">{{changeStatustotext(rs.status_code)}}</span>
                     </p>
                     <hr class="">
                     <div class="text-end">
@@ -58,7 +58,7 @@
                             เหตุผล
                         </button>
                         <!-- เปลี่ยนสถานะให้ Admin ตรวจสอบ -->
-                        <button type="button" class="btn btn-outline-dark me-2" *ngIf="rs.reg_event_status == '03'"
+                        <button type="button" class="btn btn-outline-dark me-2" *ngIf="rs.status_code == '03'"
                             (click)="openModalUpdate(edit,rs)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -69,8 +69,8 @@
                             </svg>
                         </button>
                         <!-- เปลี่ยนสถานะให้เป็นงานสำเร็จ -->
-                        <button type="button" class="btn btn-outline-success  me-2" *ngIf="rs.reg_event_status == '02'"
-                            (click)="postUpdatestatusregeventsuccess(rs?.reg_event_id)">
+                        <button type="button" class="btn btn-outline-success  me-2" *ngIf="rs.status_code == '02'"
+                            (click)="postUpdatestatusregeventsuccess(rs?.id)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                 class="bi bi-file-check-fill" viewBox="0 0 16 16">
                                 <path
@@ -90,8 +90,10 @@
 
                 </div>
             </div>
-
         </ng-container>
+    </div>
+    <div class="mt-5 d-flex justify-content-end">
+        <pagination-controls (pageChange)="changePage($event)" ></pagination-controls>
     </div>
     <div class="text-center " *ngIf="filter_reg?.length == 0">
         <h2 class="text-dark">ไม่พบข้อมูล (Data not found)</h2>

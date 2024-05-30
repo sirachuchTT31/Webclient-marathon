@@ -22,7 +22,7 @@ export interface IBaseCollectionWithPangingResult<T> {
     status_code?: string;
     totalRecord?: any|number;
     page?: any|number;
-    perPage?: any|number;
+    per_page?: any|number;
     message?: string;
     errorMessage?: string;
 }
