@@ -8,6 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterrunningmemberService } from 'src/app/index/services/register-running-member.service';
 import { EventService } from 'src/app/index/services/event.service';
+import { CryptlibService } from 'src/app/index/services/crypt-lib.service';
 @Component({
   selector: 'app-list-menu',
   templateUrl: './list-menu.component.html',
@@ -37,8 +38,14 @@ export class ListMenuComponent {
       reg_event_price: '150'
     }
   ]
-  constructor(private eventService: EventService, private spinner: NgxSpinnerService, private modalService: NgbModal,
-    private localStorageService: LocalStorageService) {
+  role: any
+  constructor(
+    private eventService: EventService,
+    private spinner: NgxSpinnerService,
+    private modalService: NgbModal,
+    private localStorageService: LocalStorageService,
+    private cryptLibService: CryptlibService
+  ) {
     this.search_Form = new FormGroup({
       char_search: new FormControl('')
     })
@@ -59,6 +66,8 @@ export class ListMenuComponent {
     this.local_auth_id = this.localStorageService.getId()
   }
   ngOnInit() {
+    let storageRole = this.localStorageService.getRole()
+    this.role = this.cryptLibService.decryptCipher(storageRole ? storageRole : '')
     this.spinner.show()
     this.getallRegisterrunningevent()
     // this.list_show_register = this.mockData
@@ -67,13 +76,29 @@ export class ListMenuComponent {
     }, 3000)
   }
   openModal(modal: any, list: any) {
-    this.modalService.open(modal, { size: 'lg' })
-    //MAPPING VALUE 
-    let f = this.create_register_running_Form
-    f.controls['name']?.setValue(this.local_name)
-    f.controls['lastname']?.setValue(this.local_lastname)
-    f.controls['reg_event_name']?.setValue(list?.name)
-    f.controls['reg_event_id']?.setValue(list?.id)
+    if (this.role === 'member') {
+      this.modalService.open(modal, { size: 'lg' })
+      //MAPPING VALUE 
+      let f = this.create_register_running_Form
+      f.controls['name']?.setValue(this.local_name)
+      f.controls['lastname']?.setValue(this.local_lastname)
+      f.controls['reg_event_name']?.setValue(list?.name)
+      f.controls['reg_event_id']?.setValue(list?.id)
+    }
+    else {
+      Swal.fire({
+        showCloseButton: true,
+        showConfirmButton: false,
+        icon: "error",
+        customClass : {
+          popup : "custom-popup",
+          title : "custom-title"
+        },
+        title: 'ผู้จัดงานไม่สามารถลงทะเบียนได้',
+        text : 'กรุณาติดต่อผู้ดูแลระบบ'
+        // text: rs?.message,
+      });
+    }
   }
   getallRegisterrunningevent() {
     this.eventService.getAllEvent().subscribe((rs) => {
