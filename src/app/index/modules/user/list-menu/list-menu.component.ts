@@ -96,7 +96,6 @@ export class ListMenuComponent {
         },
         title: 'ผู้จัดงานไม่สามารถลงทะเบียนได้',
         text : 'กรุณาติดต่อผู้ดูแลระบบ'
-        // text: rs?.message,
       });
     }
   }

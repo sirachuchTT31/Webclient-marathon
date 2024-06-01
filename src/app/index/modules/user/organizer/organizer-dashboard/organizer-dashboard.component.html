@@ -15,8 +15,18 @@
                 </mat-form-field>
             </form>
         </div>
-        <div class="text-end  p-0 mb-3">
-            <button class="btn btn-primary" (click)="openModalCreate(modalcreate)">
+        <div class="d-flex justify-content-end "  style="gap: 20px;">
+            <button class="btn btn-primary" (click)="onSaveUpdateIsActive()" [disabled]="actionDraft == false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-floppy-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5z" />
+                    <path
+                        d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z" />
+                </svg>
+                <span class="p-2">บันทึกข้อมูลการเปิด/ปิด</span>
+            </button>
+            <button class="btn btn-success" (click)="openModalCreate(modalcreate)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                     class="bi bi-plus-square-fill" viewBox="0 0 16 16">
                     <path
@@ -53,24 +63,16 @@
                     </p>
                     <hr class="">
                     <div class="text-end">
-                        <button type="button" class="btn btn-outline-danger me-2" placement="top"
+                        <!-- <button type="button" class="btn btn-outline-danger me-2" placement="top"
                             *ngIf="rs.reg_event_status == '03'" [ngbPopover]="rs?.reason" popoverTitle="เหตุผล">
                             เหตุผล
-                        </button>
-                        <!-- เปลี่ยนสถานะให้ Admin ตรวจสอบ -->
-                        <button type="button" class="btn btn-outline-dark me-2" *ngIf="rs.status_code == '03'"
-                            (click)="openModalUpdate(edit,rs)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                <path
-                                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                <path fill-rule="evenodd"
-                                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                            </svg>
-                        </button>
-                        <!-- เปลี่ยนสถานะให้เป็นงานสำเร็จ -->
-                        <button type="button" class="btn btn-outline-warning  me-2" *ngIf="rs.status_code == '02'" (click)="openDialog()"
-                            #tooltip="matTooltip" matTooltip="รายละเอียดผู้สมัคร" [matTooltipPosition]="'above'">
+                        </button> -->
+                        <mat-slide-toggle (change)="setIsActive($event,rs)" color="primary" [checked]="rs.is_active"  *ngIf="rs.status_code == '02'"
+                            #tooltipToggle="matTooltip" matTooltip="เปิด/ปิด อีเว้นท์นี้"
+                            [matTooltipPosition]="'above'"></mat-slide-toggle>
+                        <button type="button" class="btn btn-outline-warning  me-2" *ngIf="rs.status_code == '02'"
+                            (click)="openDialog()" #tooltip="matTooltip" matTooltip="รายละเอียดผู้สมัคร"
+                            [matTooltipPosition]="'above'">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                 class="bi bi-file-text" viewBox="0 0 16 16">
                                 <path
@@ -79,22 +81,10 @@
                                     d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1" />
                             </svg>
                         </button>
-                        <button type="button" class="btn btn-outline-success  me-2" *ngIf="rs.status_code == '02'"
-                            (click)="postUpdatestatusregeventsuccess(rs?.id)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                class="bi bi-file-check-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m-1.146 6.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708.708" />
-                            </svg>
-                        </button>
-                        <button type="button" class="btn btn-outline-dark ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                class="bi bi-trash" viewBox="0 0 16 16">
-                                <path
-                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                                <path
-                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                            </svg>
+                        <button type="button" class="btn btn-outline-success  me-2" *ngIf="rs.status_code == '02'"  #tooltipButton="matTooltip" matTooltip="กดเพื่อสิ้นสุดอีเว้นท์"
+                        [matTooltipPosition]="'above'"
+                            (click)="onUpdateFinishjob(rs?.id,rs?.is_active)">
+                            ปิดจบงาน
                         </button>
                     </div>
 
@@ -157,10 +147,6 @@
 
                         <!-- </button> -->
                     </div>
-                    <!-- <mat-form-field class="w-100">
-                        <mat-label>เลือกวันที่จัดงาน</mat-label> -->
-
-                    <!-- </mat-form-field> -->
                 </div>
                 <div class="box-input-group">
                     <label>ระยะทางวิ่ง</label>
@@ -263,17 +249,8 @@
                         </span>
                     </span>
                 </div>
-                <!-- <div class="box-input-group">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Choose a date</mat-label>
-                        <input matInput [matDatepicker]="picker">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                </div> -->
                 <div class="box-input-group">
                     <label>อัพโหลดรูปภาพ</label><br>
-                    <!-- <button type="button" class="btn btn-primary align-items-center"> -->
                     <label class="label">
                         <input class="custom-file-input align-items-center" type="file" #fileUpload
                             (change)="uploadFile($event)">
@@ -295,178 +272,7 @@
                 <div class="d-flex justify-content-center mb-3 mt-3">
                     <button class="btn btn-primary btn-modal-submit me-3" (change)="checkcreateModal()"
                         [disabled]="checkcreateModal() === false"
-                        (click)="saveData();modal.dismiss()">บันทึกข้อมูล</button>
-                    <button class="btn btn-danger btn-modal-submit" (click)="modal.dismiss()">ยกเลิก</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</ng-template>
-
-<ng-template #edit let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title">แก้ไขงานวิ่ง (Edit)</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="create_register_running_event">
-            <div class="form-group">
-                <div class="box-input-group">
-                    <label>ชื่องาน</label>
-                    <input type="text" class="form-control" placeholder="ชื่องาน" formControlName="reg_event_name"
-                        maxlength="40" [ngClass]="{
-                        required:
-                        create_register_running_event.controls['reg_event_name'].invalid &&
-                        create_register_running_event.controls['reg_event_name'].touched
-                        }">
-                    <span *ngIf="
-                            create_register_running_event.controls['reg_event_name'].invalid &&
-                            create_register_running_event.controls['reg_event_name'].touched">
-                        <span *ngIf="
-                                create_register_running_event.controls['reg_event_name'].errors">
-                            <small class="text-danger">
-                                กรุณาระบุชื่องาน
-                            </small>
-                        </span>
-                    </span>
-                </div>
-                <div class="box-input-group">
-                    <label>วันที่จัดงาน</label> <br>
-                    <div class="box-date-container">
-                        <label class="btn btn-primary label-date-picker">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                class="bi bi-calendar" viewBox="0 0 16 16">
-                                <path
-                                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
-                            </svg>
-                            <mat-datepicker-toggle matSuffix [for]="picker" hidden
-                                [id]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </label>
-                        <input type="text" class="form-control date-picker" formControlName="reg_event_due_date"
-                            matInput [matDatepicker]="picker" readonly placeholder="เลือกวันที่จัดงาน" [min]="today">
-                        <!-- <button class="btn btn-primary h-auto" type="button"> -->
-
-                        <!-- </button> -->
-                    </div>
-                    <!-- <mat-form-field class="w-100">
-                        <mat-label>เลือกวันที่จัดงาน</mat-label> -->
-
-                    <!-- </mat-form-field> -->
-                </div>
-                <div class="box-input-group">
-                    <label>ระยะทางวิ่ง</label>
-                    <input type="text" class="form-control" placeholder="ระยะทางวิ่ง"
-                        formControlName="reg_event_distance" maxlength="40" [ngClass]="{
-                        required:
-                        create_register_running_event.controls['reg_event_distance'].invalid &&
-                        create_register_running_event.controls['reg_event_distance'].touched
-                        }" (keypress)="numberOnly($event)" onpaste="return false;" ondrop="return false;">
-                    <span *ngIf="
-                            create_register_running_event.controls['reg_event_distance'].invalid &&
-                            create_register_running_event.controls['reg_event_distance'].touched">
-                        <span *ngIf="
-                                create_register_running_event.controls['reg_event_distance'].errors">
-                            <small class="text-danger">
-                                กรุณาระบุระยะทางวิ่ง
-                            </small>
-                        </span>
-                    </span>
-                </div>
-                <div class="box-input-group">
-                    <label>ราคาบัตร</label>
-                    <input type="text" class="form-control" placeholder="ราคาบัตร" formControlName="reg_event_price"
-                        maxlength="40" [ngClass]="{
-                        required:
-                        create_register_running_event.controls['reg_event_price'].invalid &&
-                        create_register_running_event.controls['reg_event_price'].touched
-                        }" (keypress)="numberOnly($event)" onpaste="return false;" ondrop="return false;">
-                    <span *ngIf="
-                            create_register_running_event.controls['reg_event_price'].invalid &&
-                            create_register_running_event.controls['reg_event_price'].touched">
-                        <span *ngIf="
-                                create_register_running_event.controls['reg_event_price'].errors">
-                            <small class="text-danger">
-                                กรุณาระบุราคาบัตร
-                            </small>
-                        </span>
-                    </span>
-                </div>
-                <div class="box-input-group">
-                    <label>จำนวนบัตร</label>
-                    <input type="text" class="form-control" placeholder="จำนวนบัตร" formControlName="reg_event_amount"
-                        maxlength="40" [ngClass]="{
-                        required:
-                        create_register_running_event.controls['reg_event_amount'].invalid &&
-                        create_register_running_event.controls['reg_event_amount'].touched
-                        }" (keypress)="numberOnly($event)" onpaste="return false;" ondrop="return false;">
-                    <span *ngIf="
-                            create_register_running_event.controls['reg_event_amount'].invalid &&
-                            create_register_running_event.controls['reg_event_amount'].touched">
-                        <span *ngIf="
-                                create_register_running_event.controls['reg_event_amount'].errors">
-                            <small class="text-danger">
-                                กรุณาระบุจำนวนบัตร
-                            </small>
-                        </span>
-                    </span>
-                </div>
-                <div class="box-input-group">
-                    <label>รายละเอียด</label>
-                    <textarea type="text" class="form-control" placeholder="รายละเอียด"
-                        formControlName="reg_event_detail" maxlength="80" [ngClass]="{
-                        required:
-                        create_register_running_event.controls['reg_event_detail'].invalid &&
-                        create_register_running_event.controls['reg_event_detail'].touched
-                        }">
-                        </textarea>
-                    <span *ngIf="
-                            create_register_running_event.controls['reg_event_detail'].invalid &&
-                            create_register_running_event.controls['reg_event_detail'].touched">
-                        <span *ngIf="
-                                create_register_running_event.controls['reg_event_detail'].errors">
-                            <small class="text-danger">
-                                กรุณาระบุรายละเอียด
-                            </small>
-                        </span>
-                    </span>
-                </div>
-                <div class="box-input-group">
-                    <label>รายละเอียด</label>
-                    <select class="form-select" formControlName="location_id" [ngClass]="{
-                        required:
-                        create_register_running_event.controls['location_id'].invalid &&
-                        create_register_running_event.controls['location_id'].touched
-                        }">
-                        <option value="null" disabled>เลือกสถานที่</option>
-                        <option *ngFor="let rs of master_location" [value]="rs.location_id">
-                            {{rs.location_province}} / {{rs.location_district}} / {{rs.location_zipcode}} /
-                            {{rs.location_address}}
-                        </option>
-                    </select>
-                    <span *ngIf="
-                            create_register_running_event.controls['location_id'].invalid &&
-                            create_register_running_event.controls['location_id'].touched">
-                        <span *ngIf="
-                                create_register_running_event.controls['location_id'].errors">
-                            <small class="text-danger">
-                                กรุณาเลือกสถานที่
-                            </small>
-                        </span>
-                    </span>
-                </div>
-                <!-- <div class="box-input-group">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Choose a date</mat-label>
-                        <input matInput [matDatepicker]="picker">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                </div> -->
-                <div class="d-flex justify-content-center mb-3 mt-3">
-                    <button class="btn btn-primary btn-modal-submit me-3" (change)="checkupdateModal()"
-                        [disabled]="checkupdateModal() === false"
-                        (click)="postEditdataANDupdatestatusbeforereject();modal.dismiss()">บันทึกข้อมูล</button>
+                        (click)="createData();modal.dismiss()">บันทึกข้อมูล</button>
                     <button class="btn btn-danger btn-modal-submit" (click)="modal.dismiss()">ยกเลิก</button>
                 </div>
             </div>

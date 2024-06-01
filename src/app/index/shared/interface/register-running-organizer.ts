@@ -9,6 +9,15 @@ export interface CreateEvent {
     location_id: string
     auth_id: string
 }
+
+interface EventArray {
+    id: number
+    is_active: boolean
+    status_code: string
+}
+export interface UpdateEvent {
+    update_event: EventArray[]
+}
 export interface UpdateregisterrunningOrganizer {
     reg_event_id: string
     reg_event_name?: string
@@ -20,7 +29,3 @@ export interface UpdateregisterrunningOrganizer {
     location_id?: string
 }
 
-export interface Updatestatusbeforerejectevent {
-    reg_event_status: string
-    reg_event_id: string
-}

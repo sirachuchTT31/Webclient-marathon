@@ -7,7 +7,7 @@ import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
 import { CreateAdmin, EditAdmin } from "../shared/interface/admin";
 import { CreateOrganizer, EditOrganizer } from '../shared/interface/organizer';
-import { CreateEvent, UpdateregisterrunningOrganizer, Updatestatusbeforerejectevent } from '../shared/interface/register-running-organizer';
+import { CreateEvent, UpdateEvent, UpdateregisterrunningOrganizer } from '../shared/interface/register-running-organizer';
 import { createRegisterEvent } from '../shared/interface/event';
 import { basePagination } from '../shared/interface/pagination';
 @Injectable({
@@ -62,15 +62,9 @@ export class EventService {
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
     }
-    postUpdatestatusregevent(list: Updatestatusbeforerejectevent): Observable<IBaseSingleResult<any> | undefined> {
+    postUpdateEvent(list: UpdateEvent): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/reg-event/update-status-event'
-        let option = this.headerService.BuildRequestHeadersFormData(this.token)
-        return this.http.post(url, list, { headers: option })
-    }
-    postUpdateregevent(list: UpdateregisterrunningOrganizer): Observable<IBaseSingleResult<any> | undefined> {
-        let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/reg-event/update'
+        let url = baseApi + 'api/update-event'
         let option = this.headerService.BuildRequestHeadersFormData(this.token)
         return this.http.post(url, list, { headers: option })
     }
