@@ -27,6 +27,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {
   MatDialogModule
 } from '@angular/material/dialog';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 const routes: Routes = [
   {
@@ -86,6 +87,7 @@ const routes: Routes = [
     ComponentModule,
     MatDialogModule,
     MatTooltipModule,
+    MatSlideToggleModule,
     RouterModule.forChild(routes),
   ]
 })
