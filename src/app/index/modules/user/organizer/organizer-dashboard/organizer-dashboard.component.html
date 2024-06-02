@@ -71,7 +71,7 @@
                             #tooltipToggle="matTooltip" matTooltip="เปิด/ปิด อีเว้นท์นี้"
                             [matTooltipPosition]="'above'"></mat-slide-toggle>
                         <button type="button" class="btn btn-outline-warning  me-2" *ngIf="rs.status_code == '02'"
-                            (click)="openDialog()" #tooltip="matTooltip" matTooltip="รายละเอียดผู้สมัคร"
+                            (click)="openDialog(rs)" #tooltip="matTooltip" matTooltip="รายละเอียดผู้สมัคร"
                             [matTooltipPosition]="'above'">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                 class="bi bi-file-text" viewBox="0 0 16 16">

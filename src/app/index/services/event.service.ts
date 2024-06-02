@@ -62,6 +62,12 @@ export class EventService {
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
     }
+    getEventRegisterUserJoin(params: basePagination , id : number): Observable<IBaseCollectionWithPangingResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/get-event-register-user-join?page=' + params.page + '&per_page=' + params.per_page + '&event_id=' + id
+        let option = this.headerService.BuildRequestHeaders(this.token)
+        return this.http.get(url, { headers: option })
+    }
     postUpdateEvent(list: UpdateEvent): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
         let url = baseApi + 'api/update-event'

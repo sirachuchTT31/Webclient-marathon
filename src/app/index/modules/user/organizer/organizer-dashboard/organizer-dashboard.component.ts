@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { MasterdataService } from 'src/app/index/services/master-data.service';
 import { EventService } from 'src/app/index/services/event.service';
 import {
@@ -70,6 +70,7 @@ export class OrganizerDashboardComponent {
   currentPage: number = 0
   actionDraft: boolean = false
   activeArray: any = []
+  subscription !: Subscription
   @ViewChild('fileUpload', { static: true }) fileUpload!: ElementRef;
   constructor(
     private eventService: EventService,
@@ -99,12 +100,17 @@ export class OrganizerDashboardComponent {
     this.spinner.show()
     this.getEventRegister()
     this.getAllMasterLocation()
+    // this.getEventRegisterUserJoin()
     this.today = new Date()
     setTimeout(() => {
       this.spinner.hide()
     }, 3000)
   }
   ngAfterViewInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
   }
 
   openModalCreate(modal: any) {
@@ -127,10 +133,10 @@ export class OrganizerDashboardComponent {
     })
   }
 
-  openDialog() {
-    this.dialog.open(ModalListRegisterComponent, {
+  openDialog(data: any) {
+    this.dialog.open(ModalListRegisterComponent, {      
       panelClass: 'custom-mat-dialog',
-      data: ''
+      data: data
     });
   }
 
@@ -143,7 +149,8 @@ export class OrganizerDashboardComponent {
   }
 
   changePage(event: any) {
-    this.currentPage = event
+    this.currentPage = event;
+    this.getEventRegister(event - 1);
   }
 
   changeStatustotext(status: any) {
@@ -237,46 +244,6 @@ export class OrganizerDashboardComponent {
     }
   }
 
-  getEventRegister() {
-    this.eventService.getAllEventRegister({ page: 0, per_page: 5 }).subscribe((rs) => {
-      if (rs?.status === true) {
-        this.reg_by_organizer_object = rs.results
-        this.filter_reg = rs.results
-        this.totalRecord = rs.totalRecord
-        this.perPage = rs.per_page
-        this.spinner.hide()
-      }
-      else {
-        this.spinner.hide()
-        Swal.fire({
-          showCloseButton: true,
-          showConfirmButton: false,
-          icon: "error",
-          // title: rs?.status_code,
-          text: rs?.message,
-        });
-      }
-    })
-  }
-
-  getAllMasterLocation() {
-    this.masterdataService.getAllMasterLocation().subscribe((rs) => {
-      if (rs?.status == true) {
-        this.master_location = rs.results
-        this.spinner.hide()
-      }
-      else {
-        this.spinner.hide()
-        Swal.fire({
-          showCloseButton: true,
-          showConfirmButton: false,
-          icon: "error",
-          // title: rs?.status_code,
-          text: rs?.message,
-        });
-      }
-    })
-  }
 
   checkupdateModal() {
     if (this.create_register_running_event.valid == true) {
@@ -466,5 +433,50 @@ export class OrganizerDashboardComponent {
         })
       }
     })
+  }
+
+  getEventRegister(page?: number) {
+    const event = this.eventService.getAllEventRegister({ page: page ? page : 0, per_page: 5 }).subscribe((rs) => {
+      if (rs?.status === true) {
+        this.reg_by_organizer_object = rs.results
+        this.filter_reg = rs.results
+        this.totalRecord = rs.total_record
+        this.perPage = rs.per_page
+        this.spinner.hide()
+      }
+      else {
+        this.spinner.hide()
+        Swal.fire({
+          showCloseButton: true,
+          showConfirmButton: false,
+          icon: "error",
+          // title: rs?.status_code,
+          text: rs?.message,
+        });
+      }
+    })
+    this.subscription?.add(event)
+  }
+
+
+  getAllMasterLocation() {
+    const masterLocation = this.masterdataService.getAllMasterLocation().subscribe((rs) => {
+      if (rs?.status == true) {
+        this.master_location = rs.results
+        // this.spinner.hide()
+      }
+      else {
+        // this.spinner.hide()
+        Swal.fire({
+          showCloseButton: true,
+          showConfirmButton: false,
+          icon: "error",
+          // title: rs?.status_code,
+          text: rs?.message,
+        });
+      }
+    })
+
+    this.subscription?.add(masterLocation)
   }
 }
