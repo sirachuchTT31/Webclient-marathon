@@ -208,7 +208,7 @@
                     <button class="btn btn-primary btn-modal-submit me-3"
                         [ngClass]="{'btn-warning' : actionDialog == 'edit'}" (change)="checkcreateadminButton()"
                         [disabled]="checkcreateadminButton() === false"
-                        (click)="actionDialog == 'create' ? createAdmin('create') : createAdmin('edit')">
+                        (click)="actionDialog == 'create' ? createOrEdit('create') : createOrEdit('edit')">
                         <label *ngIf="actionDialog == 'create'">เพิ่มข้อมูล</label>
                         <label *ngIf="actionDialog == 'edit'">บันทึกข้อมูล</label>
                     </button>

@@ -5,7 +5,7 @@ import { HeaderService } from "./header.service";
 import { LocalStorageService } from "./local-storage.service";
 import { Observable } from "rxjs";
 import { IBaseCollectionResult, IBaseCollectionWithPangingResult, IBaseSingleResult } from "../shared/interface/base-result";
-import { createAdmin, deleteAdmin, updateAdmin, updateEvent } from "../shared/interface/back-office";
+import { createAdmin, createOrganizer, deleteAdmin, updateAdmin, updateEvent } from "../shared/interface/back-office";
 import { CreateAdmin } from "../shared/interface/admin";
 import { basePagination } from "../shared/interface/pagination";
 
@@ -51,11 +51,32 @@ export class BackOfficeService {
     }
 
     //FIXME: Organizer
-    getAllOrganizerBackoffice(): Observable<IBaseCollectionResult<any> | undefined> {
+    getAllOrganizerBackoffice(params: basePagination): Observable<IBaseCollectionWithPangingResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/get-all-organizer-backoffice'
+        let url = baseApi + 'api/get-all-organizer-backoffice?page=' + params.page + '&per_page=' + params.per_page
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
+    }
+
+    postCreateOrganizerBackoffice(list: createOrganizer): Observable<IBaseSingleResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/create-organizer-backoffice'
+        let option = this.headerService.BuildRequestHeaders(this.token)
+        return this.http.post(url, list, { headers: option })
+    }
+    
+    postUpdateOrganizerBackoffice(list: updateAdmin): Observable<IBaseSingleResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/update-organizer-backoffice'
+        let option = this.headerService.BuildRequestHeaders(this.token)
+        return this.http.post(url, list, { headers: option })
+    }
+
+    postDeleteOrganizerBackoffice(list: deleteAdmin): Observable<IBaseSingleResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/delete-organizer-backoffice'
+        let option = this.headerService.BuildRequestHeaders(this.token)
+        return this.http.post(url, list, { headers: option })
     }
 
     //FIXME: Member 
