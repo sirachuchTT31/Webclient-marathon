@@ -24,6 +24,8 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const routes: Routes = [
   {
@@ -77,6 +79,8 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    MatSlideToggleModule,
+    MatTooltipModule,
     RouterModule.forChild(routes),
   ]
 })

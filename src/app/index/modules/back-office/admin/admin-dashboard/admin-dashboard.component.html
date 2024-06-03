@@ -97,8 +97,8 @@
                             <li class="list-li-menu" (click)="setMenu('basic_admin')">ข้อมูลผู้จัดการระบบ</li>
                             <li class="list-li-menu" (click)="setMenu('basic_organizer')">ข้อมูลผู้จัดงาน</li>
                             <li class="list-li-menu" (click)="setMenu('basic_member')">ข้อมูลสมาชิก</li>
-                            <li class="list-li-menu" (click)="setMenu('basic_marathon')">ข้อมูลงานวิ่ง</li>
                             <li class="list-li-menu" (click)="setMenu('basic_location')">ข้อมูลสถานที่</li>
+                            <li class="list-li-menu" (click)="setMenu('basic_marathon')">ข้อมูลงานวิ่ง</li>
                         </ul>
                     </div>
                 </ng-container>
@@ -179,6 +179,7 @@
         <app-admin-content *ngIf="menu == 'basic_admin'"></app-admin-content>
         <app-organizer-content *ngIf="menu == 'basic_organizer'"></app-organizer-content>
         <app-member-content *ngIf="menu == 'basic_member'"></app-member-content>
+        <app-location-content *ngIf="menu == 'basic_location'"></app-location-content>
         <app-approver-running *ngIf="menu == 'approver_running'"></app-approver-running>
         <app-approver-organizer *ngIf="menu == 'approver_organizer'"></app-approver-organizer>
     </div>

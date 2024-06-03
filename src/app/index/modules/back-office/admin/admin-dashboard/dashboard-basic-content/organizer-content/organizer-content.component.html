@@ -208,7 +208,7 @@
                 </div>
                 <div class="d-flex justify-content-center mb-3 mt-3">
                     <button class="btn btn-primary btn-modal-submit me-3" (change)="validate()"
-                        [disabled]="validate() === false"
+                        [ngClass]="{'btn-warning' : actionDialog == 'edit'}" [disabled]="validate() === false"
                         (click)="actionDialog == 'create' ? createOrEdit('create') : createOrEdit('edit')">
                         <label *ngIf="actionDialog == 'create'">เพิ่มข้อมูล</label>
                         <label *ngIf="actionDialog == 'edit'">บันทึกข้อมูล</label></button>

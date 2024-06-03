@@ -65,6 +65,26 @@ export interface deleteMember {
     id: number
 }
 
+export interface createMasterLocation {
+    province: string
+    district: string
+    zipcode: string
+    address: string
+    is_active : boolean
+}
+export interface updateMasterLocation  {
+    id : number
+    province: string
+    district: string
+    zipcode: string
+    address: string
+    is_active : boolean
+}
+
+export interface deleteMasterLocation  {
+    id: number
+}
+
 
 
 export interface updateEvent {

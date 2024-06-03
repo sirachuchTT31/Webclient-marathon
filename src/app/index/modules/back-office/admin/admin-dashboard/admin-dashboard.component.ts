@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { LocalStorageService } from 'src/app/index/services/local-storage.service';
 
 @Component({
@@ -14,11 +15,15 @@ export class AdminDashboardComponent {
   collapse_report_menu: boolean = false
   collapse_approver_menu: boolean = false
   menu: string = 'index'
-  constructor(private localStorageService: LocalStorageService,) {
+  constructor(
+    private localStorageService: LocalStorageService,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle('Back-office')
     this.first_name = this.localStorageService.getFirstname()
     this.lastname = this.localStorageService.getLastname()
   }
-  setCollapseApprover(){
+  setCollapseApprover() {
     if (this.collapse_approver_menu == true) {
       return this.collapse_approver_menu = false
     }
