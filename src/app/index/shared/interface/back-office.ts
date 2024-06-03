@@ -41,6 +41,32 @@ export interface updateOrganizer {
 export interface deleteOrganizer {
     id: number
 }
+
+export interface createMember {
+    username: string
+    password: string
+    name: string
+    lastname: string
+    email: string
+    address: string
+    telephone: string
+}
+
+export interface updateMember {
+    id: number
+    name: string
+    lastname: string
+    email: string
+    address: string
+    telephone: string
+}
+
+export interface deleteMember {
+    id: number
+}
+
+
+
 export interface updateEvent {
     event_id: number
     status: string

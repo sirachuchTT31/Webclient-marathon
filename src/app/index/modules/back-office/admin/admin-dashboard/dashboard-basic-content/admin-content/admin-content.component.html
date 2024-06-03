@@ -13,7 +13,9 @@
                 </svg>
             </button>
         </div>
-
+        <div class="box-no-data" *ngIf="!master_admin_all">
+            <h4>ไม่พบข้อมูล (No data)</h4>
+        </div>
         <table class="table table-hover word-wrap">
             <thead>
                 <tr>
