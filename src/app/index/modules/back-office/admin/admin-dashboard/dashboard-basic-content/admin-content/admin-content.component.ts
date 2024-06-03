@@ -12,10 +12,15 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./admin-content.component.scss'],
 })
 export class AdminContentComponent {
+  config = {
+    currentPage: 1,
+    pageSize: 10,
+    totalRecord: 0
+  }
   admin_create_form: FormGroup
   subscription!: Subscription
-  actionDialog : string = 'create'
-  idEdit : any
+  actionDialog: string = 'create'
+  idEdit: any
   constructor(private spinner: NgxSpinnerService, private modalService: NgbModal, private backofficeService: BackOfficeService) {
     this.admin_create_form = new FormGroup({
       username: new FormControl('', [Validators.required]),
@@ -40,6 +45,16 @@ export class AdminContentComponent {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe()
   }
+
+  countIndex(pageSize: number, current_page: number, index: number) {
+    return pageSize * (current_page - 1) + index;
+  }
+
+  changePage(event: any) {
+    this.config.currentPage = event;
+    this.getallAdminBackoffice()
+  }
+
   openModal(modal: any, action: string, data?: any) {
     this.modalService.dismissAll()
     this.modalService.open(modal, { size: 'lg' });
@@ -207,9 +222,10 @@ export class AdminContentComponent {
 
   //fetch 
   getallAdminBackoffice() {
-    const backoffice = this.backofficeService.getAllAdminBackffice().subscribe((rs) => {
+    const backoffice = this.backofficeService.getAllAdminBackffice({ page: this.config.currentPage ? this.config.currentPage - 1 : 0, per_page: this.config.pageSize }).subscribe((rs) => {
       if (rs?.status === true) {
         this.master_admin_all = rs.results
+        this.config.totalRecord = rs.total_record
       }
       else {
         Swal.fire({

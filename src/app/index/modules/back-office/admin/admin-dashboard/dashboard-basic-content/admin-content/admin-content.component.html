@@ -3,7 +3,7 @@
         <p>ข้อมูลผู้จัดการระบบ (Admin)</p>
         <hr>
     </div>
-    <div class="">
+    <div class=""  style="min-height: 750px;">
         <div class="text-start mb-3">
             <button class="btn btn-success" (click)="openModal(modal,'create')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
@@ -25,14 +25,14 @@
                     <th scope="col" class="col-2">เครื่องมือ</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr *ngFor="let rs of master_admin_all; index as i">
-                    <th scope="row" class="text-count">{{i+1}}</th>
+            <tbody >
+                <tr *ngFor="let rs of master_admin_all | paginate: { itemsPerPage: config.pageSize, currentPage: config.currentPage ,  totalItems : config.totalRecord}index as i;">
+                    <th scope="row" class="text-count">{{countIndex(config.pageSize,config.currentPage,i+1)}}</th>
                     <td>{{rs.name}}</td>
                     <td>{{rs.lastname}}</td>
                     <td>{{rs.email}}</td>
                     <td>{{rs.created_at}}</td>
-                    <td class="d-flex">
+                    <td class="">
                         <button class="btn btn-warning me-2" (click)="openModal(modal,'edit',rs)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -55,6 +55,9 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="d-flex justify-content-end pt-2">
+        <pagination-controls (pageChange)="changePage($event)" ></pagination-controls>
     </div>
 
 </div>

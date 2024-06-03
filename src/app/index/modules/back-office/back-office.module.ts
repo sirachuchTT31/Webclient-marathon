@@ -76,6 +76,7 @@ const routes: Routes = [
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     RouterModule.forChild(routes),
   ]
 })

@@ -4,9 +4,10 @@ import { HttpClient } from "@angular/common/http";
 import { HeaderService } from "./header.service";
 import { LocalStorageService } from "./local-storage.service";
 import { Observable } from "rxjs";
-import { IBaseCollectionResult, IBaseSingleResult } from "../shared/interface/base-result";
+import { IBaseCollectionResult, IBaseCollectionWithPangingResult, IBaseSingleResult } from "../shared/interface/base-result";
 import { createAdmin, deleteAdmin, updateAdmin, updateEvent } from "../shared/interface/back-office";
 import { CreateAdmin } from "../shared/interface/admin";
+import { basePagination } from "../shared/interface/pagination";
 
 @Injectable({
     providedIn: 'root'
@@ -21,9 +22,9 @@ export class BackOfficeService {
     }
 
     //FIXME: Admin
-    getAllAdminBackffice(): Observable<IBaseCollectionResult<any> | undefined> {
+    getAllAdminBackffice(params: basePagination): Observable<IBaseCollectionWithPangingResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/get-all-admin-backoffice'
+        let url = baseApi + 'api/get-all-admin-backoffice?page=' + params.page + '&per_page=' + params.per_page
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
     }
