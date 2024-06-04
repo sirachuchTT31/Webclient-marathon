@@ -3,58 +3,68 @@
         <p>อนุมัติสถานะการวิ่ง (Approver)</p>
         <hr>
     </div>
-    <div class="box-no-data" *ngIf="eventAllList == null">
-        <h4>ไม่พบข้อมูล (No data)</h4>
-    </div>
-    <div class="box-filter-approver" *ngIf="eventAllList?.length > 0">
-        <div class=" text-start">
-            <label>ค้นหาด้วย</label>
+    <div class="" style="min-height: 750px;">
+        <div class="box-filter-approver" *ngIf="eventAllList?.length > 0">
+            <div class="col-3 text-start">
+                <label>ค้นหาด้วยชื่องาน</label>
+                <div class="form-group pt-2">
+                    <input class="form-control" [placeholder]="'ชื่องาน'">
+                </div>
+            </div>
+            <div class="col-3 text-start">
+                <label>วันที่จัดงาน</label>
+                <div class="box-date-container pt-2">
+                    <app-date-picker-range></app-date-picker-range>
+                </div>
+            </div>
         </div>
-        <div class="col-3 text-start">
-            <input class="form-control">
+        <div class="box-no-data" *ngIf="!eventAllList">
+            <h4>ไม่พบข้อมูล (No data)</h4>
         </div>
-        <div class="col-3 text-start">
-            <input class="form-control">
-        </div>
-    </div>
-    
-    <div class="wrap-table" *ngIf="eventAllList?.length > 0">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col" style="width: 10%;">ลำดับ</th>
-                    <th scope="col" style="width: 20%;">รูปภาพ</th>
-                    <th scope="col" style="width: 20%;">ชื่องาน</th>
-                    <th scope="col" style="width: 20%;">สถานที่จัดงาน</th>
-                    <th scope="col" style="width: 10%;">วันที่จัดงาน</th>
-                    <th scope="col" style="width: 20%;">เครื่องมือ</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let list of eventAllList;let i = index;">
-                    <th scope="row" class="text-count">{{i+1}}</th>
-                    <td><img src="{{list.path_image}}" style="width: auto;height: 75px;object-fit: cover;"></td>
-                    <td>{{list.name}}</td>
-                    <td>{{list.MasterLocation.province}} / {{list.MasterLocation.district}} / {{list.MasterLocation.zipcode}}</td>
-                    <td>{{list.due_date}}</td>
-                    <td>
-                        <!-- <div class="d-flex justify-content-between align-items-center" style="width: fit-content;">
+        <div class="wrap-table" *ngIf="eventAllList?.length > 0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 10%;">ลำดับ</th>
+                        <th scope="col" style="width: 20%;">รูปภาพ</th>
+                        <th scope="col" style="width: 20%;">ชื่องาน</th>
+                        <th scope="col" style="width: 20%;">สถานที่จัดงาน</th>
+                        <th scope="col" style="width: 10%;">วันที่จัดงาน</th>
+                        <th scope="col" style="width: 20%;">เครื่องมือ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let list of eventAllList| paginate: { itemsPerPage: config.pageSize, currentPage: config.currentPage ,  totalItems : config.totalRecord}index as i;">
+                        <th scope="row" class="text-count">{{countIndex(config.pageSize,config.currentPage,i+1)}}</th>
+                        <td><img src="{{list.path_image}}" style="width: auto;height: 75px;object-fit: cover;"></td>
+                        <td>{{list.name}}</td>
+                        <td>{{list.MasterLocation.province}} / {{list.MasterLocation.district}} /
+                            {{list.MasterLocation.zipcode}}</td>
+                        <td>{{list.due_date}}</td>
+                        <td>
+                            <!-- <div class="d-flex justify-content-between align-items-center" style="width: fit-content;">
 
                             <div class="wrap-button"> -->
-                        <button class="btn btn-success custom-button-approver me-3"
-                            (click)="updateEvent({event_id : list.id, status : '02' })">
-                            Approver
-                        </button>
-                        <!-- </div> -->
-                        <!-- <div class="wrap-button"> -->
-                        <button class="btn btn-danger custom-button-approver " (click)="updateEvent({event_id : list.id, status : '03' })">
-                            Reject
-                        </button>
-                        <!-- </div> -->
-                        <!-- </div> -->
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                            <button class="btn btn-success custom-button-approver me-3"
+                                (click)="updateEvent({event_id : list.id, status : '02' })">
+                                Approver
+                            </button>
+                            <!-- </div> -->
+                            <!-- <div class="wrap-button"> -->
+                            <button class="btn btn-danger custom-button-approver "
+                                (click)="updateEvent({event_id : list.id, status : '03' })">
+                                Reject
+                            </button>
+                            <!-- </div> -->
+                            <!-- </div> -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end pt-2">
+        <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
     </div>
 </div>

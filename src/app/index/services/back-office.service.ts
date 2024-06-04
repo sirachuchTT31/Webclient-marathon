@@ -138,9 +138,9 @@ export class BackOfficeService {
     }
 
     //FIXME: Event
-    getAllEventBackoffice(): Observable<IBaseCollectionResult<any> | undefined> {
+    getAllJobEventBackoffice(params: basePagination): Observable<IBaseCollectionWithPangingResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/get-event-backoffice'
+        let url = baseApi + 'api/get-all-job-event-backoffice?page=' + params.page + '&per_page=' + params.per_page
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
     }

@@ -1,32 +1,29 @@
 <div class="container-fluid p-4 ">
     <h4 class="modal-title text-center">{{ data.name }}</h4>
-    <table class="fl-table mb-2 ">
+    <table class="fl-table mb-2 " *ngIf="isLoadingData === true">
         <thead class="">
             <tr>
                 <th scope="col" style="width: 50px;">ลำดับ</th>
-                <th scope="col" style="width: 450px;">ชื่องาน</th>
-                <th scope="col" style="width: 250px;">วันที่ลงทะเบียน</th>
-                <th scope="col" style="width: 250px;">สถานะ</th>
+                <th scope="col" style="width: 150px;">ชื่อ-นามสกุล</th>
+                <th scope="col" style="width: 150px;">รายละเอียด</th>
+                <th scope="col" style="width: 200px;">สถานะ</th>
+                <th scope="col" style="width: 200px;">วันที่ลงทะเบียน</th>
+                <th scope="col" style="width: 250px;">เครื่องมือ</th>
             </tr>
         </thead>
         <tbody>
-            <tr
-                *ngFor="let item of this.listData| paginate: { itemsPerPage: config.pageSize, currentPage: config.currentPage ,  totalItems : config.totalRecord}let i = index;">
+            <tr *ngFor="let item of this.listData;let i = index;">
+                <td>{{i + 1}}</td>
                 <!-- <td>{{countIndex(config.pageSize,config.currentPage,i+1)}}</td> -->
-                <!-- <td class=""><img [src]="item.EventJoin.Event.path_image"
-                        style="width: 150px; object-fit: cover; padding-right: 5px;">{{item.EventJoin.Event.name}}
-                </td>
+                <td class="">{{item.User.name }} {{item.User.lastname }}</td>
+                <td class="">{{item.EventJoin.description}}</td>
+                <td>{{item.status_code}}</td>
                 <td>{{item.created_at | date:'dd-MM-yyyy'}}</td>
-                <td>
-                    <ng-container *ngIf="item.status_code == '11'">
-                        <span>รอการอนุมัติ (Waiting for approver)</span>
-                    </ng-container>
-                </td> -->
             </tr>
         </tbody>
     </table>
     <div class="text-center mt-5 mb-5" *ngIf="!listData">
         <h2 class="text-dark">ไม่พบข้อมูล (Data not found)</h2>
     </div>
-    <pagination-controls (pageChange)="changePage($event)" ></pagination-controls>
+    <!-- <pagination-controls (pageChange)="changePage($event)"></pagination-controls> -->
 </div>

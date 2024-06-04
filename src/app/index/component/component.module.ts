@@ -8,6 +8,12 @@ import { PaginationApprovedOrganizerComponent } from './pagination/pagination-ap
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RemoveIconComponent } from './remove-icon/remove-icon.component';
 import { ModalListRegisterComponent } from './modal-list-register/modal-list-register.component';
+import { DatePickerRangeComponent } from './date-picker-range/date-picker-range.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -17,18 +23,27 @@ import { ModalListRegisterComponent } from './modal-list-register/modal-list-reg
     PaginationApprovedOrganizerComponent,
     RemoveIconComponent,
     ModalListRegisterComponent,
+    DatePickerRangeComponent,
   ],
   imports: [
     CommonModule,
     NgbModule,
     NgxPaginationModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    MatInputModule
   ],
   exports: [
-    // ComponentModule,
     NavBarComponent,
     HeaderComponent,
     PaginationOrderMemberComponent,
-    RemoveIconComponent
-  ]
+    RemoveIconComponent,
+    DatePickerRangeComponent
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  ],
 })
 export class ComponentModule { }

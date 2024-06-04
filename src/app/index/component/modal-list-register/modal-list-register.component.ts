@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, SimpleChanges } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EventService } from '../../services/event.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -11,13 +11,15 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./modal-list-register.component.scss']
 })
 export class ModalListRegisterComponent {
+
   substcription !: Subscription
-  listData : any
+  listData: any
   config = {
     currentPage: 1,
     pageSize: 5,
-    totalRecord: 0
+    totalRecord: 1
   }
+  isLoadingData = false
   constructor(
     private eventService: EventService,
     private spinner: NgxSpinnerService,
@@ -27,11 +29,10 @@ export class ModalListRegisterComponent {
   ngOnInit(): void {
     console.log("🚀 ~ ModalListRegisterComponent ~ data:", this.data)
     this.spinner.show();
-    this.getEventRegisterUserJoin()
+    this.getEventRegisterUserJoin();
     setTimeout(() => {
       this.spinner.hide()
-    },5000)
-    console.log(this.listData)
+    }, 3000)
   }
 
   ngOnDestroy(): void {
@@ -51,11 +52,12 @@ export class ModalListRegisterComponent {
     const event = this.eventService.getEventRegisterUserJoin({ page: page ? page : 0, per_page: 5 }, this.data?.id).subscribe((rs) => {
       if (rs?.status === true) {
         this.listData = rs.results;
-        this.config.totalRecord = rs.total_record;
-        this.config.pageSize = rs.per_page;
+        // this.config.totalRecord = Number(rs.total_record);
+        // this.config.pageSize = Number(rs.per_page);
+        this.isLoadingData = true
       }
       else {
-        this.spinner.hide()
+        // this.spinner.hide()
         Swal.fire({
           showCloseButton: true,
           showConfirmButton: false,

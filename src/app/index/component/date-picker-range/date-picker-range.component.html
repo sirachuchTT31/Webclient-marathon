@@ -1,0 +1,10 @@
+<div class="box-date-container" style="width:290px!important; ">
+    <mat-datepicker-toggle  class="bg-primary h-100 label-date-picker" [for]="picker" matSuffix></mat-datepicker-toggle>
+    <label class="form-control date-picker">
+        <mat-date-range-input [rangePicker]="picker" class="align-self-center">
+            <input matStartDate placeholder="วันที่เริ่มต้น" readonly>
+            <input matEndDate placeholder="วันที่สิ้นสุด" readonly>
+        </mat-date-range-input>
+        <mat-date-range-picker #picker hidden></mat-date-range-picker>
+    </label>
+</div>
