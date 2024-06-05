@@ -99,15 +99,22 @@ export class ApproverRunningComponent {
 
 
   getAllJobEventBackoffice(keyword?: string, startDate?: string, endDate?: string) {
+    this.spinner.show()
     const cleanKeyword = keyword ? keyword : ''
     const cleanStartDate = startDate ? startDate : ''
     const cleanEndDate = endDate ? endDate : ''
     this.backofficeService.getAllJobEventBackoffice({ page: this.config.currentPage ? this.config.currentPage - 1 : 0, per_page: this.config.pageSize }, cleanKeyword, cleanStartDate, cleanEndDate).subscribe((rs) => {
       if (rs?.status === true) {
         this.eventAllList = rs?.results
+        setTimeout(() => {
+          this.spinner.hide()
+        },1000)
       }
       else {
         this.eventAllList = null
+        setTimeout(() => {
+          this.spinner.hide()
+        },1000)
       }
     })
   }
