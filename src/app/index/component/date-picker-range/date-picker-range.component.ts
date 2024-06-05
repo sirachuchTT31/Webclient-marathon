@@ -19,8 +19,13 @@ export class DatePickerRangeComponent {
   }
 
   cleanGMT(dateGMT: any) {
-    const date = moment(dateGMT).locale("th").format('DD-MM-YYYY');
-    return date
+    if(dateGMT){
+      const date = moment(dateGMT).locale("th").format('DD-MM-YYYY');
+      return date
+    }
+    else {
+      return ''
+    }
   }
 
   setDate() {
@@ -37,5 +42,6 @@ export class DatePickerRangeComponent {
 
   clearDate() {
     this.InitForm.reset()
+    this.setDate()
   }
 }

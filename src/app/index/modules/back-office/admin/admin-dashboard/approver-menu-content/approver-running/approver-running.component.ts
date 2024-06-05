@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, SimpleChanges } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BackOfficeService } from 'src/app/index/services/back-office.service';
 import { LocalStorageService } from 'src/app/index/services/local-storage.service';
@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./approver-running.component.scss'],
 })
 export class ApproverRunningComponent {
+  dateRange: any
   config = {
     currentPage: 1,
     pageSize: 10,
@@ -24,12 +25,16 @@ export class ApproverRunningComponent {
     private backofficeService: BackOfficeService
   ) { }
   // register_event_by_approver: any
+  eventNameSearch: string = ''
   eventAllList: any
   admin_id: any
   ngOnInit(): void {
     this.getAllJobEventBackoffice()
     //SET ADMIN ID
     this.admin_id = this.localStorageService?.getId()
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.dateRange)
   }
   countIndex(pageSize: number, current_page: number, index: number) {
     return pageSize * (current_page - 1) + index;
@@ -84,9 +89,20 @@ export class ApproverRunningComponent {
 
   }
 
+  clearEventSearch() {
+    this.eventNameSearch = ''
+  }
 
-  getAllJobEventBackoffice() {
-    this.backofficeService.getAllJobEventBackoffice({ page: this.config.currentPage ? this.config.currentPage - 1 : 0, per_page: this.config.pageSize }).subscribe((rs) => {
+  onFilter() {
+    this.getAllJobEventBackoffice(this.eventNameSearch, this.dateRange?.startDate, this.dateRange?.endDate)
+  }
+
+
+  getAllJobEventBackoffice(keyword?: string, startDate?: string, endDate?: string) {
+    const cleanKeyword = keyword ? keyword : ''
+    const cleanStartDate = startDate ? startDate : ''
+    const cleanEndDate = endDate ? endDate : ''
+    this.backofficeService.getAllJobEventBackoffice({ page: this.config.currentPage ? this.config.currentPage - 1 : 0, per_page: this.config.pageSize }, cleanKeyword, cleanStartDate, cleanEndDate).subscribe((rs) => {
       if (rs?.status === true) {
         this.eventAllList = rs?.results
       }

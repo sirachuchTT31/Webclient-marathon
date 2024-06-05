@@ -4,24 +4,29 @@
         <hr>
     </div>
     <div class="" style="min-height: 750px;">
-        <div class="box-filter-approver" *ngIf="eventAllList?.length > 0">
+        <div class="box-filter-approver">
             <div class="col-3 text-start">
                 <label>ค้นหาด้วยชื่องาน</label>
-                <div class="form-group pt-2">
-                    <input class="form-control" [placeholder]="'ชื่องาน'">
+                <div class="form-group  pt-2 position-relative">
+                    <input class="form-control" [(ngModel)]="eventNameSearch" [placeholder]="'ชื่องาน'">
+                    <app-remove-icon *ngIf="eventNameSearch.length > 0" (click)="clearEventSearch()"></app-remove-icon>
+                    
                 </div>
             </div>
-            <div class="col-3 text-start">
+            <div class="w-auto text-start">
                 <label>วันที่จัดงาน</label>
                 <div class="box-date-container pt-2">
-                    <app-date-picker-range></app-date-picker-range>
+                    <app-date-picker-range (currentPage)="dateRange = $event "></app-date-picker-range>
                 </div>
             </div>
+            <div class="col-3 text-start align-self-end">
+                <button class="btn btn-outline-primary " style="width: 150px;" (click)="onFilter()">ค้นหา</button>
+            </div>
         </div>
-        <div class="box-no-data" *ngIf="!eventAllList">
+        <div class="box-no-data mt-5" *ngIf="!eventAllList">
             <h4>ไม่พบข้อมูล (No data)</h4>
         </div>
-        <div class="wrap-table" *ngIf="eventAllList?.length > 0">
+        <div class="table-responsive mt-5" *ngIf="eventAllList?.length > 0">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -41,18 +46,18 @@
                         <td>{{list.name}}</td>
                         <td>{{list.MasterLocation.province}} / {{list.MasterLocation.district}} /
                             {{list.MasterLocation.zipcode}}</td>
-                        <td>{{list.due_date}}</td>
+                        <td>{{list.due_date | date:'dd-MM-yyyy'}}</td>
                         <td>
                             <!-- <div class="d-flex justify-content-between align-items-center" style="width: fit-content;">
 
                             <div class="wrap-button"> -->
-                            <button class="btn btn-success custom-button-approver me-3"
+                            <button class="btn btn-success custom-button-approver me-3 "
                                 (click)="updateEvent({event_id : list.id, status : '02' })">
                                 Approver
                             </button>
                             <!-- </div> -->
                             <!-- <div class="wrap-button"> -->
-                            <button class="btn btn-danger custom-button-approver "
+                            <button class="btn btn-danger custom-button-approver  "
                                 (click)="updateEvent({event_id : list.id, status : '03' })">
                                 Reject
                             </button>
@@ -64,7 +69,7 @@
             </table>
         </div>
     </div>
-    <div class="d-flex justify-content-end pt-2">
+    <div class="d-flex justify-content-end pt-2" *ngIf="eventAllList?.length > 0">
         <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
     </div>
 </div>
