@@ -1,10 +1,17 @@
-<div class="box-date-container" style="width:290px!important; ">
-    <mat-datepicker-toggle  class="bg-primary h-100 label-date-picker" [for]="picker" matSuffix></mat-datepicker-toggle>
-    <label class="form-control date-picker">
-        <mat-date-range-input [rangePicker]="picker" class="align-self-center">
-            <input matStartDate placeholder="วันที่เริ่มต้น" readonly>
-            <input matEndDate placeholder="วันที่สิ้นสุด" readonly>
+<div class="box-date-container position-relative">
+    <mat-datepicker-toggle  class="bg-primary h-100 label-date-picker" style="height: 38px !important; padding: 0px !important; " [for]="picker" matSuffix></mat-datepicker-toggle>
+    <label class="form-control date-picker pt-1" style="height: 38px;">
+        <mat-date-range-input [rangePicker]="picker" [formGroup]="InitForm"   >
+            <input matStartDate placeholder="วันที่เริ่มต้น" class="w-100" formControlName="start" readonly >
+            <input matEndDate placeholder="วันที่สิ้นสุด" class="w-100" formControlName="end" readonly>
+            
         </mat-date-range-input>
-        <mat-date-range-picker #picker hidden></mat-date-range-picker>
+        <mat-date-range-picker #picker hidden>
+            <mat-date-range-picker-actions>
+                <button mat-button matDateRangePickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDateRangePickerApply (click)="setDate()">Apply</button>
+              </mat-date-range-picker-actions>
+        </mat-date-range-picker>
+        <app-remove-icon [customStyle]="{top : '4px' , right : '4px'}" *ngIf="InitForm.controls['start'].value && InitForm.controls['end'].value" (click)="clearDate()"></app-remove-icon>
     </label>
 </div>

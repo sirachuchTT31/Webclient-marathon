@@ -14,6 +14,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MatInputModule } from '@angular/material/input';
     MatMomentDateModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule
   ],
   exports: [
     NavBarComponent,

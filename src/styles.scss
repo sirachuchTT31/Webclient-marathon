@@ -849,6 +849,10 @@ ul {
 }
 
 //set date-picker 
+app-date-picker-range .mdc-icon-button {
+    padding: 0px !important;
+}
+
 .date-picker {
     border-top-left-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
@@ -876,6 +880,7 @@ ul {
     overflow: hidden;
     white-space: nowrap;
 }
+
 
 .box-filter-approver label {
     font-size: 18px;
@@ -931,7 +936,14 @@ ul {
     overflow: hidden;
     //width: 80px;
     height: 50px;
-    width: 35%;
+    width: 110px;
+    gap: 0px 20px;
+    margin-top: 5px;
+}
+@media (max-width: 1024px){
+    .custom-button-approver{
+        width: 50px !important;
+    }
 }
 
 .search_remove_icon {
