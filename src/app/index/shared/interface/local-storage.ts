@@ -7,5 +7,6 @@ export interface Profile {
     token: string,
     refresh_token: string
     expired_token: string,
+    authen_log_id : string
     avatar: string
 }

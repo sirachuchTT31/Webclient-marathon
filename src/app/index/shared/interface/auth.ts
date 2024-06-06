@@ -18,6 +18,10 @@ export interface Login {
     password?: string
 }
 
+export interface Logout{
+    authen_log_id : number
+}
+
 export interface RefreshToken {
     refreshToken: string
 }

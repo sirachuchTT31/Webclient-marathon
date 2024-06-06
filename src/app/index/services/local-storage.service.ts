@@ -10,6 +10,7 @@ const TOKEN_EXPIRES_DATE = "token_expires_date"
 const REFRESH_TOKEN = "refresh_token"
 const ROLE = "role"
 const AUTH_ID = "auth-id"
+const AUTHEN_LOG_ID = "auth-log-id"
 @Injectable({
     providedIn: "root",
 })
@@ -37,6 +38,8 @@ export class LocalStorageService {
         localStorage.setItem(IMAGE_PROFILE, data?.avatar);
         localStorage.removeItem(AUTH_ID)
         localStorage.setItem(AUTH_ID, data.id);
+        localStorage.removeItem(AUTHEN_LOG_ID)
+        localStorage.setItem(AUTHEN_LOG_ID,data.authen_log_id)
     }
     public signOut() {
         localStorage.removeItem(USER_KEY);
@@ -48,6 +51,7 @@ export class LocalStorageService {
         localStorage.removeItem(AUTH_ID);
         localStorage.removeItem(REFRESH_TOKEN);
         localStorage.removeItem(IMAGE_PROFILE);
+        localStorage.removeItem(AUTHEN_LOG_ID);
     }
     public getToken(): string | null {
         return localStorage.getItem(TOKEN_KEY);
@@ -78,5 +82,8 @@ export class LocalStorageService {
     }
     public getRefreshToken(): string | null {
         return localStorage.getItem(REFRESH_TOKEN)
+    }
+    public getAuthenLog() : string | null {
+        return localStorage.getItem(AUTHEN_LOG_ID)
     }
 }

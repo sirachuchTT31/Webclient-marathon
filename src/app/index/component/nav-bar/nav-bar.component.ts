@@ -1,6 +1,8 @@
+import { Subscription } from 'rxjs';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { CryptlibService } from '../../services/crypt-lib.service';
+import { AuthServices } from '../../services/auth.service';
 // import image from '../../shared/img'
 @Component({
   selector: 'app-nav-bar',
@@ -12,9 +14,12 @@ export class NavBarComponent {
   name: any
   avatar: any
   role: any
+  authenLogId: any
   isCollapsed: boolean = true
+  subscription !: Subscription
   constructor(
     private localstorageService: LocalStorageService,
+    private authenticationService: AuthServices,
     private cryptLibService: CryptlibService
   ) {
 
@@ -24,17 +29,30 @@ export class NavBarComponent {
     this.token = this.localstorageService.getToken()
     this.name = this.localstorageService.getFirstname()
     this.avatar = this.localstorageService.getAvatar()
+    this.authenLogId = this.localstorageService.getAuthenLog()
     let storageRole = this.localstorageService.getRole()
     this.role = this.cryptLibService.decryptCipher(storageRole ? storageRole : '')
   }
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
+  }
+
   public routeLogin() {
     window.location.href = 'auth/login'
   }
+
   signOut() {
-    this.localstorageService.signOut()
-    window.location.href = '/'
+    const payload = {
+      authen_log_id: this.authenLogId
+    }
+    const authen = this.authenticationService.postLogout(payload).subscribe((rs) => {
+      this.localstorageService.signOut()
+      window.location.href = '/'
+    })
+    this.subscription?.add(authen)
+
   }
-  routerIndex(){
+  routerIndex() {
     window.location.href = 'user'
   }
   routeSettingprofile() {

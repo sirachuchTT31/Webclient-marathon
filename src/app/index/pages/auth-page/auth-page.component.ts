@@ -78,6 +78,7 @@ export class AuthPageComponent {
               last_name: response.payload.lastname,
               refresh_token: response.refresh_token,
               role: response.payload.role,
+              authen_log_id : response.authen_log_id,
               token: response.access_token
             });
           let storageRole = this.localStorageService.getRole()

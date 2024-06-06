@@ -4,7 +4,7 @@ import { Observable, of } from "rxjs";
 import { IBaseSingleResult } from "../shared/interface/base-result";
 import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
-import { Login, RefreshToken, Registermember, Registerorganizer } from "../shared/interface/auth";
+import { Login, Logout, RefreshToken, Registermember, Registerorganizer } from "../shared/interface/auth";
 @Injectable({
     providedIn: "root",
 })
@@ -29,6 +29,13 @@ export class AuthServices {
     postLogin(list: Login): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
         let url = baseApi + 'api/singin'
+        let option = this.headerService.BuildRequestHeadersNoAuthen()
+        return this.http.post(url, list, { headers: option })
+    }
+
+    postLogout(list : Logout): Observable<IBaseSingleResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/signout'
         let option = this.headerService.BuildRequestHeadersNoAuthen()
         return this.http.post(url, list, { headers: option })
     }

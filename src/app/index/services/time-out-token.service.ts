@@ -51,6 +51,7 @@ export class TimeoutTokenService {
                                         first_name: response.payload.name,
                                         last_name: response.payload.lastname,
                                         refresh_token: response.refresh_token,
+                                        authen_log_id : response.authen_log_id,
                                         role: response.payload.role,
                                         token: response.access_token
                                     });

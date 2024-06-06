@@ -1,5 +1,7 @@
+import { Subscription } from 'rxjs';
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { AuthServices } from 'src/app/index/services/auth.service';
 import { LocalStorageService } from 'src/app/index/services/local-storage.service';
 
 @Component({
@@ -15,13 +17,20 @@ export class AdminDashboardComponent {
   collapse_report_menu: boolean = false
   collapse_approver_menu: boolean = false
   menu: string = 'index'
+  authenLogId: any
+  subscription ! : Subscription
   constructor(
     private localStorageService: LocalStorageService,
+    private authenticationService: AuthServices,
     private titleService: Title
   ) {
     this.titleService.setTitle('Back-office')
     this.first_name = this.localStorageService.getFirstname()
     this.lastname = this.localStorageService.getLastname()
+    this.authenLogId = this.localStorageService.getAuthenLog()
+  }
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
   }
   setCollapseApprover() {
     if (this.collapse_approver_menu == true) {
@@ -59,8 +68,16 @@ export class AdminDashboardComponent {
   setMenu(type: any) {
     this.menu = type
   }
+
   signOut() {
-    this.localStorageService.signOut()
-    window.location.href = '/auth/login'
+    const payload = {
+      authen_log_id: this.authenLogId
+    }
+    const authen = this.authenticationService.postLogout(payload).subscribe((rs) => {
+      this.localStorageService.signOut()
+      window.location.href = '/'
+    })
+    this.subscription?.add(authen)
+
   }
 }
