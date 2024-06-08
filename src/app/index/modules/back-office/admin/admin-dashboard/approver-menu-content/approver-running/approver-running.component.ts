@@ -59,7 +59,8 @@ export class ApproverRunningComponent {
       if (result.isConfirmed) {
         let param = {
           event_id: data.event_id,
-          status: data.status
+          status: data.status,
+          is_active : data.is_active
         }
         this.backofficeService.updateEventBackoffice(param).subscribe((rs) => {
           if (rs?.status == true) {

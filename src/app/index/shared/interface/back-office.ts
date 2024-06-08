@@ -90,4 +90,5 @@ export interface deleteMasterLocation  {
 export interface updateEvent {
     event_id: number
     status: string
+    is_active : boolean
 }

@@ -37,9 +37,9 @@ export class EventService {
         let option = this.headerService.BuildRequestHeadersFormData(this.token)
         return this.http.post(url, formData, { headers: option })
     }
-    getAllEvent(): Observable<IBaseCollectionResult<any> | undefined> {
+    getAllEvent(params: basePagination): Observable<IBaseCollectionWithPangingResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
-        let url = baseApi + 'api/get-all-event'
+        let url = baseApi + 'api/get-all-event?page=' + params.page + '&per_page=' + params.per_page
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
     }

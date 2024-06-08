@@ -49,24 +49,32 @@
       </svg>
     </button>
   </div>
-  <div class="box-no-data" *ngIf="!list_show_register">
+  <div class="box-no-data mt-5" *ngIf="list_show_register?.length === 0">
     <h4>ไม่พบข้อมูล (No data)</h4>
   </div>
   <div class="box-content-list-menu">
-    <div class="card card-list" *ngFor="let rs of list_show_register">
+    <div class="card card-list"
+      *ngFor="let rs of list_show_register | paginate: { itemsPerPage: config.pageSize, currentPage: config.currentPage ,  totalItems : config.totalRecord}index as i;">
       <img [src]="rs.path_image" style="width: 100%; height: 200px;" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title-event ">{{rs.name}}</h5>
-        <p><span class="me-2">วันที่จัดงาน</span><span class="me-2">:</span> <span>{{rs.due_date | date : 'yyyy-MM-dd'}}</span></p>
+        <p><span class="me-2">วันที่จัดงาน</span><span class="me-2">:</span> <span>{{rs.due_date | date :
+            'yyyy-MM-dd'}}</span></p>
         <p class="card-text-event ">{{rs.detail}}</p>
 
-        <p class="card-text-event-price mb-0">฿ {{formatNumber(rs.price)}}</p>
-        <p class="card-text-event-amount mb-1">จำนวนคงเหลือ {{formatNumber(rs.max_amount)}}</p>
-        <div class="text-center">
+        <p class="card-text-event-price mb-0" *ngIf="rs.max_amount >0">฿ {{formatNumber(rs.price)}}</p>
+        <p class="card-text-event-amount mb-1" *ngIf="rs.max_amount >0">จำนวนคงเหลือ {{formatNumber(rs.max_amount)}}</p>
+        <div class="box-sold-out" *ngIf="rs.max_amount === 0">
+          <span class="card-text-event-amount text-danger text-center">Sold out</span>
+        </div>
+        <div class="text-center" *ngIf="rs.max_amount > 0">
           <a class="btn btn-primary " (click)="openModal(modalcreate,rs)">ลงทะเบียนวิ่ง</a>
         </div>
       </div>
     </div>
+  </div>
+  <div class="d-flex justify-content-center  mt-5" >
+    <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
   </div>
 </div>
 

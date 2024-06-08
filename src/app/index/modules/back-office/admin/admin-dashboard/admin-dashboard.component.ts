@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthServices } from 'src/app/index/services/auth.service';
 import { LocalStorageService } from 'src/app/index/services/local-storage.service';
@@ -10,6 +10,7 @@ import { LocalStorageService } from 'src/app/index/services/local-storage.servic
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent {
+  isCollapseSideBar : boolean = true;
   first_name: any
   lastname: any
   collapse_basic_menu: boolean = false
@@ -19,10 +20,14 @@ export class AdminDashboardComponent {
   menu: string = 'index'
   authenLogId: any
   subscription ! : Subscription
+  @ViewChild('boxsidebar') boxsideBar!: ElementRef;
+  @ViewChild('boxcontent') boxcontent!: ElementRef;
+  @ViewChild('collapsebutton') collapseButton !: ElementRef;
   constructor(
     private localStorageService: LocalStorageService,
     private authenticationService: AuthServices,
-    private titleService: Title
+    private titleService: Title,
+    private renderer: Renderer2
   ) {
     this.titleService.setTitle('Back-office')
     this.first_name = this.localStorageService.getFirstname()
@@ -31,6 +36,21 @@ export class AdminDashboardComponent {
   }
   ngOnDestroy(): void {
     this.subscription?.unsubscribe()
+  }
+  collapseSidebar(){
+    if(this.isCollapseSideBar == true){
+      this.isCollapseSideBar = false
+      this.renderer.setStyle(this.boxsideBar?.nativeElement, 'width', '0px');
+      this.renderer.setStyle(this.boxsideBar?.nativeElement, 'transform', 'translateX(0%)');
+      this.renderer.setStyle(this.collapseButton?.nativeElement, 'left', '60px');
+      this.renderer.setStyle(this.collapseButton?.nativeElement, 'transform', 'translateX(0%)');
+    }
+    else {
+      this.renderer.setStyle(this.boxsideBar?.nativeElement, 'width', '250px');
+      this.renderer.setStyle(this.collapseButton?.nativeElement, 'left', '250px');
+      this.isCollapseSideBar = true
+    }
+   
   }
   setCollapseApprover() {
     if (this.collapse_approver_menu == true) {

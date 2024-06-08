@@ -2,7 +2,7 @@
 import { LocalStorageService } from 'src/app/index/services/local-storage.service';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,7 +15,11 @@ import { CryptlibService } from 'src/app/index/services/crypt-lib.service';
   styleUrls: ['./list-menu.component.scss']
 })
 export class ListMenuComponent {
-
+  config = {
+    currentPage: 1,
+    pageSize: 10,
+    totalRecord: 0
+  }
   //FORM
   search_Form: FormGroup
   create_register_running_Form: FormGroup
@@ -38,6 +42,7 @@ export class ListMenuComponent {
       reg_event_price: '150'
     }
   ]
+  subscription !: Subscription
   role: any
   constructor(
     private eventService: EventService,
@@ -75,6 +80,10 @@ export class ListMenuComponent {
       this.spinner.hide()
     }, 3000)
   }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
+  }
   openModal(modal: any, list: any) {
     if (this.role === 'member') {
       this.modalService.open(modal, { size: 'lg' })
@@ -90,20 +99,30 @@ export class ListMenuComponent {
         showCloseButton: true,
         showConfirmButton: false,
         icon: "error",
-        customClass : {
-          popup : "custom-popup",
-          title : "custom-title"
+        customClass: {
+          popup: "custom-popup",
+          title: "custom-title"
         },
         title: 'ผู้จัดงานไม่สามารถลงทะเบียนได้',
-        text : 'กรุณาติดต่อผู้ดูแลระบบ'
+        text: 'กรุณาติดต่อผู้ดูแลระบบ'
       });
     }
   }
+  countIndex(pageSize: number, current_page: number, index: number) {
+    return pageSize * (current_page - 1) + index;
+  }
+
+  changePage(event: any) {
+    this.config.currentPage = event;
+    this.getallRegisterrunningevent()
+  }
   getallRegisterrunningevent() {
-    this.eventService.getAllEvent().subscribe((rs) => {
+    const event = this.eventService.getAllEvent({ page: this.config.currentPage ? this.config.currentPage - 1 : 0, per_page: this.config.pageSize }).subscribe((rs) => {
       if (rs?.status === true) {
         this.register_running_event_array = rs.results
         this.list_show_register = rs.results
+        this.config.totalRecord = rs.total_record
+
         this.spinner.hide()
       }
       else {
@@ -117,6 +136,7 @@ export class ListMenuComponent {
         });
       }
     })
+    this.subscription?.add(event)
   }
   searchBox(event: any) {
     // this.char_search = event.target.value

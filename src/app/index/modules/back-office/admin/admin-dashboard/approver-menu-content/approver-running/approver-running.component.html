@@ -52,13 +52,13 @@
 
                             <div class="wrap-button"> -->
                             <button class="btn btn-success custom-button-approver me-3 "
-                                (click)="updateEvent({event_id : list.id, status : '02' })">
+                                (click)="updateEvent({event_id : list.id, status : '02' , is_active : true })">
                                 Approver
                             </button>
                             <!-- </div> -->
                             <!-- <div class="wrap-button"> -->
                             <button class="btn btn-danger custom-button-approver  "
-                                (click)="updateEvent({event_id : list.id, status : '03' })">
+                                (click)="updateEvent({event_id : list.id, status : '03' , is_active : false })">
                                 Reject
                             </button>
                             <!-- </div> -->

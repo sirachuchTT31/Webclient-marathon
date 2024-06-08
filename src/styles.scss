@@ -425,6 +425,7 @@ a {
     background-color: #fff;
     box-shadow: 5px 5px 20px 5px #A9A9A9;
     padding: 30px;
+    transition: 0.5s !important;
     // text-align: center;
 }
 
@@ -779,6 +780,19 @@ ul {
         gap: 40px 150px;
         justify-content: center;
     }
+    .box-sold-out {
+        position: static !important;
+        width:auto !important;
+        transform: none !important;
+        padding: 5px;
+        border: 1px solid var(--bs-red);
+        border-radius: 5px;
+        text-align: center;
+        span {
+            font-weight: 800;
+            font-size: 20px;
+        }
+    }
 }
 
 .wrapper-grid-setting-profile {
@@ -940,8 +954,9 @@ app-date-picker-range .mdc-icon-button {
     gap: 0px 20px;
     margin-top: 5px;
 }
-@media (max-width: 1024px){
-    .custom-button-approver{
+
+@media (max-width: 1024px) {
+    .custom-button-approver {
         width: 50px !important;
     }
 }
@@ -1064,6 +1079,21 @@ app-date-picker-range .mdc-icon-button {
 
 .fl-table tr:nth-child(even) {
     background: #F8F8F8;
+}
+
+.box-sold-out {
+    position: absolute;
+    left: 50px;
+    width: 200px;
+    transform: rotate(320deg);
+    padding: 5px;
+    border: 1px solid var(--bs-red);
+    border-radius: 5px;
+    text-align: center;
+    span {
+        font-weight: 800;
+        font-size: 38px;
+    }
 }
 
 //   .circle-inner {
