@@ -16,6 +16,7 @@ export class AuthPageComponent {
   register_form: FormGroup
   menu = 'login'
   subscription!: Subscription
+  isTypePassword : boolean = true
   constructor(
     private authService: AuthServices,
     private localStorageService: LocalStorageService,
@@ -40,6 +41,7 @@ export class AuthPageComponent {
     this.subscription.unsubscribe()
   }
   changeMenu(menu: any,) {
+    this.isTypePassword = true
     this.menu = menu
   }
   validateLogin() {

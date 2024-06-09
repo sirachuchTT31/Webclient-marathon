@@ -409,6 +409,14 @@ a {
     background-size: calc(.75em + .375rem) calc(.75em + .375rem) !important;
     background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
 }
+.required-password {
+    border: 1px solid #dc3545 !important;
+    border-color: #dc3545 !important;
+    padding-right: calc(1.5em + .75rem) !important;
+    background-repeat: no-repeat !important;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem) !important;
+    background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
+}
 
 .box-wrapper-admin-dashboard {
     // display: grid;
@@ -1079,6 +1087,12 @@ app-date-picker-range .mdc-icon-button {
 
 .fl-table tr:nth-child(even) {
     background: #F8F8F8;
+}
+.box-password-open{
+    position: absolute;
+    right: 193px;
+    top: 30px;
+    // left: 0px;
 }
 
 .box-sold-out {

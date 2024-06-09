@@ -32,13 +32,17 @@
                             </small>
                         </span>
                     </span>
-                    <div class="box-form-group-custom pt-4">
-                        <input class="form-control" type="password" class="form-control" placeholder="Password"
-                            maxlength="30" formControlName="password" [ngClass]="{
-                        required:
+                    <div class="box-form-group-custom pt-4 position-relative">
+                        <input class="form-control" [type]="isTypePassword === true ? 'password' : 'text'"
+                            class="form-control" placeholder="Password" maxlength="30" formControlName="password"
+                            [ngClass]="{
+                        'required-password':
                         login_form.controls['password'].invalid &&
                         login_form.controls['password'].touched
                         }">
+                        <a class="box-password-open" style="color:unset " (click)="isTypePassword = !isTypePassword ">
+                            <i class="bi-eye-slash" [ngClass]="{'bi-eye' :  isTypePassword === false}"></i>
+                        </a>
                     </div>
                     <span *ngIf="
                     login_form.controls['password'].invalid &&
@@ -89,13 +93,16 @@
                             </small>
                         </span>
                     </span>
-                    <div class="box-form-group-custom pt-4">
-                        <input class="form-control" type="password" class="form-control" placeholder="Password"
+                    <div class="box-form-group-custom pt-4 position-relative">
+                        <input class="form-control" [type]="isTypePassword === true ? 'password' : 'text'" class="form-control" placeholder="Password"
                             maxlength="30" formControlName="password" [ngClass]="{
-                                required:
+                               'required-password':
                                 register_form.controls['password'].invalid &&
                                 register_form.controls['password'].touched
                                 }">
+                        <a class="box-password-open" style="color:unset " (click)="isTypePassword = !isTypePassword ">
+                            <i class="bi-eye-slash" [ngClass]="{'bi-eye' :  isTypePassword === false}"></i>
+                        </a>
                     </div>
                     <span *ngIf="
                     register_form.controls['password'].invalid &&
