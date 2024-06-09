@@ -750,6 +750,8 @@ ul {
 }
 
 .box-content-list-menu {
+    min-height: 543px;
+    max-height: 100%;
     width: 100%;
     display: grid;
     grid-template-columns: 20% 20% 20% 20% 20%;
@@ -1097,7 +1099,7 @@ app-date-picker-range .mdc-icon-button {
 }
 
 .box-sold-out {
-    position: absolute;
+    position: relative;
     left: 50px;
     width: 200px;
     transform: rotate(320deg);

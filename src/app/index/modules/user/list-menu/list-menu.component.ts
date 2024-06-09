@@ -151,11 +151,11 @@ export class ListMenuComponent {
   }
   onSearch() {
     console.log("this.search_where_id", this.search_where_id)
-    if (this.search_where_id == "" || this.search_where_id == undefined) {
+    if (!this.search_where_id) {
       this.getallRegisterrunningevent()
     }
     else {
-      let new_result = this.register_running_event_array.filter((e: any) => e.reg_event_id == this.search_where_id)
+      let new_result = this.register_running_event_array.filter((e: any) => e.id == this.search_where_id)
       this.list_show_register = new_result
     }
   }

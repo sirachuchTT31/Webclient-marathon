@@ -61,7 +61,7 @@
                         <span class="text-success"
                             style="font-size: 14px;">{{changeStatustotext(rs.status_code)}}</span>
                     </p>
-                    <hr class="">
+                    <hr class="" *ngIf="rs.status_code == '02'">
                     <div class="text-end">
                         <!-- <button type="button" class="btn btn-outline-danger me-2" placement="top"
                             *ngIf="rs.reg_event_status == '03'" [ngbPopover]="rs?.reason" popoverTitle="เหตุผล">

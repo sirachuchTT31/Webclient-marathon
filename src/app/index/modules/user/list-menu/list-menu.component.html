@@ -2,32 +2,23 @@
   <div class="box-search-list-menu pt-3">
     <div class="box-input-search">
       <form [formGroup]="search_Form">
-        <input type="text" class="form-control" (keyup)="searchBox($event)" [matAutocomplete]="auto" matInput
-          placeholder="ค้นหาด้วยชื่องาน | ค้นด้วยจังหวัดงาน | ค้นหาด้วยสถานที่งาน" formControlName="char_search">
-        <div class="search_remove_icon" *ngIf="this.search_Form.controls['char_search'].value?.length > 0">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-circle-fill"
-            viewBox="0 0 16 16" (click)="removersearchBox()">
-            <path
-              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
-          </svg>
+        <div class="form-group  pt-2 position-relative">
+          <input type="text" class="form-control" (keyup)="searchBox($event)" [matAutocomplete]="auto" matInput
+            placeholder="ค้นหาด้วยชื่องาน | ค้นด้วยจังหวัดงาน | ค้นหาด้วยสถานที่งาน" formControlName="char_search">
+          <app-remove-icon *ngIf="this.search_Form.controls['char_search'].value?.length > 0"
+            (click)="removersearchBox()"></app-remove-icon>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let option of this.register_running_event_array | filter : this.search_Form.controls['char_search']?.value "
+              [value]="option.name" (click)="onClickfilter(option.id)">
+              <span>{{option.name}} | {{option.MasterLocation.province}} | {{option.MasterLocation.district}} <img
+                  [src]="option.path_image" class="img-box-search"></span>
+            </mat-option>
+          </mat-autocomplete>
         </div>
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option
-            *ngFor="let option of this.register_running_event_array | filter : this.search_Form.controls['char_search']?.value "
-            [value]="option.name" (click)="onClickfilter(option.id)">
-            <span>{{option.name}} | {{option.MasterLocation.province}} | {{option.MasterLocation.district}} <img
-                [src]="option.path_image" class="img-box-search"></span>
-          </mat-option>
-        </mat-autocomplete>
       </form>
     </div>
-    <!-- <input type="text" (keyup)="serachBox($event)">
-            <div *ngFor="let item of mog_data_serch |filter:char_search">
-                <p>
-                    {{item.name}}
-                </p>
-            </div> -->
-    <div class="box-button-search">
+    <div class="box-button-search pt-2">
       <button type="button" class="btn btn-primary " (click)="onSearch()"><svg xmlns="http://www.w3.org/2000/svg"
           width="30" height="25" viewBox="0 0 400 400" fill="none">
           <path d="M244.17 254.01L340.17 350" stroke="#fff" stroke-width="12" stroke-miterlimit="10"
@@ -64,7 +55,7 @@
 
         <p class="card-text-event-price mb-0" *ngIf="rs.max_amount >0">฿ {{formatNumber(rs.price)}}</p>
         <p class="card-text-event-amount mb-1" *ngIf="rs.max_amount >0">จำนวนคงเหลือ {{formatNumber(rs.max_amount)}}</p>
-        <div class="box-sold-out" *ngIf="rs.max_amount === 0">
+        <div class="box-sold-out h-auto" *ngIf="rs.max_amount === 0">
           <span class="card-text-event-amount text-danger text-center">Sold out</span>
         </div>
         <div class="text-center" *ngIf="rs.max_amount > 0">
@@ -73,7 +64,7 @@
       </div>
     </div>
   </div>
-  <div class="d-flex justify-content-center  mt-5" >
+  <div class="d-flex justify-content-center  mt-5">
     <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
   </div>
 </div>
