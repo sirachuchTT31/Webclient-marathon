@@ -1,0 +1,54 @@
+<div class="wrapper-dashboard-organization">
+    <div class="header-list-all">
+        <p>{{eventName}}</p>
+        <hr>
+    </div>
+    <div class="btn btn-primary mb-3" #tooltipToggle="matTooltip" matTooltip="ย้อนกลับ"
+    [matTooltipPosition]="'above'" [routerLink]="'/user/organizer-dashboard'">Back</div>
+    <div class="row m-0 d-flex flex-row ">
+        <div class="col-lg-3  history_box_left p-0">
+            <p class="text-header-dashboard ">รายชื่อผู้ที่ลงทะเบียนวิ่ง</p>
+        </div>
+        <div class="col-lg-9 col-md-12  history_box_right">
+            <div class="wrap-table box_table_preview">
+                <table class="fl-table  mb-2 ">
+                    <thead class="">
+                        <tr>
+                            <th scope="col" style="width: 50px;">ลำดับ</th>
+                            <th scope="col" style="width: 150px;">ชื่อ-นามสกุล</th>
+                            <th scope="col" style="width: 150px;">รายละเอียด</th>
+                            <th scope="col" style="width: 200px;">สถานะ</th>
+                            <th scope="col" style="width: 200px;">วันที่ลงทะเบียน</th>
+                            <th scope="col" style="width: 250px;">เครื่องมือ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let item of this.listData| paginate: { itemsPerPage: config.pageSize, currentPage: config.currentPage ,  totalItems : config.totalRecord}index as i;">
+                            <td class="text-center">{{countIndex(config.pageSize,config.currentPage,i+1)}}</td>
+                            <td class="text-center">{{item.User.name }} {{item.User.lastname }}</td>
+                            <td class="text-center">{{item.EventJoin.description}}</td>
+                            <td class="text-center">{{item.status_code}}</td>
+                            <td class="text-center">{{item.created_at | date:'dd-MM-yyyy'}}</td>
+                            <td class="text-center">
+                                <button class="btn btn-success custom-button-approver me-3"
+                                >
+                                Approver
+                            </button>
+                            <button class="btn btn-danger custom-button-approver ">
+                                Reject
+                            </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center mt-5 mb-5" *ngIf="!listData">
+                    <h2 class="text-dark">ไม่พบข้อมูล (Data not found)</h2>
+                </div>
+                <div class="d-flex justify-content-end pt-2">
+                    <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

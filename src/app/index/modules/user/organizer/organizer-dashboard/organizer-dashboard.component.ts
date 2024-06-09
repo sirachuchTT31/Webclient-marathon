@@ -15,6 +15,7 @@ import {
   MatDialogContent,
 } from '@angular/material/dialog';
 import { ModalListRegisterComponent } from 'src/app/index/component/modal-list-register/modal-list-register.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-organizer-dashboard',
   templateUrl: './organizer-dashboard.component.html',
@@ -79,7 +80,8 @@ export class OrganizerDashboardComponent {
     private modalService: NgbModal,
     private masterdataService: MasterdataService,
     private cryptlibService: CryptlibService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router,
   ) {
     this.auth_id = this.localStorageService.getId()
     this.status_form = new FormGroup({
@@ -133,11 +135,14 @@ export class OrganizerDashboardComponent {
     })
   }
 
-  openDialog(data: any) {
-    this.dialog.open(ModalListRegisterComponent, {      
-      panelClass: 'custom-mat-dialog',
-      data: data
-    });
+  openApprovedDetail(data: any) {
+    // this.dialog.open(ModalListRegisterComponent, {      
+    //   panelClass: 'custom-mat-dialog',
+    //   data: data
+    // });
+    let cipherTextId = this.cryptlibService.encryptText(String(data?.id))
+    let cipherTextName = this.cryptlibService.encryptText(String(data?.name))
+    this.router.navigate(['/user/organizer-approved-detail'],{queryParams : {clientId : cipherTextId , clientName : cipherTextName }})
   }
 
   formatNumber(x: any) {
@@ -181,7 +186,7 @@ export class OrganizerDashboardComponent {
     else {
       const param = {
         id: Number(data?.id),
-        is_active: data?.is_active,
+        is_active: data?.is_active === true? false : true,
         status_code: data?.status_code,
       }
       this.activeArray.push(param)

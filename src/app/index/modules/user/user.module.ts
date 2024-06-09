@@ -28,6 +28,7 @@ import {
   MatDialogModule
 } from '@angular/material/dialog';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { OrganizerApprovedDetailComponent } from './organizer/organizer-approved-detail/organizer-approved-detail.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,11 @@ const routes: Routes = [
         component: OrganizerDashboardComponent,
         canActivate: [AuthGuardService]
       },
+      {
+        path : 'organizer-approved-detail',
+        component : OrganizerApprovedDetailComponent,
+        canActivate: [AuthGuardService]
+      }
     ]
   },
 ]
@@ -68,6 +74,7 @@ const routes: Routes = [
     OrganizerIndexComponent,
     ListMenuComponent,
     UserLayoutComponent,
+    OrganizerApprovedDetailComponent,
   ],
   imports: [
     FormsModule,
