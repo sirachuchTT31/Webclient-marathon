@@ -54,6 +54,48 @@ export class OrganizerApprovedDetailComponent {
     this.getEventRegisterUserJoin();
   }
 
+  updateApprovedEventRegister(data: any, status: string) {
+    console.log(data)
+    Swal.fire({
+      title: "คุณต้องการอนุมัติใช่หรือไม่",
+      text: "ถ้าบันทึกจะไม่สามารถกลับมาแก้ไขได้",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "บันทึก",
+      cancelButtonText: 'ยกเลิก'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const payload = {
+          event_join_id: Number(data?.EventJoin?.id),
+          status: status,
+          user_id: Number(data?.user_id)
+        }
+        this.eventService.postUpdateApprovedEventRegister(payload).subscribe((rs) => {
+          if (rs?.status === true) {
+            Swal.fire({
+              showCloseButton: true,
+              showConfirmButton: false,
+              icon: "success",
+              timer: 3000,
+              text: rs?.message,
+            });
+            this.getEventRegisterUserJoin()
+          }
+          else {
+            Swal.fire({
+              showCloseButton: true,
+              showConfirmButton: false,
+              icon: "error",
+              text: rs?.message,
+            });
+          }
+        })
+      }
+    })
+  }
+
   getEventRegisterUserJoin() {
     let orginalText = ''
     if (this.queryParams['clientId']) {
@@ -75,4 +117,5 @@ export class OrganizerApprovedDetailComponent {
     });
     this.substcription?.add(event)
   }
+
 }

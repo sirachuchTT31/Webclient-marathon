@@ -7,7 +7,7 @@ import { ConfigurationService } from "./config.service";
 import { HttpClient } from "@angular/common/http";
 import { CreateAdmin, EditAdmin } from "../shared/interface/admin";
 import { CreateOrganizer, EditOrganizer } from '../shared/interface/organizer';
-import { CreateEvent, UpdateEvent, UpdateregisterrunningOrganizer } from '../shared/interface/register-running-organizer';
+import { CreateEvent, UpdateApprovedEventRegister, UpdateEvent, UpdateregisterrunningOrganizer } from '../shared/interface/register-running-organizer';
 import { createRegisterEvent } from '../shared/interface/event';
 import { basePagination } from '../shared/interface/pagination';
 @Injectable({
@@ -62,7 +62,7 @@ export class EventService {
         let option = this.headerService.BuildRequestHeaders(this.token)
         return this.http.get(url, { headers: option })
     }
-    getEventRegisterUserJoin(params: basePagination , id : number): Observable<IBaseCollectionWithPangingResult<any> | undefined> {
+    getEventRegisterUserJoin(params: basePagination, id: number): Observable<IBaseCollectionWithPangingResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
         let url = baseApi + 'api/get-event-register-user-join?page=' + params.page + '&per_page=' + params.per_page + '&event_id=' + id
         let option = this.headerService.BuildRequestHeaders(this.token)
@@ -71,6 +71,12 @@ export class EventService {
     postUpdateEvent(list: UpdateEvent): Observable<IBaseSingleResult<any> | undefined> {
         let baseApi = this.configService.settingConfig.baseApi
         let url = baseApi + 'api/update-event'
+        let option = this.headerService.BuildRequestHeadersFormData(this.token)
+        return this.http.post(url, list, { headers: option })
+    }
+    postUpdateApprovedEventRegister(list: UpdateApprovedEventRegister): Observable<IBaseSingleResult<any> | undefined> {
+        let baseApi = this.configService.settingConfig.baseApi
+        let url = baseApi + 'api/update-approved-event-register-user-join'
         let option = this.headerService.BuildRequestHeadersFormData(this.token)
         return this.http.post(url, list, { headers: option })
     }

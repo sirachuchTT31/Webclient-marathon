@@ -28,4 +28,9 @@ export interface UpdateregisterrunningOrganizer {
     reg_event_distance?: string,
     location_id?: string
 }
+export interface UpdateApprovedEventRegister {
+    event_join_id: number
+    status: string
+    user_id : number
+}
 
