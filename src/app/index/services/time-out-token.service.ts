@@ -25,15 +25,16 @@ export class TimeoutTokenService {
     public setTokenExpires() {
         const token = this.localStorageService.getToken()
         if (token) {
-            const date = new Date()
-            const timeOutdefault = this.localStorageService.getTimeOutToken()
-            const refreshToken = this.localStorageService.getRefreshToken()
-            const expires = new Date(0);
-            expires.setUTCSeconds(Number(timeOutdefault));
-            let SecondsToken = Math.floor((expires.getTime() - date.getTime()) / 1000)
             this.tokenInterval = setInterval(() => {
+                const date = new Date()
+                const timeOutdefault = this.localStorageService.getTimeOutToken()
+                const refreshToken = this.localStorageService.getRefreshToken()
+                let expires = new Date(0);
+                expires.setUTCSeconds(Number(timeOutdefault));
+                let SecondsToken = Math.floor((expires.getTime() - date.getTime()) / 1000)
                 SecondsToken--;
                 if (SecondsToken <= 0) {
+                    console.log(expires)
                     if (refreshToken) {
                         const payload = {
                             refreshToken: refreshToken
@@ -51,7 +52,7 @@ export class TimeoutTokenService {
                                         first_name: response.payload.name,
                                         last_name: response.payload.lastname,
                                         refresh_token: response.refresh_token,
-                                        authen_log_id : response.authen_log_id,
+                                        authen_log_id: response.authen_log_id,
                                         role: response.payload.role,
                                         token: response.access_token
                                     });
