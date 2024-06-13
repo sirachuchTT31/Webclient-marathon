@@ -69,7 +69,7 @@
             </table>
         </div>
     </div>
-    <div class="d-flex justify-content-end pt-2" *ngIf="eventAllList?.length > 0">
+    <div class="d-flex justify-content-end pt-2" *ngIf="config.totalRecord > 0">
         <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
     </div>
 </div>

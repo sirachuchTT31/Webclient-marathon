@@ -66,9 +66,11 @@ export class OrganizerDashboardComponent {
     },
   ]
   today: any
-  perPage: any = 0
-  totalRecord: number = 0
-  currentPage: number = 0
+  config = {
+    currentPage: 1,
+    pageSize: 10,
+    totalRecord: 0
+  }
   actionDraft: boolean = false
   activeArray: any = []
   subscription !: Subscription
@@ -142,7 +144,7 @@ export class OrganizerDashboardComponent {
     // });
     let cipherTextId = this.cryptlibService.encryptText(String(data?.id))
     let cipherTextName = this.cryptlibService.encryptText(String(data?.name))
-    this.router.navigate(['/user/organizer-approved-detail'],{queryParams : {clientId : cipherTextId , clientName : cipherTextName }})
+    this.router.navigate(['/user/organizer-approved-detail'], { queryParams: { clientId: cipherTextId, clientName: cipherTextName } })
   }
 
   formatNumber(x: any) {
@@ -154,7 +156,7 @@ export class OrganizerDashboardComponent {
   }
 
   changePage(event: any) {
-    this.currentPage = event;
+    this.config.currentPage = event;
     this.getEventRegister(event - 1);
   }
 
@@ -186,7 +188,7 @@ export class OrganizerDashboardComponent {
     else {
       const param = {
         id: Number(data?.id),
-        is_active: data?.is_active === true? false : true,
+        is_active: data?.is_active === true ? false : true,
         status_code: data?.status_code,
       }
       this.activeArray.push(param)
@@ -445,8 +447,7 @@ export class OrganizerDashboardComponent {
       if (rs?.status === true) {
         this.reg_by_organizer_object = rs.results
         this.filter_reg = rs.results
-        this.totalRecord = rs.total_record
-        this.perPage = rs.per_page
+        this.config.totalRecord = rs.total_record
         this.spinner.hide()
       }
       else {

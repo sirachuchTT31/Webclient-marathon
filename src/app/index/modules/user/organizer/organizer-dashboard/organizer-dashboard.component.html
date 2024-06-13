@@ -15,7 +15,7 @@
                 </mat-form-field>
             </form>
         </div>
-        <div class="d-flex justify-content-end "  style="gap: 20px;">
+        <div class="d-flex justify-content-end " style="gap: 20px;">
             <button class="btn btn-primary" (click)="onSaveUpdateIsActive()" [disabled]="actionDraft == false">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                     class="bi bi-floppy-fill" viewBox="0 0 16 16">
@@ -37,9 +37,12 @@
         </div>
 
     </div>
+    <div class="text-center mt-5" *ngIf="!filter_reg">
+        <h2 class="text-dark">ไม่พบข้อมูล (Data not found)</h2>
+    </div>
     <div class="box-content-list-menu">
         <ng-container
-            *ngFor="let rs of filter_reg | paginate: { itemsPerPage: perPage, currentPage: currentPage , totalItems : totalRecord}let i = index; ">
+            *ngFor="let rs of filter_reg | paginate: { itemsPerPage: config.pageSize, currentPage: config.currentPage, totalItems : config.totalRecord}let i = index; ">
             <div class="card card-list">
                 <img [src]="rs.path_image" style="width: 100%; height: 200px;" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -67,8 +70,8 @@
                             *ngIf="rs.reg_event_status == '03'" [ngbPopover]="rs?.reason" popoverTitle="เหตุผล">
                             เหตุผล
                         </button> -->
-                        <mat-slide-toggle (change)="setIsActive($event,rs)" color="primary" [checked]="rs.is_active"  *ngIf="rs.status_code == '02'"
-                            #tooltipToggle="matTooltip" matTooltip="เปิด/ปิด อีเว้นท์นี้"
+                        <mat-slide-toggle (change)="setIsActive($event,rs)" color="primary" [checked]="rs.is_active"
+                            *ngIf="rs.status_code == '02'" #tooltipToggle="matTooltip" matTooltip="เปิด/ปิด อีเว้นท์นี้"
                             [matTooltipPosition]="'above'"></mat-slide-toggle>
                         <button type="button" class="btn btn-outline-warning  me-2" *ngIf="rs.status_code == '02'"
                             (click)="openApprovedDetail(rs)" #tooltip="matTooltip" matTooltip="รายละเอียดผู้สมัคร"
@@ -81,9 +84,9 @@
                                     d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1" />
                             </svg>
                         </button>
-                        <button type="button" class="btn btn-outline-success  me-2" *ngIf="rs.status_code == '02'"  #tooltipButton="matTooltip" matTooltip="กดเพื่อสิ้นสุดอีเว้นท์"
-                        [matTooltipPosition]="'above'"
-                            (click)="onUpdateFinishjob(rs?.id,rs?.is_active)">
+                        <button type="button" class="btn btn-outline-success  me-2" *ngIf="rs.status_code == '02'"
+                            #tooltipButton="matTooltip" matTooltip="กดเพื่อสิ้นสุดอีเว้นท์"
+                            [matTooltipPosition]="'above'" (click)="onUpdateFinishjob(rs?.id,rs?.is_active)">
                             ปิดจบงาน
                         </button>
                     </div>
@@ -92,12 +95,10 @@
             </div>
         </ng-container>
     </div>
-    <div class="mt-5 d-flex justify-content-end">
+    <div class="mt-5 d-flex justify-content-end" *ngIf="config.totalRecord > 0">
         <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
     </div>
-    <div class="text-center " *ngIf="filter_reg?.length == 0">
-        <h2 class="text-dark">ไม่พบข้อมูล (Data not found)</h2>
-    </div>
+
 </div>
 
 

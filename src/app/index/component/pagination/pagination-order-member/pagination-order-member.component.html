@@ -19,6 +19,12 @@
                 <ng-container *ngIf="item.status_code == '11'">
                     <span>รอการอนุมัติ (Waiting for approver)</span>
                 </ng-container>
+                <ng-container *ngIf="item.status_code == '12'">
+                    <span class="text-primary fw-bold">รอชำระเงิน (Waiting for payment)</span>
+                </ng-container>
+                <ng-container *ngIf="item.status_code == '13'">
+                    <span class="text-danger fw-bold">งานอนุมัติถูกปฎิเสธ (Job Reject)</span>
+                </ng-container>
             </td>
         </tr>
     </tbody>
@@ -26,4 +32,4 @@
 <div class="text-center mt-5 mb-5" *ngIf="!data?.results">
     <h2 class="text-dark">ไม่พบข้อมูล (Data not found)</h2>
 </div>
-<pagination-controls (pageChange)="changePage($event)" ></pagination-controls>
+<pagination-controls (pageChange)="changePage($event)" *ngIf="config.totalRecord > 0"></pagination-controls>
