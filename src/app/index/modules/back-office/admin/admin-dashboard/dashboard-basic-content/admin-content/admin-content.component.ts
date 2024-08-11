@@ -57,7 +57,7 @@ export class AdminContentComponent {
 
   openModal(modal: any, action: string, data?: any) {
     this.modalService.dismissAll()
-    this.modalService.open(modal, { size: 'lg' });
+    this.modalService.open(modal, { size: 'lg' , backdrop : 'static'});
     this.admin_create_form.reset()
     if (action === 'edit') {
       this.admin_create_form.get('username')?.clearValidators()
@@ -223,7 +223,7 @@ export class AdminContentComponent {
 
   //fetch 
   getallAdminBackoffice() {
-    const backoffice = this.backofficeService.getAllAdminBackffice({ page: this.config.currentPage ? this.config.currentPage - 1 : 0, per_page: this.config.pageSize }).subscribe((rs) => {
+    const backoffice = this.backofficeService.getAllAdminBackffice({ page: this.config.currentPage ? this.config.currentPage: 1, per_page: this.config.pageSize }).subscribe((rs) => {
       if (rs?.status === true) {
         this.master_admin_all = rs.results
         this.config.totalRecord = rs.total_record

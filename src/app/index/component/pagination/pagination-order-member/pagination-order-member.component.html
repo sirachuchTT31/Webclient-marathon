@@ -16,13 +16,13 @@
             </td>
             <td>{{item.created_at | date:'dd-MM-yyyy'}}</td>
             <td>
-                <ng-container *ngIf="item.status_code == '11'">
+                <ng-container *ngIf="item.status_code == workFlow.WAIT_FOR_APPROVED">
                     <span>รอการอนุมัติ (Waiting for approver)</span>
                 </ng-container>
-                <ng-container *ngIf="item.status_code == '12'">
+                <ng-container *ngIf="item.status_code == workFlow.WAIT_FOR_PAYMENT">
                     <span class="text-primary fw-bold">รอชำระเงิน (Waiting for payment)</span>
                 </ng-container>
-                <ng-container *ngIf="item.status_code == '13'">
+                <ng-container *ngIf="item.status_code == workFlow.REJECT">
                     <span class="text-danger fw-bold">งานอนุมัติถูกปฎิเสธ (Job Reject)</span>
                 </ng-container>
             </td>
@@ -32,4 +32,7 @@
 <div class="text-center mt-5 mb-5" *ngIf="!data?.results">
     <h2 class="text-dark">ไม่พบข้อมูล (Data not found)</h2>
 </div>
-<pagination-controls (pageChange)="changePage($event)" *ngIf="config.totalRecord > 0"></pagination-controls>
+
+<div class="d-flex justify-content-end pt-2" *ngIf="config.totalRecord > 0">
+    <pagination-controls (pageChange)="changePage($event)" ></pagination-controls>
+</div>

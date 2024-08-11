@@ -118,12 +118,12 @@ export class OrganizerDashboardComponent {
   }
 
   openModalCreate(modal: any) {
-    this.modalService.open(modal, { size: 'lg' })
+    this.modalService.open(modal, { size: 'lg', backdrop: 'static' })
     this.create_register_running_event.reset()
   }
 
   openModalUpdate(modal: any, list: any) {
-    this.modalService.open(modal, { size: 'lg' })
+    this.modalService.open(modal, { size: 'lg', backdrop: 'static' })
     this.create_register_running_event = new FormGroup({
       reg_event_id: new FormControl(list?.reg_event_id),
       reg_event_name: new FormControl(list?.reg_event_name, [Validators.required]),

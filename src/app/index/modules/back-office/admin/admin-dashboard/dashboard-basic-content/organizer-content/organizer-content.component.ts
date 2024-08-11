@@ -219,7 +219,7 @@ export class OrganizerContentComponent {
   }
   //fetch 
   getallOrganizerBackoffice() {
-    this.backofficeService.getAllOrganizerBackoffice({ page: this.config.currentPage ? this.config.currentPage - 1 : 0, per_page: this.config.pageSize }).subscribe((rs) => {
+    this.backofficeService.getAllOrganizerBackoffice({ page: this.config.currentPage ? this.config.currentPage : 1, per_page: this.config.pageSize }).subscribe((rs) => {
       if (rs?.status == true) {
         this.organizerData = rs.results
         this.config.totalRecord = rs.total_record

@@ -45,11 +45,11 @@ export class ModalListRegisterComponent {
 
   changePage(event: any) {
     this.config.currentPage = event
-    this.getEventRegisterUserJoin(event - 1);
+    this.getEventRegisterUserJoin(event);
   }
 
   getEventRegisterUserJoin(page?: number) {
-    const event = this.eventService.getEventRegisterUserJoin({ page: page ? page : 0, per_page: 5 }, this.data?.id).subscribe((rs) => {
+    const event = this.eventService.getEventRegisterUserJoin({ page: page ? page : 1, per_page: 5 }, this.data?.id).subscribe((rs) => {
       if (rs?.status === true) {
         this.listData = rs.results;
         // this.config.totalRecord = Number(rs.total_record);

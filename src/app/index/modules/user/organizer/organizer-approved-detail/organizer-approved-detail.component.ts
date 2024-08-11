@@ -159,7 +159,7 @@ export class OrganizerApprovedDetailComponent {
     if (this.queryParams['clientId']) {
       orginalText = this.cryptlibService.decryptCipher(this.queryParams['clientId'])
     }
-    const event = this.eventService.getEventRegisterUserJoin({ page: this.config.currentPage ? this.config.currentPage - 1 : 0, per_page: 5 }, Number(orginalText)).subscribe((rs) => {
+    const event = this.eventService.getEventRegisterUserJoin({ page: this.config.currentPage ? this.config.currentPage : 1, per_page: 5 }, Number(orginalText)).subscribe((rs) => {
       if (rs?.status === true) {
         this.listData = rs.results;
         this.config.totalRecord = rs.total_record;

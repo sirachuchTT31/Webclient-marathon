@@ -49,7 +49,7 @@ export class LocationContentComponent {
 
   openModal(modal: any, action: string, data?: any) {
     this.modalService.dismissAll()
-    this.modalService.open(modal, { size: 'lg' });
+    this.modalService.open(modal, { size: 'lg' , backdrop : 'static' });
     this.locationForm.reset()
     if (action === 'edit') {
       this.actionDialog = 'edit'
@@ -224,7 +224,7 @@ export class LocationContentComponent {
   }
 
   getAllMasterLocationBackoffice() {
-    const backoffice = this.backofficeService.getAllMasterLocationBackoffice({ page: this.config.currentPage ? this.config.currentPage - 1 : 0, per_page: this.config.pageSize }).subscribe((rs) => {
+    const backoffice = this.backofficeService.getAllMasterLocationBackoffice({ page: this.config.currentPage ? this.config.currentPage : 1, per_page: this.config.pageSize }).subscribe((rs) => {
       if (rs?.status === true) {
         this.masterLocationData = rs.results
         this.config.totalRecord = rs.total_record

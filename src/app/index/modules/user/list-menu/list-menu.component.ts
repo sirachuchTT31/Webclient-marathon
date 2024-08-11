@@ -86,7 +86,7 @@ export class ListMenuComponent {
   }
   openModal(modal: any, list: any) {
     if (this.role === 'member') {
-      this.modalService.open(modal, { size: 'lg' })
+      this.modalService.open(modal, { size: 'lg' , backdrop : 'static'})
       //MAPPING VALUE 
       let f = this.create_register_running_Form
       f.controls['name']?.setValue(this.local_name)
@@ -117,8 +117,9 @@ export class ListMenuComponent {
     this.getallRegisterrunningevent()
   }
   getallRegisterrunningevent() {
-    const event = this.eventService.getAllEvent({ page: this.config.currentPage ? this.config.currentPage - 1 : 0, per_page: this.config.pageSize }).subscribe((rs) => {
+    const event = this.eventService.getAllEvent({ page: this.config.currentPage ? this.config.currentPage  : 1, per_page: this.config.pageSize }).subscribe((rs) => {
       if (rs?.status === true) {
+        console.log(rs.results)
         this.register_running_event_array = rs.results
         this.list_show_register = rs.results
         this.config.totalRecord = rs.total_record

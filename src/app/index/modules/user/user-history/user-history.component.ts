@@ -38,7 +38,7 @@ export class UserHistoryComponent {
     }
   ]
   page : number = 0
-  perPage : number = 10
+  perPage : number = 4
   historyData : any
   today = new Date()
   DateResult : any
@@ -91,6 +91,9 @@ export class UserHistoryComponent {
       }
     }
   }
+  // changePage(event: any) {
+  //   this.config.currentPage = event
+  // }
   filterReg() {
     if (this.status_form.controls['status'].value != '10') {
       this.filter_reg = this.list_history.filter((res: any) => res?.reg_member_status == this.status_form.controls['status'].value)
@@ -101,7 +104,7 @@ export class UserHistoryComponent {
   }
   getHistory(currentPage? : number) {
     try {
-      this.eventService.getAllHistory({page : currentPage ? currentPage : 0, per_page : this.perPage}).subscribe((rs) => {
+      this.eventService.getAllHistory({page : currentPage ? currentPage : 1, per_page : this.perPage}).subscribe((rs) => {
         if(rs?.status === true){
           this.historyData = rs
         }

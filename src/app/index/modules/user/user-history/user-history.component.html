@@ -48,7 +48,7 @@
 
             <div class="wrap-table box_table_preview">
                 <app-pagination-order-member [data]="historyData"
-                    [paginationConfig]="{pageSize : perPage , totalRecord : historyData?.totalRecord}"
+                    [paginationConfig]="{pageSize : perPage , totalRecord : historyData?.total_record}"
                     (currentPage)="getHistory($event)"></app-pagination-order-member>
             </div>
         </div>
