@@ -3,6 +3,7 @@
         <tr>
             <th scope="col" style="width: 50px;">ลำดับ</th>
             <th scope="col" style="width: 450px;">ชื่องาน</th>
+            <th scope="col" style="width: 250px;">วันที่จัดงานวิ่ง</th>
             <th scope="col" style="width: 250px;">วันที่ลงทะเบียน</th>
             <th scope="col" style="width: 250px;">สถานะ</th>
         </tr>
@@ -14,6 +15,7 @@
             <td class=""><img [src]="item.EventJoin.Event.path_image"
                     style="width: 150px; object-fit: cover; padding-right: 5px;">{{item.EventJoin.Event.name}}
             </td>
+            <td>{{item.EventJoin.Event.due_date | date:'dd-MM-yyyy'}}</td>
             <td>{{item.created_at | date:'dd-MM-yyyy'}}</td>
             <td>
                 <ng-container *ngIf="item.status_code == workFlow.WAIT_FOR_APPROVED">
@@ -24,6 +26,9 @@
                 </ng-container>
                 <ng-container *ngIf="item.status_code == workFlow.REJECT">
                     <span class="text-danger fw-bold">งานอนุมัติถูกปฎิเสธ (Job Reject)</span>
+                </ng-container>
+                <ng-container *ngIf="item.status_code == workFlow.CANCEL">
+                    <span class="text-danger fw-bold">งานถูกยกเลิก (Job Cancel)</span>
                 </ng-container>
             </td>
         </tr>

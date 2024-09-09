@@ -157,7 +157,7 @@ export class OrganizerDashboardComponent {
 
   changePage(event: any) {
     this.config.currentPage = event;
-    this.getEventRegister(event - 1);
+    this.getEventRegister(event);
   }
 
   changeStatustotext(status: any) {
@@ -443,7 +443,7 @@ export class OrganizerDashboardComponent {
   }
 
   getEventRegister(page?: number) {
-    const event = this.eventService.getAllEventRegister({ page: page ? page : 0, per_page: 5 }).subscribe((rs) => {
+    const event = this.eventService.getAllEventRegister({ page: page ? page : 1, per_page: 5 }).subscribe((rs) => {
       if (rs?.status === true) {
         this.reg_by_organizer_object = rs.results
         this.filter_reg = rs.results
