@@ -1,5 +1,7 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges, inject } from '@angular/core';
 import { StatusUserRegisterEvent } from 'src/app/index/constant/work-flow';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalPaymentComponent } from '../../modal-payment/modal-payment.component';
 
 @Component({
   selector: 'app-pagination-order-member',
@@ -7,12 +9,13 @@ import { StatusUserRegisterEvent } from 'src/app/index/constant/work-flow';
   styleUrls: ['./pagination-order-member.component.scss']
 })
 export class PaginationOrderMemberComponent {
-  constructor(public cdr : ChangeDetectorRef){}
+  private modalService = inject(NgbModal);
+  constructor(public cdr: ChangeDetectorRef) { }
   @Input() paginationConfig = {
     pageSize: 0,
     totalRecord: 0
   }
-  config : any = {
+  config: any = {
     currentPage: 0,
     pageSize: 0,
     totalRecord: 0
@@ -48,5 +51,14 @@ export class PaginationOrderMemberComponent {
   changePage(event: any) {
     this.config.currentPage = event
     this.currentPage.emit(event)
+  }
+
+  openModal() {
+    const modalRef = this.modalService.open(ModalPaymentComponent, {
+      size: "lg",
+      centered: true,
+      backdrop: "static",
+      keyboard: false,
+    });
   }
 }

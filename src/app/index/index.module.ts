@@ -12,11 +12,13 @@ import { NgxSpinnerModule } from "ngx-spinner";
 
 import { BrowserModule } from '@angular/platform-browser';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+// import { CovertTimezonePipe } from './pipe/covert-timezone.pipe';
 
 @NgModule({
   declarations: [
     IndexComponent,
     AuthPageComponent,
+    // CovertTimezonePipe,
   ],
   imports: [
     FormsModule,

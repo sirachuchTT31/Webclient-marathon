@@ -27,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ComponentModule } from '../../component/component.module';
+import { CovertTimezonePipe } from '../../pipe/covert-timezone.pipe';
 
 const routes: Routes = [
   {
@@ -74,6 +75,7 @@ const routes: Routes = [
     ApproverRunningComponent,
     ApproverPaymentComponent,
     ApproverOrganizerComponent,
+    CovertTimezonePipe 
   ],
   imports: [
     FormsModule,

@@ -33,7 +33,7 @@
                     <td>{{rs.name}}</td>
                     <td>{{rs.lastname}}</td>
                     <td>{{rs.email}}</td>
-                    <td>{{rs.created_at}}</td>
+                    <td>{{rs.created_at | covertTimezone : 'DD MMM YYYY, h:mm A'}}</td>
                     <td class="">
                         <button class="btn btn-warning me-2" (click)="openModal(modal,'edit',rs)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"

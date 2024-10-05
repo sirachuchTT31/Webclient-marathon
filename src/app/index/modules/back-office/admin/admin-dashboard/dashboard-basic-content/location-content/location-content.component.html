@@ -36,7 +36,7 @@
                     <td>{{rs.district}}</td>
                     <td>{{rs.address}}</td>
                     <td>{{rs.zipcode}}</td>
-                    <td>{{rs.created_at}}</td>
+                    <td>{{rs.created_at | covertTimezone : 'DD MMM YYYY, h:mm A'}}</td>
                     <td>{{rs.is_active === true ? 'เปิดการใช้งาน' : 'ปิดการใช้งาน'}}</td>
                     <td class="">
                         <button class="btn btn-warning me-2" (click)="openModal(modal,'edit',rs)">

@@ -15,6 +15,8 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ModalPaymentComponent } from './modal-payment/modal-payment.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RemoveIconComponent,
     ModalListRegisterComponent,
     DatePickerRangeComponent,
+    ModalPaymentComponent,
   ],
   imports: [
     CommonModule,
@@ -35,7 +38,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatNativeDateModule,
     MatButtonModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTooltipModule
   ],
   exports: [
     NavBarComponent,
