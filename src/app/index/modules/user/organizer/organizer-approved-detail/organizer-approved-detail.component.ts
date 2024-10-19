@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
+import { StatusUserRegisterEvent } from 'src/app/index/constant/work-flow';
 import { CryptlibService } from 'src/app/index/services/crypt-lib.service';
 import { EventService } from 'src/app/index/services/event.service';
 import Swal from 'sweetalert2';
@@ -21,6 +22,7 @@ export class OrganizerApprovedDetailComponent {
     totalRecord: 0
   }
   eventName: string = ''
+  workFlow  = StatusUserRegisterEvent;
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
@@ -85,6 +87,7 @@ export class OrganizerApprovedDetailComponent {
                 text: rs?.message,
               });
               this.getEventRegisterUserJoin()
+              window.location.reload();
             }
             else {
               Swal.fire({

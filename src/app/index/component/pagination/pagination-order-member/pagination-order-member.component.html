@@ -4,6 +4,7 @@
             <th scope="col" style="width: 50px;">ลำดับ</th>
             <th scope="col" style="width: 450px;">ชื่องาน</th>
             <th scope="col" style="width: 250px;">วันที่จัดงานวิ่ง</th>
+            <th scope="col" style="width: 250px;">ยอดที่ต้องชำระ</th>
             <th scope="col" style="width: 250px;">วันที่ลงทะเบียน</th>
             <th scope="col" style="width: 250px;">สถานะ</th>
             <th scope="col" style="width: 150px;">Tools</th>
@@ -16,8 +17,11 @@
             <td class=""><img [src]="item.EventJoin.Event.path_image"
                     style="width: 150px; object-fit: cover; padding-right: 5px;">{{item.EventJoin.Event.name}}
             </td>
-            <td>{{item.EventJoin.Event.due_date | date:'dd-MM-yyyy'}}</td>
-            <td>{{item.created_at | date:'dd-MM-yyyy'}}</td>
+            <td class="text-center">{{item.EventJoin.Event.due_date | date:'dd-MM-yyyy'}}</td>
+            <td class="text-center">
+                {{covertJSON(item.EventJoin.Invoice.invoice_detail).Event.price | currency:'THB':'symbol-narrow' }}
+            </td>
+            <td class="text-center">{{item.created_at | date:'dd-MM-yyyy'}}</td>
             <td>
                 <ng-container *ngIf="item.status_code == workFlow.WAIT_FOR_APPROVED">
                     <span>รอการอนุมัติ (Waiting for approver)</span>
@@ -34,7 +38,8 @@
             </td>
             <td class="text-center">
                 <button class="btn btn-warning me-2" *ngIf="item.status_code == workFlow.WAIT_FOR_PAYMENT"
-                    #tooltipToggle="matTooltip" matTooltip="แนบหลักฐานการจ่ายเงิน" [matTooltipPosition]="'above'" (click)="openModal()">
+                    #tooltipToggle="matTooltip" matTooltip="แนบหลักฐานการจ่ายเงิน" [matTooltipPosition]="'above'"
+                    (click)="openModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                         class="bi bi-wallet" viewBox="0 0 16 16">
                         <path

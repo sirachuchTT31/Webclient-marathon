@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChange
 import { StatusUserRegisterEvent } from 'src/app/index/constant/work-flow';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPaymentComponent } from '../../modal-payment/modal-payment.component';
+import { UtilCovert } from 'src/app/index/utils/util-covert';
 
 @Component({
   selector: 'app-pagination-order-member',
@@ -10,6 +11,7 @@ import { ModalPaymentComponent } from '../../modal-payment/modal-payment.compone
 })
 export class PaginationOrderMemberComponent {
   private modalService = inject(NgbModal);
+  private utilCovert = new UtilCovert();
   constructor(public cdr: ChangeDetectorRef) { }
   @Input() paginationConfig = {
     pageSize: 0,
@@ -60,5 +62,9 @@ export class PaginationOrderMemberComponent {
       backdrop: "static",
       keyboard: false,
     });
+  }
+
+  covertJSON(data: any) : any {
+    return this.utilCovert.jsonCovertObject(data);
   }
 }

@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ModalPaymentComponent } from './modal-payment/modal-payment.component';
+import { CovertJsonPipe } from '../pipe/covert-json.pipe';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ModalPaymentComponent } from './modal-payment/modal-payment.component';
     ModalListRegisterComponent,
     DatePickerRangeComponent,
     ModalPaymentComponent,
+    CovertJsonPipe
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,7 @@ import { ModalPaymentComponent } from './modal-payment/modal-payment.component';
     MatButtonModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   exports: [
     NavBarComponent,
