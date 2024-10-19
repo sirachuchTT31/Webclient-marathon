@@ -18,6 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ModalPaymentComponent } from './modal-payment/modal-payment.component';
 import { CovertJsonPipe } from '../pipe/covert-json.pipe';
+import { InvoiceComponent } from './pdf/invoice/invoice.component';
+import { ReceiptComponent } from './pdf/receipt/receipt.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { CovertJsonPipe } from '../pipe/covert-json.pipe';
     ModalListRegisterComponent,
     DatePickerRangeComponent,
     ModalPaymentComponent,
-    CovertJsonPipe
+    CovertJsonPipe,
+    InvoiceComponent,
+    ReceiptComponent
   ],
   imports: [
     CommonModule,
