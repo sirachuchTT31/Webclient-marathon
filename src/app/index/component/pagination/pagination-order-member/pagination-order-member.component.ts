@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges, inject } from '@angular/core';
-import { StatusUserRegisterEvent } from 'src/app/index/constant/work-flow';
+import { StatusEvent, StatusUserRegisterEvent } from 'src/app/index/constant/work-flow';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPaymentComponent } from '../../modal-payment/modal-payment.component';
 import { UtilCovert } from 'src/app/index/utils/util-covert';
@@ -24,7 +24,8 @@ export class PaginationOrderMemberComponent {
   }
   @Input() data: any
   @Output() currentPage = new EventEmitter<number>();
-  workFlow = StatusUserRegisterEvent
+  workFlow = StatusUserRegisterEvent;
+  eventWorkflow = StatusEvent;
   ngOnInit(): void {
     this.config = {
       currentPage: this.config.currentPage,
@@ -55,16 +56,19 @@ export class PaginationOrderMemberComponent {
     this.currentPage.emit(event)
   }
 
-  openModal() {
+  openModal(data: any) {
     const modalRef = this.modalService.open(ModalPaymentComponent, {
       size: "lg",
       centered: true,
       backdrop: "static",
       keyboard: false,
     });
+    console.log(`data`);
+    console.log(data);
+    modalRef.componentInstance.data = data;
   }
 
-  covertJSON(data: any) : any {
+  covertJSON(data: any): any {
     return this.utilCovert.jsonCovertObject(data);
   }
 }

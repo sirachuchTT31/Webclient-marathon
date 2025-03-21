@@ -14,12 +14,15 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ModalPaymentComponent } from './modal-payment/modal-payment.component';
 import { CovertJsonPipe } from '../pipe/covert-json.pipe';
 import { InvoiceComponent } from './pdf/invoice/invoice.component';
 import { ReceiptComponent } from './pdf/receipt/receipt.component';
+import { ModalPaymentDetailComponent } from './modal-payment-detail/modal-payment-detail.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -33,9 +36,11 @@ import { ReceiptComponent } from './pdf/receipt/receipt.component';
     ModalPaymentComponent,
     CovertJsonPipe,
     InvoiceComponent,
-    ReceiptComponent
+    ReceiptComponent,
+    ModalPaymentDetailComponent
   ],
   imports: [
+    FormsModule,
     CommonModule,
     NgbModule,
     NgxPaginationModule,
@@ -46,6 +51,8 @@ import { ReceiptComponent } from './pdf/receipt/receipt.component';
     MatInputModule,
     ReactiveFormsModule,
     MatTooltipModule,
+    MatCardModule,
+    MatIconModule
   ],
   exports: [
     NavBarComponent,

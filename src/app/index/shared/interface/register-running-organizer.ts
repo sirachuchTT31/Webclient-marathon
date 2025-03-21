@@ -31,7 +31,8 @@ export interface UpdateregisterrunningOrganizer {
 export interface UpdateApprovedEventRegister {
     event_join_id: number
     status: string
-    user_id : number
-    reason ? : string
+    user_id: number
+    reason?: string
+    invoice_id?: any;
 }
 

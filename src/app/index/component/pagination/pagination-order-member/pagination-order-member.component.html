@@ -19,29 +19,40 @@
             </td>
             <td class="text-center">{{item.EventJoin.Event.due_date | date:'dd-MM-yyyy'}}</td>
             <td class="text-center">
-                {{covertJSON(item.EventJoin.Invoice.invoice_detail).Event.price | currency:'THB':'symbol-narrow' }}
+                <ng-container *ngIf="item.EventJoin.Invoice?.invoice_detail;">
+                    {{ covertJSON(item.EventJoin.Invoice.invoice_detail)?.Event?.price | currency:'THB':'symbol-narrow'
+                    }}
+                </ng-container>
             </td>
             <td class="text-center">{{item.created_at | date:'dd-MM-yyyy'}}</td>
             <td>
-                <ng-container *ngIf="item.status_code == workFlow.WAIT_FOR_APPROVED">
+                <ng-container
+                    *ngIf="item.status_code == workFlow.WAIT_FOR_APPROVED &&  item.EventJoin.Event.status_code != eventWorkflow.FINISH">
                     <span>รอการอนุมัติ (Waiting for approver)</span>
                 </ng-container>
-                <ng-container *ngIf="item.status_code == workFlow.WAIT_FOR_PAYMENT">
+                <ng-container
+                    *ngIf="item.status_code == workFlow.WAIT_FOR_PAYMENT &&  item.EventJoin.Event.status_code != eventWorkflow.FINISH">
                     <span class="text-primary fw-bold">รอชำระเงิน (Waiting for payment)</span>
                 </ng-container>
-                <ng-container *ngIf="item.status_code == workFlow.REJECT">
+                <ng-container
+                    *ngIf="item.status_code == workFlow.REJECT &&  item.EventJoin.Event.status_code != eventWorkflow.FINISH">
                     <span class="text-danger fw-bold">งานอนุมัติถูกปฎิเสธ (Job Reject)</span>
                 </ng-container>
-                <ng-container *ngIf="item.status_code == workFlow.CANCEL">
+                <ng-container
+                    *ngIf="item.status_code == workFlow.CANCEL || item.EventJoin.Event.status_code == eventWorkflow.FINISH">
                     <span class="text-danger fw-bold">งานถูกยกเลิก (Job Cancel)</span>
+                </ng-container>
+                <ng-container *ngIf="item.status_code == workFlow.APPROVED_SUCCESS">
+                    <span class="text-primary fw-bold">อนุมัติสำเร็จ (Approved success)</span>
                 </ng-container>
             </td>
             <td class="text-center">
-                <ng-container *ngIf="item.status_code == workFlow.WAIT_FOR_PAYMENT">
+                <ng-container
+                    *ngIf="item.status_code == workFlow.WAIT_FOR_PAYMENT && item.EventJoin.Event.status_code != eventWorkflow.FINISH ">
                     <div class="d-flex justify-content-between">
                         <app-invoice></app-invoice>
                         <button class="btn btn-warning me-2" #tooltipToggle="matTooltip"
-                            matTooltip="แนบหลักฐานการจ่ายเงิน" [matTooltipPosition]="'above'" (click)="openModal()">
+                            matTooltip="แนบหลักฐานการจ่ายเงิน" [matTooltipPosition]="'above'" (click)="openModal(item)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                 class="bi bi-wallet" viewBox="0 0 16 16">
                                 <path
@@ -49,6 +60,16 @@
                             </svg>
                         </button>
                     </div>
+                </ng-container>
+                <ng-container *ngIf="item.status_code == workFlow.APPROVED_SUCCESS || item.status_code == workFlow.SAVE">
+                    <button class="btn btn-outline-primary me-2" #tooltipToggle="matTooltip" matTooltip="ใบเสร็จชำระเงิน"
+                        [matTooltipPosition]="'above'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                            class="bi bi-wallet" viewBox="0 0 16 16">
+                            <path
+                                d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a2 2 0 0 1-1-.268M1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1" />
+                        </svg>
+                    </button>
                 </ng-container>
             </td>
         </tr>

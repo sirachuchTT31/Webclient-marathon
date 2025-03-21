@@ -3,8 +3,8 @@
         <p>{{eventName}}</p>
         <hr>
     </div>
-    <div class="btn btn-primary mb-3" #tooltipToggle="matTooltip" matTooltip="ย้อนกลับ"
-    [matTooltipPosition]="'above'" [routerLink]="'/user/organizer-dashboard'">Back</div>
+    <div class="btn btn-primary mb-3" #tooltipToggle="matTooltip" matTooltip="ย้อนกลับ" [matTooltipPosition]="'above'"
+        [routerLink]="'/user/organizer-dashboard'">Back</div>
     <div class="row m-0 d-flex flex-row ">
         <div class="col-lg-3  history_box_left p-0">
             <p class="text-header-dashboard ">รายชื่อผู้ที่ลงทะเบียนวิ่ง</p>
@@ -19,6 +19,7 @@
                             <th scope="col" style="width: 150px;">รายละเอียด</th>
                             <th scope="col" style="width: 200px;">สถานะ</th>
                             <th scope="col" style="width: 200px;">วันที่ลงทะเบียน</th>
+                            <th scope="col" style="width: 200px;">หลักฐานการชำระเงิน</th>
                             <th scope="col" style="width: 250px;">เครื่องมือ</th>
                         </tr>
                     </thead>
@@ -42,15 +43,29 @@
                                     อนุมัติสำเร็จ
                                 </ng-container>
                             </td>
-                            <td class="text-center">{{item.created_at | date:'dd-MM-yyyy'}}</td>
+                            <td class="text-center">{{item.EventJoin.created_at | date:'dd-MM-yyyy'}}</td>
                             <td class="text-center">
-                                <button class="btn btn-success custom-button-approver me-3"
-                                (click)="updateApprovedEventRegister(item,'12')">
-                                Approver
-                            </button>
-                            <button class="btn btn-danger custom-button-approver " (click)="updateApprovedEventRegister(item,'13')">
-                                Reject
-                            </button>
+                                <button class="btn btn-warning me-2" #tooltipToggle="matTooltip"
+                                    matTooltip="หลักฐานการชำระเงิน" [matTooltipPosition]="'above'"
+                                    (click)="openModal(item.EventJoin.Invoice.Payment)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                        class="bi bi-wallet" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a2 2 0 0 1-1-.268M1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1" />
+                                    </svg>
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <ng-container *ngIf="item.status_code === workFlow.WAIT_FOR_PAYMENT">
+                                    <button class="btn btn-success custom-button-approver me-3"
+                                        (click)="updateApprovedEventRegister(item,'14')">
+                                        Approver
+                                    </button>
+                                    <button class="btn btn-danger custom-button-approver "
+                                        (click)="updateApprovedEventRegister(item,'13')">
+                                        Reject
+                                    </button>
+                                </ng-container>
                             </td>
                         </tr>
                     </tbody>
