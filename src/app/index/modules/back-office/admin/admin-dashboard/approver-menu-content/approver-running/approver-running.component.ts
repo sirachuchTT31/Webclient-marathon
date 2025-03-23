@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 export class ApproverRunningComponent {
   dateRange: any
   config = {
-    currentPage: 1,
+    currentPage: 0,
     pageSize: 10,
     totalRecord: 0
   }
@@ -41,7 +41,7 @@ export class ApproverRunningComponent {
   }
 
   changePage(event: any) {
-    this.config.currentPage = event;
+    this.config.currentPage = event.pageIndex;
     this.getAllJobEventBackoffice()
   }
 
@@ -104,9 +104,10 @@ export class ApproverRunningComponent {
     const cleanKeyword = keyword ? keyword : ''
     const cleanStartDate = startDate ? startDate : ''
     const cleanEndDate = endDate ? endDate : ''
-    this.backofficeService.getAllJobEventBackoffice({ page: this.config.currentPage ? this.config.currentPage  : 1, per_page: this.config.pageSize }, cleanKeyword, cleanStartDate, cleanEndDate).subscribe((rs) => {
+    this.backofficeService.getAllJobEventBackoffice({ page: this.config.currentPage ? this.config.currentPage + 1  : 1, per_page: this.config.pageSize }, cleanKeyword, cleanStartDate, cleanEndDate).subscribe((rs) => {
       if (rs?.status === true) {
         this.eventAllList = rs?.results
+        this.config.totalRecord = rs.total_record;
         setTimeout(() => {
           this.spinner.hide()
         },1000)

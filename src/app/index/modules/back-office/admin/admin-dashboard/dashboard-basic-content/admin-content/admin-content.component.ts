@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class AdminContentComponent {
   config = {
-    currentPage: 1,
+    currentPage: 0,
     pageSize: 10,
     totalRecord: 0
   }
@@ -51,13 +51,13 @@ export class AdminContentComponent {
   }
 
   changePage(event: any) {
-    this.config.currentPage = event;
+    this.config.currentPage = event.pageIndex;
     this.getallAdminBackoffice()
   }
 
   openModal(modal: any, action: string, data?: any) {
     this.modalService.dismissAll()
-    this.modalService.open(modal, { size: 'lg' , backdrop : 'static'});
+    this.modalService.open(modal, { size: 'lg', backdrop: 'static' });
     this.admin_create_form.reset()
     if (action === 'edit') {
       this.admin_create_form.get('username')?.clearValidators()
@@ -141,7 +141,7 @@ export class AdminContentComponent {
       }
     });
   }
-  
+
   createOrEdit(action: string) {
     if (this.admin_create_form.valid == true) {
       if (action === 'create') {
@@ -223,7 +223,7 @@ export class AdminContentComponent {
 
   //fetch 
   getallAdminBackoffice() {
-    const backoffice = this.backofficeService.getAllAdminBackffice({ page: this.config.currentPage ? this.config.currentPage: 1, per_page: this.config.pageSize }).subscribe((rs) => {
+    const backoffice = this.backofficeService.getAllAdminBackffice({ page: this.config.currentPage ? this.config.currentPage + 1 : 1, per_page: this.config.pageSize }).subscribe((rs) => {
       if (rs?.status === true) {
         this.master_admin_all = rs.results
         this.config.totalRecord = rs.total_record

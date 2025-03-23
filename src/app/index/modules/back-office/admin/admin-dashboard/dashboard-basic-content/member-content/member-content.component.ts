@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class MemberContentComponent {
   config = {
-    currentPage: 1,
+    currentPage: 0,
     pageSize: 10,
     totalRecord: 0
   }
@@ -55,13 +55,13 @@ export class MemberContentComponent {
   }
 
   changePage(event: any) {
-    this.config.currentPage = event;
+    this.config.currentPage = event.pageIndex;
     this.getAllMemberBackoffice()
   }
 
   openModal(modal: any, action: string, data?: any) {
     this.modalService.dismissAll()
-    this.modalService.open(modal, { size: 'lg' , backdrop : 'static' });
+    this.modalService.open(modal, { size: 'lg', backdrop: 'static' });
     this.member_create_form.reset()
     if (action === 'edit') {
       this.member_create_form.get('username')?.clearValidators()
@@ -227,7 +227,7 @@ export class MemberContentComponent {
   }
   //fetch 
   getAllMemberBackoffice() {
-    const backoffice = this.backofficeService.getAllMemberBackoffice({ page: this.config.currentPage ? this.config.currentPage : 1, per_page: this.config.pageSize }).subscribe((rs) => {
+    const backoffice = this.backofficeService.getAllMemberBackoffice({ page: this.config.currentPage ? this.config.currentPage + 1 : 1, per_page: this.config.pageSize }).subscribe((rs) => {
       if (rs?.status === true) {
         this.memberData = rs.results
         this.config.totalRecord = rs.total_record

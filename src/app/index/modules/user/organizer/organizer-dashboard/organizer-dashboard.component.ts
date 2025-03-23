@@ -68,7 +68,7 @@ export class OrganizerDashboardComponent {
   today: any
   config = {
     currentPage: 1,
-    pageSize: 10,
+    pageSize: 5,
     totalRecord: 0
   }
   actionDraft: boolean = false
@@ -156,8 +156,8 @@ export class OrganizerDashboardComponent {
   }
 
   changePage(event: any) {
-    this.config.currentPage = event;
-    this.getEventRegister(event);
+    this.config.currentPage = event.pageIndex;
+    this.getEventRegister(event.pageIndex);
   }
 
   changeStatustotext(status: any) {
@@ -443,7 +443,7 @@ export class OrganizerDashboardComponent {
   }
 
   getEventRegister(page?: number) {
-    const event = this.eventService.getAllEventRegister({ page: page ? page : 1, per_page: 5 }).subscribe((rs) => {
+    const event = this.eventService.getAllEventRegister({ page: page ? page + 1 : 1, per_page: 5 }).subscribe((rs) => {
       if (rs?.status === true) {
         this.reg_by_organizer_object = rs.results
         this.filter_reg = rs.results

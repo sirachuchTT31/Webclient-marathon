@@ -13,8 +13,8 @@ import { BackOfficeService } from 'src/app/index/services/back-office.service';
 })
 export class OrganizerContentComponent {
   config = {
-    currentPage: 1,
-    pageSize: 10,
+    currentPage: 0,
+    pageSize: 1,
     totalRecord: 0
   }
   organ_create_form: FormGroup
@@ -48,7 +48,7 @@ export class OrganizerContentComponent {
   }
 
   changePage(event: any) {
-    this.config.currentPage = event;
+    this.config.currentPage = event.pageIndex;
     this.getallOrganizerBackoffice()
   }
 
@@ -219,7 +219,7 @@ export class OrganizerContentComponent {
   }
   //fetch 
   getallOrganizerBackoffice() {
-    this.backofficeService.getAllOrganizerBackoffice({ page: this.config.currentPage ? this.config.currentPage : 1, per_page: this.config.pageSize }).subscribe((rs) => {
+    this.backofficeService.getAllOrganizerBackoffice({ page: this.config.currentPage ? this.config.currentPage  + 1: 1, per_page: this.config.pageSize }).subscribe((rs) => {
       if (rs?.status == true) {
         this.organizerData = rs.results
         this.config.totalRecord = rs.total_record

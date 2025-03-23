@@ -41,8 +41,7 @@
         <h2 class="text-dark">ไม่พบข้อมูล (Data not found)</h2>
     </div>
     <div class="box-content-list-menu">
-        <ng-container
-            *ngFor="let rs of filter_reg | paginate: { itemsPerPage: config.pageSize, currentPage: config.currentPage, totalItems : config.totalRecord}let i = index; ">
+        <ng-container *ngFor="let rs of filter_reg;let i = index; ">
             <div class="card card-list">
                 <img [src]="rs.path_image" style="width: 100%; height: 200px;" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -95,9 +94,8 @@
             </div>
         </ng-container>
     </div>
-    <div class="mt-5 d-flex justify-content-end" *ngIf="config.totalRecord > 0">
-        <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
-    </div>
+    <mat-paginator [length]="config.totalRecord" [pageSize]="config.pageSize" (page)="changePage($event)">
+    </mat-paginator>
 
 </div>
 

@@ -28,6 +28,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ComponentModule } from '../../component/component.module';
 import { CovertTimezonePipe } from '../../pipe/covert-timezone.pipe';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [
   {
@@ -75,7 +76,7 @@ const routes: Routes = [
     ApproverRunningComponent,
     ApproverPaymentComponent,
     ApproverOrganizerComponent,
-    CovertTimezonePipe 
+    CovertTimezonePipe
   ],
   imports: [
     FormsModule,
@@ -88,6 +89,7 @@ const routes: Routes = [
     MatMomentDateModule,
     ComponentModule,
     MatNativeDateModule,
+    MatPaginatorModule,
     RouterModule.forChild(routes),
   ]
 })

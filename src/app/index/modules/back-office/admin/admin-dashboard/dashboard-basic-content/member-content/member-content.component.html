@@ -28,9 +28,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr
-                    *ngFor="let rs of memberData | paginate: { itemsPerPage: config.pageSize, currentPage: config.currentPage ,  totalItems : config.totalRecord}index as i;">
-                    <th scope="row" class="text-count">{{countIndex(config.pageSize,config.currentPage,i+1)}}</th>
+                <tr *ngFor="let rs of memberData;index as i;">
+                    <th scope="row" class="text-count">{{i+1}}</th>
                     <td>{{rs.name}}</td>
                     <td>{{rs.lastname}}</td>
                     <td>{{rs.email}}</td>
@@ -59,9 +58,8 @@
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-end pt-2" *ngIf="config.totalRecord > 0">
-        <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
-    </div>
+    <mat-paginator [length]="config.totalRecord" [pageSize]="config.pageSize" (page)="changePage($event)">
+    </mat-paginator>
 </div>
 
 <ng-template #modal let-modal>
