@@ -27,8 +27,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {
   MatDialogModule
 } from '@angular/material/dialog';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { OrganizerApprovedDetailComponent } from './organizer/organizer-approved-detail/organizer-approved-detail.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [
   {
@@ -57,8 +58,8 @@ const routes: Routes = [
         canActivate: [AuthGuardService]
       },
       {
-        path : 'organizer-approved-detail',
-        component : OrganizerApprovedDetailComponent,
+        path: 'organizer-approved-detail',
+        component: OrganizerApprovedDetailComponent,
         canActivate: [AuthGuardService]
       }
     ]
@@ -90,6 +91,7 @@ const routes: Routes = [
     MatDatepickerModule,
     MatMomentDateModule,
     MatNativeDateModule,
+    MatPaginatorModule,
     NgxPaginationModule,
     ComponentModule,
     MatDialogModule,

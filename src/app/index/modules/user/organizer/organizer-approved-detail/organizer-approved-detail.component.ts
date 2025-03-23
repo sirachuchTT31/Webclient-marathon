@@ -57,7 +57,7 @@ export class OrganizerApprovedDetailComponent {
   }
 
   changePage(event: any) {
-    this.config.currentPage = event
+    this.config.currentPage = event.pageIndex;
     this.getListPayment();
   }
 
@@ -80,7 +80,6 @@ export class OrganizerApprovedDetailComponent {
         cancelButtonText: 'ยกเลิก',
       }).then((result) => {
         if (result.isConfirmed) {
-          console.log(data);
           const payload = {
             event_join_id: Number(data?.EventJoin?.id),
             status: status,
@@ -173,7 +172,7 @@ export class OrganizerApprovedDetailComponent {
     if (this.queryParams['clientId']) {
       orginalText = this.cryptlibService.decryptCipher(this.queryParams['clientId'])
     }
-    const event = this.paymentService.getAllPayment({ page: this.config.currentPage ? this.config.currentPage : 1, per_page: 5, event_id: Number(orginalText) }).subscribe((rs) => {
+    const event = this.paymentService.getAllPayment({ page: this.config.currentPage ? this.config.currentPage + 1 : 1, per_page: this.config.pageSize ?? 5, event_id: Number(orginalText) }).subscribe((rs) => {
       if (rs?.status === true) {
         this.listData = rs.results;
         this.config.totalRecord = rs.total_record;

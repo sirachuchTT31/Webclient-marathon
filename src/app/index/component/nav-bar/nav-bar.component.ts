@@ -3,6 +3,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { CryptlibService } from '../../services/crypt-lib.service';
 import { AuthServices } from '../../services/auth.service';
+import { Router } from '@angular/router';
 // import image from '../../shared/img'
 @Component({
   selector: 'app-nav-bar',
@@ -20,7 +21,8 @@ export class NavBarComponent {
   constructor(
     private localstorageService: LocalStorageService,
     private authenticationService: AuthServices,
-    private cryptLibService: CryptlibService
+    private cryptLibService: CryptlibService,
+    private router: Router
   ) {
 
   }
@@ -51,6 +53,9 @@ export class NavBarComponent {
     })
     this.subscription?.add(authen)
 
+  }
+  navigateHome() {
+    this.router.navigate(['/user']);
   }
   routerIndex() {
     window.location.href = 'user'

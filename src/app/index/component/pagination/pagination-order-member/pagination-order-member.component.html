@@ -11,9 +11,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr
-            *ngFor="let item of this.data?.results| paginate: { itemsPerPage: config.pageSize, currentPage: config.currentPage ,  totalItems : config.totalRecord}let i = index;">
-            <td>{{countIndex(config.pageSize,config.currentPage,i+1)}}</td>
+        <tr *ngFor="let item of this.data?.results; let i = index;">
+            <td>{{i + 1}}</td>
             <td class=""><img [src]="item.EventJoin.Event.path_image"
                     style="width: 150px; object-fit: cover; padding-right: 5px;">{{item.EventJoin.Event.name}}
             </td>
@@ -38,10 +37,12 @@
                     *ngIf="item.status_code == workFlow.REJECT &&  item.EventJoin.Event.status_code != eventWorkflow.FINISH">
                     <span class="text-danger fw-bold">งานอนุมัติถูกปฎิเสธ (Job Reject)</span>
                 </ng-container>
-                <ng-container *ngIf="item.status_code == workFlow.CANCEL &&  item.EventJoin.Event.status_code != eventWorkflow.FINISH" >
+                <ng-container
+                    *ngIf="item.status_code == workFlow.CANCEL &&  item.EventJoin.Event.status_code != eventWorkflow.FINISH">
                     <span class="text-danger fw-bold">งานถูกยกเลิก (Job Cancel)</span>
                 </ng-container>
-                <ng-container *ngIf="item.status_code == workFlow.APPROVED_SUCCESS &&  item.EventJoin.Event.status_code != eventWorkflow.FINISH">
+                <ng-container
+                    *ngIf="item.status_code == workFlow.APPROVED_SUCCESS &&  item.EventJoin.Event.status_code != eventWorkflow.FINISH">
                     <span class="text-primary fw-bold">อนุมัติสำเร็จ (Approved success)</span>
                 </ng-container>
                 <ng-container *ngIf="item.EventJoin.Event.status_code == eventWorkflow.FINISH">
@@ -82,6 +83,8 @@
     <h2 class="text-dark">ไม่พบข้อมูล (Data not found)</h2>
 </div>
 
-<div class="d-flex justify-content-end pt-2" *ngIf="config.totalRecord > 0">
+<!-- <div class="d-flex justify-content-end pt-2" *ngIf="config.totalRecord > 0">
     <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
-</div>
+</div> -->
+<mat-paginator [length]="config.totalRecord" [pageSize]="config.pageSize" (page)="changePage($event)">
+</mat-paginator>

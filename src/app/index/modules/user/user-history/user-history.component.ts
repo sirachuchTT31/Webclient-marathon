@@ -37,16 +37,16 @@ export class UserHistoryComponent {
       reg_member_status: 11
     }
   ]
-  page : number = 0
-  perPage : number = 4
-  historyData : any
+  page: number = 0
+  perPage: number = 4
+  historyData: any
   today = new Date()
-  DateResult : any
+  DateResult: any
   constructor(
     private register_running_member_Service: RegisterrunningmemberService,
     private spinner: NgxSpinnerService,
     private localStorageService: LocalStorageService,
-    private eventService : EventService
+    private eventService: EventService
   ) {
     //CALL FORM
     this.status_form = new FormGroup({
@@ -102,14 +102,11 @@ export class UserHistoryComponent {
       this.filter_reg = this.list_history
     }
   }
-  getHistory(currentPage? : number) {
+  getHistory(currentPage?: number) {
     try {
-      this.eventService.getAllHistory({page : currentPage ? currentPage : 1, per_page : this.perPage}).subscribe((rs) => {
-        if(rs?.status === true){
+      this.eventService.getAllHistory({ page: currentPage ? currentPage + 1 : 1, per_page: this.perPage }).subscribe((rs) => {
+        if (rs?.status === true) {
           this.historyData = rs
-        }
-        else {
-
         }
       })
     }
@@ -117,11 +114,11 @@ export class UserHistoryComponent {
       console.log(e)
     }
   }
-  onSearch(){
+  onSearch() {
 
   }
-  validateButton(){
-    if(this.DateResult){
+  validateButton() {
+    if (this.DateResult) {
       return true
     }
     return false

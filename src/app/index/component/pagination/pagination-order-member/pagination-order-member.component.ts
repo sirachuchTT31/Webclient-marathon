@@ -59,8 +59,8 @@ export class PaginationOrderMemberComponent {
     return pageSize * (current_page - 1) + index;
   }
   changePage(event: any) {
-    this.config.currentPage = event
-    this.currentPage.emit(event)
+    this.config.currentPage = event.pageIndex;
+    this.currentPage.emit(event.pageIndex)
   }
 
   openModal(data: any) {

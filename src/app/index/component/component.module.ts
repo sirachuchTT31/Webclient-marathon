@@ -24,6 +24,7 @@ import { ModalPaymentDetailComponent } from './modal-payment-detail/modal-paymen
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { ModalReciptComponent } from './modal-recipt/modal-recipt.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ModalReciptComponent } from './modal-recipt/modal-recipt.component';
     ReactiveFormsModule,
     MatTooltipModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatPaginatorModule,
   ],
   exports: [
     NavBarComponent,

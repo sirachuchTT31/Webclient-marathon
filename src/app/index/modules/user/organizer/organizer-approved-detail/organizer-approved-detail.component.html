@@ -24,8 +24,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr
-                            *ngFor="let item of this.listData| paginate: { itemsPerPage: config.pageSize, currentPage: config.currentPage ,  totalItems : config.totalRecord}index as i;">
+                        <tr *ngFor="let item of this.listData index as i;">
                             <td class="text-center">{{i+1}}</td>
                             <td class="text-center">{{item.Users.name }} {{item.Users.lastname }}</td>
                             <td class="text-center">{{item.EventJoin.description}}</td>
@@ -70,11 +69,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="text-center mt-5 mb-5" *ngIf="!listData">
+                <mat-paginator [length]="config.totalRecord" [pageSize]="config.pageSize" (page)="changePage($event)">
+                </mat-paginator>
+                <div class="text-center mt-5 mb-5" *ngIf="!listData && config.totalRecord == 0">
                     <h2 class="text-dark">ไม่พบข้อมูล (Data not found)</h2>
-                </div>
-                <div class="d-flex justify-content-end pt-2" *ngIf="config.totalRecord > 0">
-                    <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
                 </div>
             </div>
         </div>
