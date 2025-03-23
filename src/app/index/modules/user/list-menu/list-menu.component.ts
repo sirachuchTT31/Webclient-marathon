@@ -16,7 +16,7 @@ import { CryptlibService } from 'src/app/index/services/crypt-lib.service';
 })
 export class ListMenuComponent {
   config = {
-    currentPage: 1,
+    currentPage: 0,
     pageSize: 10,
     totalRecord: 0
   }
@@ -113,11 +113,11 @@ export class ListMenuComponent {
   }
 
   changePage(event: any) {
-    this.config.currentPage = event;
+    this.config.currentPage = event.pageIndex;
     this.getallRegisterrunningevent()
   }
   getallRegisterrunningevent() {
-    const event = this.eventService.getAllEvent({ page: this.config.currentPage ? this.config.currentPage  : 1, per_page: this.config.pageSize }).subscribe((rs) => {
+    const event = this.eventService.getAllEvent({ page: this.config.currentPage ? this.config.currentPage + 1  : 1, per_page: this.config.pageSize }).subscribe((rs) => {
       if (rs?.status === true) {
         console.log(rs.results)
         this.register_running_event_array = rs.results
