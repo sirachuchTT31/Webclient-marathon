@@ -1,1 +1,75 @@
-<p>receipt works!</p>
+<div class="d-flex justify-content-end my-3">
+    <button class="btn btn-outline-primary" type="button" (click)="generatePDF()">ดาวน์โหลดใบเสร็จ</button>
+</div>
+<div id="receipt" class="card p-4 shadow">
+    <div id="content-receipt">
+        <h3 class="text-center">ใบเสร็จรับเงิน</h3>
+        <hr />
+        <div class="row">
+            <div class="col-6">
+                <p><strong>รายละเอียดผู้ให้บริการ</strong><br />
+                    <span>ชื่อ : {{data.EventJoin.Event.name ?? '-'}}</span><br />
+                    <span>ติดต่อ : -</span><br />
+            </div>
+            <div class="col-6">
+                <p><strong>รายละเอียดลูกค้า</strong><br />
+                    <span>ชื่อ-นามสกุล : {{data.EventJoin.Invoice.Users.name ?? '-'}} {{data.EventJoin.Invoice.Users.lastname ?? '-'}}</span><br />
+                    <span>วันที่ชำระเงิน : {{data.EventJoin.Invoice.Payment[0].updated_at | date: 'dd/MM/yyyy HH:mm'}}</span><br />
+                    <span>ช่องทางการชำระเงิน :
+                        {{data.EventJoin.Invoice.Payment[0].type_payment === 'online'
+                        ?'ชำระออนไลน์'
+                        : 'ชำระเงินด้วยเงินสด'}}</span><br />
+            </div>
+        </div>
+        <hr />
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd; font-size: 14px;">
+            <thead>
+                <tr style="background-color: #f8f9fa; border: 1px solid #ddd; text-align: left;">
+                    <th style="border: 1px solid #ddd; padding: 8px;">#</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">รายการ</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">จำนวน</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: right;">ราคาต่อหน่วย</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: right;">ราคารวม</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="data; else noData">
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px;">1</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">{{data.EventJoin.Event.name ?? '-'}}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;text-align: center;">1</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;text-align: right;">
+                            {{data.EventJoin.Event.price | currency: 'THB':'symbol':'1.2-2'}}
+                        </td>
+                        <td style="border: 1px solid #ddd; padding: 8px;text-align: right;">
+                            {{data.EventJoin.Invoice.Payment[0].total_price | currency: 'THB':'symbol':'1.2-2'}}
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+            <tfoot>
+                <ng-container *ngIf="data; else noData">
+                    <tr>
+                        <td colspan="4" style="border: 1px solid #ddd; padding: 8px; text-align: right;">
+                            <strong>ยอดรวม</strong>
+                        </td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: right;"><strong>
+                                {{data.EventJoin.Invoice.Payment[0].total_price | currency: 'THB':'symbol':'1.2-2'}}
+                            </strong></td>
+                    </tr>
+                </ng-container>
+            </tfoot>
+        </table>
+        <div class="footer-text text-center">
+            <p><strong>ขอบคุณที่ใช้บริการ</strong></p>
+        </div>
+    </div>
+</div>
+
+<ng-template #noData>
+    <tr>
+        <td colspan="5" style="border: 1px solid #ddd; padding: 8px; text-align: center; color: gray;">
+            ไม่มีข้อมูลสินค้า
+        </td>
+    </tr>
+</ng-template>

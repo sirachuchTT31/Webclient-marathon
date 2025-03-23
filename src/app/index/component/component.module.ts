@@ -23,6 +23,7 @@ import { ReceiptComponent } from './pdf/receipt/receipt.component';
 import { ModalPaymentDetailComponent } from './modal-payment-detail/modal-payment-detail.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { ModalReciptComponent } from './modal-recipt/modal-recipt.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { MatIconModule } from '@angular/material/icon';
     CovertJsonPipe,
     InvoiceComponent,
     ReceiptComponent,
-    ModalPaymentDetailComponent
+    ModalPaymentDetailComponent,
+    ModalReciptComponent
   ],
   imports: [
     FormsModule,

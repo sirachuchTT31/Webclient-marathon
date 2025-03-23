@@ -12,7 +12,6 @@ export class ModalPaymentDetailComponent implements OnInit {
   activeModal = inject(NgbActiveModal)
 
   ngOnInit(): void {
-    console.log(`data`);
     console.log(this.data);
   }
 

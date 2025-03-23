@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { StatusEvent, StatusUserRegisterEvent } from 'src/app/index/constant/work-flow';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPaymentComponent } from '../../modal-payment/modal-payment.component';
 import { UtilCovert } from 'src/app/index/utils/util-covert';
+import { ModalReciptComponent } from '../../modal-recipt/modal-recipt.component';
 
 @Component({
   selector: 'app-pagination-order-member',
@@ -12,6 +13,12 @@ import { UtilCovert } from 'src/app/index/utils/util-covert';
 export class PaginationOrderMemberComponent {
   private modalService = inject(NgbModal);
   private utilCovert = new UtilCovert();
+  amount = 1000;
+  payer = 'John Doe';
+  date = '2025-03-21';
+  paymentNumber = '123456789';
+  event = 'Fun Run';
+  quantity = 1;
   constructor(public cdr: ChangeDetectorRef) { }
   @Input() paginationConfig = {
     pageSize: 0,
@@ -63,8 +70,16 @@ export class PaginationOrderMemberComponent {
       backdrop: "static",
       keyboard: false,
     });
-    console.log(`data`);
-    console.log(data);
+    modalRef.componentInstance.data = data;
+  }
+
+  openModalRecipt(data: any) {
+    const modalRef = this.modalService.open(ModalReciptComponent, {
+      size: "lg",
+      centered: true,
+      backdrop: "static",
+      keyboard: false,
+    });
     modalRef.componentInstance.data = data;
   }
 

@@ -61,9 +61,10 @@
                         </button>
                     </div>
                 </ng-container>
-                <ng-container *ngIf="item.status_code == workFlow.APPROVED_SUCCESS || item.status_code == workFlow.SAVE">
-                    <button class="btn btn-outline-primary me-2" #tooltipToggle="matTooltip" matTooltip="ใบเสร็จชำระเงิน"
-                        [matTooltipPosition]="'above'">
+                <ng-container
+                    *ngIf="item.status_code == workFlow.APPROVED_SUCCESS || item.status_code == workFlow.SAVE">
+                    <button class="btn btn-outline-primary me-2" #tooltipToggle="matTooltip"
+                        matTooltip="ใบเสร็จชำระเงิน" [matTooltipPosition]="'above'" (click)="openModalRecipt(item);">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                             class="bi bi-wallet" viewBox="0 0 16 16">
                             <path
