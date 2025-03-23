@@ -94,8 +94,9 @@
                         </span>
                     </span>
                     <div class="box-form-group-custom pt-4 position-relative">
-                        <input class="form-control" [type]="isTypePassword === true ? 'password' : 'text'" class="form-control" placeholder="Password"
-                            maxlength="30" formControlName="password" [ngClass]="{
+                        <input class="form-control" [type]="isTypePassword === true ? 'password' : 'text'"
+                            class="form-control" placeholder="Password" maxlength="30" formControlName="password"
+                            [ngClass]="{
                                'required-password':
                                 register_form.controls['password'].invalid &&
                                 register_form.controls['password'].touched
@@ -168,18 +169,57 @@
                             </small>
                         </span>
                     </span>
+                    <ng-container *ngIf="register_form.controls['type'].value === 'organ'">
+                        <div class="box-form-group-custom pt-4">
+                            <input class="form-control" type="text" class="form-control"
+                                placeholder="Registration number" maxlength="100" formControlName="registration_number"
+                                [ngClass]="{
+                                    required:
+                                    register_form.controls['registration_number'].invalid &&
+                                    register_form.controls['registration_number'].touched
+                                    }">
+                        </div>
+                        <span *ngIf="
+                        register_form.controls['registration_number'].invalid &&
+                        register_form.controls['registration_number'].touched">
+                            <span *ngIf="
+                            register_form.controls['registration_number'].errors">
+                                <small class="text-danger">
+                                    กรุณาระบุ (Registration number)
+                                </small>
+                            </span>
+                        </span>
+                        <div class="box-form-group-custom pt-4">
+                            <input class="form-control" type="text" class="form-control" placeholder="Contact"
+                                maxlength="100" formControlName="contact" [ngClass]="{
+                                    required:
+                                    register_form.controls['contact'].invalid &&
+                                    register_form.controls['contact'].touched
+                                    }" />
+                        </div>
+                        <span *ngIf="
+                        register_form.controls['contact'].invalid &&
+                        register_form.controls['contact'].touched">
+                            <span *ngIf="
+                            register_form.controls['contact'].errors">
+                                <small class="text-danger">
+                                    กรุณาระบุ (Contact)
+                                </small>
+                            </span>
+                        </span>
+                    </ng-container>
                     <!-- <div class="box-form-group-custom pt-4"> -->
                     <div class="d-flex justify-content-center pt-4">
                         <div class="form-check me-3">
                             <input class="form-check-input" type="radio" name="type" id="member" value="member"
-                                formControlName="type">
+                                formControlName="type" (click)="handleUserType($event)">
                             <label class="form-check-label" for="member">
                                 สำหรับผู้ลงทะเบียนวิ่งทั่วไป
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="type" id="organ" value="organ"
-                                formControlName="type">
+                                formControlName="type" (click)="handleUserType($event)">
                             <label class="form-check-label" for="organ">
                                 สำหรับผู้จัดงาน
                             </label>

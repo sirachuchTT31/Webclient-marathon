@@ -38,12 +38,14 @@
                     *ngIf="item.status_code == workFlow.REJECT &&  item.EventJoin.Event.status_code != eventWorkflow.FINISH">
                     <span class="text-danger fw-bold">งานอนุมัติถูกปฎิเสธ (Job Reject)</span>
                 </ng-container>
-                <ng-container
-                    *ngIf="item.status_code == workFlow.CANCEL || item.EventJoin.Event.status_code == eventWorkflow.FINISH">
+                <ng-container *ngIf="item.status_code == workFlow.CANCEL &&  item.EventJoin.Event.status_code != eventWorkflow.FINISH" >
                     <span class="text-danger fw-bold">งานถูกยกเลิก (Job Cancel)</span>
                 </ng-container>
-                <ng-container *ngIf="item.status_code == workFlow.APPROVED_SUCCESS">
+                <ng-container *ngIf="item.status_code == workFlow.APPROVED_SUCCESS &&  item.EventJoin.Event.status_code != eventWorkflow.FINISH">
                     <span class="text-primary fw-bold">อนุมัติสำเร็จ (Approved success)</span>
+                </ng-container>
+                <ng-container *ngIf="item.EventJoin.Event.status_code == eventWorkflow.FINISH">
+                    <span class="text-success fw-bold">อีเว้นท์สิ้นสุด (Event finish)</span>
                 </ng-container>
             </td>
             <td class="text-center">

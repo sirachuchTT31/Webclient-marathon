@@ -39,10 +39,10 @@
                         <td style="border: 1px solid #ddd; padding: 8px;">{{data.EventJoin.Event.name ?? '-'}}</td>
                         <td style="border: 1px solid #ddd; padding: 8px;text-align: center;">1</td>
                         <td style="border: 1px solid #ddd; padding: 8px;text-align: right;">
-                            {{data.EventJoin.Event.price | currency: 'THB':'symbol':'1.2-2'}}
+                            {{data.EventJoin.Event.price | currency:'THB':'symbol-narrow'}}
                         </td>
                         <td style="border: 1px solid #ddd; padding: 8px;text-align: right;">
-                            {{data.EventJoin.Invoice.Payment[0].total_price | currency: 'THB':'symbol':'1.2-2'}}
+                            {{data.EventJoin.Invoice.Payment[0].total_price | currency:'THB':'symbol-narrow'}}
                         </td>
                     </tr>
                 </ng-container>
@@ -54,7 +54,7 @@
                             <strong>ยอดรวม</strong>
                         </td>
                         <td style="border: 1px solid #ddd; padding: 8px; text-align: right;"><strong>
-                                {{data.EventJoin.Invoice.Payment[0].total_price | currency: 'THB':'symbol':'1.2-2'}}
+                                {{data.EventJoin.Invoice.Payment[0].total_price | currency:'THB':'symbol-narrow'}}
                             </strong></td>
                     </tr>
                 </ng-container>

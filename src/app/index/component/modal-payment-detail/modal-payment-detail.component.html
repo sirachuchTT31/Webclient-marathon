@@ -8,14 +8,26 @@
             <div class="row">
                 <div class="col-md-4 mb-3" *ngFor="let item of data">
                     <mat-card>
-                        <mat-card-content>
-                            <img [src]="item.slip" class="img-fluid rounded shadow" alt="Slip Image" />
-                        </mat-card-content>
-                        <mat-card-footer>
-                            <p class="text-center text-muted mt-3">
-                                โอนเมื่อ {{ item.created_at | date:'dd/MM/yyyy HH:mm' }}
-                            </p>
-                        </mat-card-footer>
+                        <ng-container *ngIf="item.type_payment === 'online'">
+                            <mat-card-content>
+                                <img [src]="item.slip" class="img-fluid rounded shadow" alt="Slip Image" />
+                            </mat-card-content>
+                            <mat-card-footer>
+                                <p class="text-center text-muted mt-3">
+                                    เวลาที่ชำระ {{ item.created_at | date:'dd/MM/yyyy HH:mm' }}
+                                </p>
+                            </mat-card-footer>
+                        </ng-container>
+                        <ng-container *ngIf="item.type_payment === 'cash'">
+                            <mat-card-content>
+                                <p><strong>ชำระด้วยเงินสด</strong></p>
+                            </mat-card-content>
+                            <mat-card-footer>
+                                <p class="text-center text-muted mt-3">
+                                    เวลาที่ชำระ {{ item.created_at | date:'dd/MM/yyyy HH:mm' }}
+                                </p>
+                            </mat-card-footer>
+                        </ng-container>
                     </mat-card>
                 </div>
             </div>

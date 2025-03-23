@@ -16,7 +16,7 @@ export class AuthPageComponent {
   register_form: FormGroup
   menu = 'login'
   subscription!: Subscription
-  isTypePassword : boolean = true
+  isTypePassword: boolean = true
   constructor(
     private authService: AuthServices,
     private localStorageService: LocalStorageService,
@@ -34,6 +34,8 @@ export class AuthPageComponent {
       lastname: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required]),
       type: new FormControl('member', [Validators.required]),
+      registration_number: new FormControl(),
+      contact: new FormControl()
     })
   }
 
@@ -80,7 +82,7 @@ export class AuthPageComponent {
               last_name: response.payload.lastname,
               refresh_token: response.refresh_token,
               role: response.payload.role,
-              authen_log_id : response.authen_log_id,
+              authen_log_id: response.authen_log_id,
               token: response.access_token
             });
           let storageRole = this.localStorageService.getRole()
@@ -114,6 +116,24 @@ export class AuthPageComponent {
       });
       this.subscription?.add(auth)
     }
+  }
+  handleUserType(event: any) {
+    const registrationNumberControl = this.register_form.get('registration_number');
+    const contactControl = this.register_form.get('contact');
+
+    if (event.target.value === 'organ') {
+      registrationNumberControl?.setValidators([Validators.required]);
+      contactControl?.setValidators([Validators.required]);
+    } else {
+      registrationNumberControl?.clearValidators();
+      contactControl?.clearValidators();
+    }
+
+    registrationNumberControl?.updateValueAndValidity();
+    contactControl?.updateValueAndValidity();
+
+    registrationNumberControl?.markAsTouched();
+    contactControl?.markAsTouched();
   }
   register() {
     this.spinner.show()
