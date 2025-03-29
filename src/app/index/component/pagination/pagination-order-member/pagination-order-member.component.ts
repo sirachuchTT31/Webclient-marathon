@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPaymentComponent } from '../../modal-payment/modal-payment.component';
 import { UtilCovert } from 'src/app/index/utils/util-covert';
 import { ModalReciptComponent } from '../../modal-recipt/modal-recipt.component';
+import { ModalInvoiceComponent } from '../../modal-invoice/modal-invoice.component';
 
 @Component({
   selector: 'app-pagination-order-member',
@@ -70,6 +71,16 @@ export class PaginationOrderMemberComponent {
       backdrop: "static",
       keyboard: false,
     });
+    modalRef.componentInstance.data = data;
+  }
+
+  openModalInvoice(data: any) {
+    const modalRef = this.modalService.open(ModalInvoiceComponent, {
+      size: "lg",
+      centered: true,
+      backdrop: "static",
+      keyboard: false,
+    })
     modalRef.componentInstance.data = data;
   }
 

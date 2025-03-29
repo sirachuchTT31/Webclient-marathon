@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">หลักฐานการชำระเงิน</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close('Close click')"></button>
+</div>
+<div class="modal-body" style="min-height: 400px;">
+    <div class="container-lg">
+        <ng-container *ngIf="data; else noContent">
+            <app-invoice [data]="data"></app-invoice>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #noContent>
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px;">
+        <p class="text-muted mt-2 fs-5">ไม่พบข้อมูล</p>
+    </div>
+</ng-template>

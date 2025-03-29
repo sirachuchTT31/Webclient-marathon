@@ -25,6 +25,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { ModalReciptComponent } from './modal-recipt/modal-recipt.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ModalInvoiceComponent } from './modal-invoice/modal-invoice.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     InvoiceComponent,
     ReceiptComponent,
     ModalPaymentDetailComponent,
-    ModalReciptComponent
+    ModalReciptComponent,
+    ModalInvoiceComponent
   ],
   imports: [
     FormsModule,
@@ -57,6 +60,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatCardModule,
     MatIconModule,
     MatPaginatorModule,
+    SharedModule
   ],
   exports: [
     NavBarComponent,

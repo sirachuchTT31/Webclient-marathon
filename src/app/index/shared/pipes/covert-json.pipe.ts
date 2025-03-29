@@ -9,4 +9,5 @@ export class CovertJsonPipe implements PipeTransform {
     if (!value) return null;
     return typeof value === 'string' ? JSON.parse(value) : value;
   }
+
 }
