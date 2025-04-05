@@ -76,7 +76,7 @@ export class AuthPageComponent {
             {
               id: response.payload.id,
               username: response.payload.username,
-              avatar: '',
+              avatar: response.payload?.avatar,
               expired_token: response.payload.exp,
               first_name: response.payload.name,
               last_name: response.payload.lastname,
